@@ -4,11 +4,15 @@ function chart_state_data(covid_data_by_state, states) {
     // draws it.
     google.charts.load('current', {packages: ['corechart', 'line']});
     google.charts.setOnLoadCallback(drawBasic);
-    let ga_chart_data = covid_data_by_state['GA'].map(r => [
-        r.date,
-        r.seven_day_averages.new_positives,
-        r.seven_day_averages.new_hospitalizations
-    ])
+    let ga_chart_data = covid_data_by_state['GA'].map(r => {
+        // console.log(JSON.stringify(r))
+        return [
+            r.date,
+            r.seven_day_averages.new_positives,
+            r.seven_day_averages.new_hospitalizations,
+            r.seven_day_averages.new_deaths,
+        ];
+    })
 
     function drawBasic() {
 
@@ -16,6 +20,7 @@ function chart_state_data(covid_data_by_state, states) {
         data.addColumn('date', 'Date');
         data.addColumn('number', 'New Positive (7 day Avg)');
         data.addColumn('number', 'New Hospitalizations (7 day Avg)');
+        data.addColumn('number', 'New Deaths (7 day Avg)');
         data.addRows(ga_chart_data)
 
         var options = {
@@ -26,19 +31,22 @@ function chart_state_data(covid_data_by_state, states) {
             vAxis: {
                 title: 'New Positive'
             },
-            width: 800,
-            height: 600,
+            width: 700,
+            height: 500,
             legend: { position: 'bottom' },
             chartArea:{left:'12%', top:60, width:'76%', height:'75%'},
-            colors: ['red', '#cc9900'    ],
+            colors: ['blue', '#cc9900', 'red'   ],
             hAxis: {
                 showTextEvery: 7,
                 gridlines: {
-                    count: 0
+                    count: 4
                 },
             },
             series: {
                 1: {
+                    targetAxisIndex: 1
+                },
+                2: {
                     targetAxisIndex: 1
                 }
             },
@@ -50,12 +58,12 @@ function chart_state_data(covid_data_by_state, states) {
                     }
                 },
                 1: {
-                    title:'Hospitalizations',
+                    title:'New Hospitalizations/Deaths',
                     minValue: 0,
                     gridlines: {
                         count: 0
                     }
-                }
+                },
             }
         };
 
