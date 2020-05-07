@@ -30,7 +30,6 @@ function process_covid_data(covid_tracking_data) {
     let normalized_covid_tracking_data = normalize_data(covid_tracking_data)
     let states = [...new Set(normalized_covid_tracking_data.map(r => r.state))].sort();
     let covid_data_by_state = {}
-    var logged = false
     states.forEach(state => {
         function calculate_per_state_extras(state_records) {
             function moving_average(array, index, days, property, base_property) {
@@ -43,15 +42,6 @@ function process_covid_data(covid_tracking_data) {
                     return;
                 let total = last7.reduce((a, b) => a + b[property], 0);
                 let avg = total / days;
-                if (array[index].state === 'GA' && property === 'delta_hospitalized') {
-                    console.log("")
-                    console.log(array[index].date + "\n--------------")
-                    last7.forEach(r => {
-                        console.log(r.date +": " + r[property] + "(" + r[base_property] +")")
-                    })
-                    console.log("Total:  " + total + " / " + days + " = " + avg)
-                    logged = true
-                }
                 return avg;
             }
 
@@ -97,7 +87,7 @@ function fetch_covid_tracking_data() {
         .then(response => response.json())
         .then(data => {
             covid_data_by_state = process_covid_data(data)
-            chart_state_data(covid_data_by_state, ['GA']);
+            chart_state_data(covid_data_by_state, 'GA');
 
         })
         .catch((error) => {
