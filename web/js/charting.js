@@ -72,11 +72,13 @@ function chart_state_data(covid_data_by_state, state) {
 
                     }
                 }
-        };
+            };
 
             var chart = new google.visualization.LineChart(document.getElementById(targetElementId));
             chart.draw(datatable, options);
         }
+
+
         drawLineChart('chart', [
                 {
                     label: 'New Positives',
@@ -98,4 +100,10 @@ function chart_state_data(covid_data_by_state, state) {
                 }
             ])
     }
+}
+
+function stateChanged() {
+    let new_state = current_selected_state();
+    console.log(new_state)
+    chart_state_data(COVID_DATA_BY_STATE, new_state);
 }

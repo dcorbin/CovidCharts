@@ -1,4 +1,4 @@
-let covid_data_by_state = null
+var COVID_DATA_BY_STATE = null
 
 function compare_records_by_date(a, b) {
     if (a.date < b.date)
@@ -86,8 +86,8 @@ function fetch_covid_tracking_data() {
     })
         .then(response => response.json())
         .then(data => {
-            covid_data_by_state = process_covid_data(data)
-            chart_state_data(covid_data_by_state, 'GA');
+            COVID_DATA_BY_STATE = process_covid_data(data)
+            chart_state_data(COVID_DATA_BY_STATE, 'GA');
 
         })
         .catch((error) => {

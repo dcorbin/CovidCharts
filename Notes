@@ -1,0 +1,14 @@
+Make State selection do something.
+Handle line without data (Hospitalizations, Michigan, for example)
+Store last-selected State
+Add PR
+Add USA
+Cache CT data
+GA County Data
+Other CT data charts
+Control 7DayAvg/or not
+Image Link
+Logrithmic Y support
+Alternate State selection
+
+Other calculated charts
