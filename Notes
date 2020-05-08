@@ -1,6 +1,6 @@
-Make State selection do something.
+Store and use last-selected State
+
 Handle line without data (Hospitalizations, Michigan, for example)
-Store last-selected State
 Add PR
 Add USA
 Cache CT data
