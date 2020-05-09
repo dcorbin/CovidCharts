@@ -1,23 +1,14 @@
 <html>
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="js/covid_tracking.js"></script>
-    <script type="text/javascript" src="js/charting.js"></script>
-    <script type="text/javascript" src="js/states.js"></script>
-    <script>
-        function initialize() {
-            populate_state_control('GA')
-            fetch_covid_tracking_data()
-        }
-    </script>
+    <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css"/>
 </head>
 
-<body onload="initialize()">
+<body>
 <h3>Corbin's Covid Charting</h3>
 <form>
-    <label>State:</label>
-    <select id="state" onchange="stateChanged()">
+    <label for="state">State:</label><select id="state">
     </select>
 </form>
 <div>

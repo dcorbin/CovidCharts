@@ -1,3 +1,5 @@
+import State from './states'
+
 function chart_state_data(covid_data_by_state, state) {
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
@@ -102,8 +104,4 @@ function chart_state_data(covid_data_by_state, state) {
     }
 }
 
-function stateChanged() {
-    let new_state = current_selected_state();
-    console.log(new_state)
-    chart_state_data(COVID_DATA_BY_STATE, new_state);
-}
+export { chart_state_data }
