@@ -1,12 +1,15 @@
 Handle line without data (Hospitalizations, Michigan, for example)
 
 Add USA
+Control 7DayAvg/or not
+React
+Logrithmic Y-axis support
+
 Cache CT data
 GA County Data
 Other CT data charts
-Control 7DayAvg/or not
-Image Link
-Logrithmic Y support
+Image (download) Link
+
 Alternate State selection
 
 Other calculated charts
