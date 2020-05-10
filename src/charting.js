@@ -1,4 +1,4 @@
-import State from './states'
+import {StateTable} from './states'
 
 function chart_state_data(covid_data_by_state, state) {
     // Callback that creates and populates a data table,
@@ -35,7 +35,7 @@ function chart_state_data(covid_data_by_state, state) {
             })
             datatable.addRows(chart_data)
             let options = {
-                title: state + " (7-day avg)",
+                title: new StateTable().fullName(state) + " (7-day avg)",
                 curveType: 'function',
                 width: 700,
                 height: 500,
