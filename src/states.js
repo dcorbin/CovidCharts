@@ -69,13 +69,6 @@ class StateTable {
         return STATES
     }
 }
-function byStateName(a, b) {
-    if (a.name < b.name)
-        return -1
-    if (a.name > b.name)
-        return 1
-    return 0
-}
 
 class State {
     static populate_state_control(selected_state_abbreviation, changeCallback) {
