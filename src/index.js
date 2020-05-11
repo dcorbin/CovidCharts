@@ -5,17 +5,7 @@ import {chart_state_data} from "./charting";
 import {Settings, SettingsStore} from './settings';
 import React from 'react'
 import StatePickList from "./react/state_pick_list";
-
-
-function objectProperties(obj) {
-    var result = new Set()
-    for (var i in obj) {
-        if (obj.hasOwnProperty(i)) {
-            result.add(i)
-        }
-    }
-    return result;
-}
+import Chart from "react-google-charts";
 
 function initialize() {
     let settings_store = new SettingsStore(window.localStorage)
@@ -31,23 +21,22 @@ function initialize() {
     let cache = new CovidTrackingCache()
     let initial_state = settings.state
 
-    ReactDOM.render(<StatePickList initialState={initial_state} onSelectionChange={
-        newValue => {
-            console.log("SelChange: " + newValue);
-            chart_state_data(cache.fetch(), newValue);
-            let settings = settings_store.load();
-            settings.state = newValue
-            settings_store.store(settings)
+    ReactDOM.render(
+        <StatePickList initialState={initial_state} onSelectionChange={stateSelectionChanged}/>,
+        document.querySelector('#control-panel')
+    )
+    function stateSelectionChanged(newValue) {
+        ReactDOM.render(chart_state_data(cache.fetch(), newValue),
+            document.getElementById("chart"))
+        let settings = settings_store.load();
+        settings.state = newValue
+        settings_store.store(settings)
+    }
 
-        }}/>  ,
-        document.querySelector('#control-panel'))
     CovidTracking.fetch_covid_tracking_data_p(cache).then(unk => {
-        chart_state_data(cache.fetch(), initial_state)
-
-        let data_states = objectProperties(cache.fetch())
+        ReactDOM.render(chart_state_data(cache.fetch(), initial_state),
+            document.getElementById("chart"))
     })
 }
-
-
 
 window.onload = initialize
