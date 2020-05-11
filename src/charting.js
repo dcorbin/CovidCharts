@@ -22,17 +22,11 @@ function chart_state_data(covid_data_by_state, state) {
                     function hasData(stateData, valueExtractor) {
                         return stateData.some(r => {
                             let value = valueExtractor(r);
-                            if (value === null || typeof value === 'undefined' || isNaN(value)) {
-                                return false
-                            }
-                            return true;
+                            return !(value === null || typeof value === 'undefined' || isNaN(value));
                         })
                     }
 
-                    let stateDatea = covid_data_by_state[state];
-                    console.log("Has Data check for " + line.label)
-                    let hasData1 = hasData(stateDatea, line.valueExtractor);
-                    if (hasData1) {
+                    if (hasData(covid_data_by_state[state], line.valueExtractor)) {
                         return line
                     }
                     return null
