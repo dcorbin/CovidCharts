@@ -6,6 +6,7 @@ import {Settings, SettingsStore} from './settings';
 import React from 'react'
 import StatePickList from "./react/state_pick_list";
 import Chart from "react-google-charts";
+import ChartPanel from "./react/chart_panel";
 
 function initialize() {
     let settings_store = new SettingsStore(window.localStorage)
@@ -21,21 +22,13 @@ function initialize() {
     let cache = new CovidTrackingCache()
     let initial_state = settings.state
 
-    ReactDOM.render(
-        <StatePickList initialState={initial_state} onSelectionChange={stateSelectionChanged}/>,
-        document.querySelector('#control-panel')
-    )
-    function stateSelectionChanged(newValue) {
-        ReactDOM.render(chart_state_data(cache.fetch(), newValue),
-            document.getElementById("chart"))
-        let settings = settings_store.load();
-        settings.state = newValue
-        settings_store.store(settings)
-    }
-
     CovidTracking.fetch_covid_tracking_data_p(cache).then(unk => {
-        ReactDOM.render(chart_state_data(cache.fetch(), initial_state),
-            document.getElementById("chart"))
+        ReactDOM.render(
+            <ChartPanel dataSource={cache.fetch()}
+                        initialState={initial_state}
+                        onSettingsChange={newSettings => {settings_store.store(newSettings)}}
+            />,
+            document.getElementById("app"))
     })
 }
 
