@@ -20,8 +20,8 @@ export default class SevenDayAverageDecorator {
             r.seven_day_averages = {}
             if (index > 6) {
                 r.seven_day_averages.new_hospitalizations = moving_average(array, index, 7, 'delta_hospitalized', 'hospitalized')
-                r.seven_day_averages.new_positives = moving_average(array, index, 7, 'positiveIncrease', 'positive')
-                r.seven_day_averages.new_deaths = moving_average(array, index, 7, 'deathIncrease', 'death')
+                r.seven_day_averages.new_positives = moving_average(array, index, 7, 'delta_positive', 'positive')
+                r.seven_day_averages.new_deaths = moving_average(array, index, 7, 'delta_death', 'death')
             }
         })
         return data;

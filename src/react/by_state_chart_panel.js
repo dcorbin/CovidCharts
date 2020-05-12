@@ -1,41 +1,9 @@
 import React from "react";
 import StatePickList from "./state_pick_list";
-import DeltaDecorator from "../covid_tracking_com/delta_decorator";
-import SevenDayAverageDecorator from "../covid_tracking_com/seven_day_avg_decorator";
-import {compare_records_by_date} from "../util/date_comparison";
 import {StateTable} from "../states";
-import MultiLineChart from './multi_line_chart'
+import AbstractCovidTrackingChartPanel from "./abstract_covid_tracking_chart_panel";
 
-class CovidTrackingChart extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data:null,
-            subject: "TBD",
-            subsetFilter: r=>true
-        }
-    }
-
-    componentDidMount() {
-        this.props.dataProvider.getData().then(d => {
-                console.log("Data Provided: " + JSON.stringify(d))
-                this.setState({data: d})
-            }
-        )
-    }
-    chartContents() {
-        if (this.state.data == null) {
-            return "Waiting for data fetch to complete..."
-        }
-
-        let dataToChart = this.state.data.filter(this.state.subsetFilter).sort(compare_records_by_date)
-        dataToChart = new DeltaDecorator().decorate(dataToChart)
-        dataToChart = new SevenDayAverageDecorator().decorate(dataToChart)
-        return <MultiLineChart records={dataToChart} subject={this.state.subject}/>
-    }
-}
-
-export default class ByStateChartPanel extends CovidTrackingChart {
+export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
     constructor(props) {
         super(props);
         let newState = this.stateBasedReactState(this.props.initialState)
