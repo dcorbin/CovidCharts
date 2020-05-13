@@ -6,8 +6,8 @@ import AbstractCovidTrackingChartPanel from "./abstract_covid_tracking_chart_pan
 export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
     constructor(props) {
         super(props);
-        let newState = this.stateBasedReactState(this.props.initialState)
-        this.state.selectedState = newState.selectedState
+        let newState = this.stateBasedReactState(this.props.initialStates)
+        this.state.selectedStates = newState.selectedStates
         this.state.subject = newState.subject
         this.state.subsetFilter = newState.subsetFilter
         this.stateSelectionChanged = this.stateSelectionChanged.bind(this)
@@ -20,18 +20,24 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
         }
     }
 
-    stateBasedReactState(newValue) {
+    stateBasedReactState(selectedStates) {
+        let subject = this.calculateSubject(selectedStates)
         return {
-            selectedState: newValue,
-            subject: new StateTable().fullName(newValue),
-            subsetFilter: r => r.state === this.state.selectedState,
+            selectedStates: selectedStates,
+            subject: subject,
+            subsetFilter: r =>  selectedStates.includes(r.state),
         };
+
+    }
+
+    calculateSubject(newValue) {
+        return newValue.map(state => new StateTable().fullName(state)).join(", ");
     }
 
     render() {
         return <div>
             <div>
-                <StatePickList initialState={this.state.selectedState} onSelectionChange={this.stateSelectionChanged}/>
+                <StatePickList initialState={this.state.selectedStates[0]} onSelectionChange={this.stateSelectionChanged}/>
             </div>
             <div>
                 {this.chartContents()}

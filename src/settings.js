@@ -1,6 +1,6 @@
 class Settings {
     constructor() {
-        this.state = 'GA'
+        this.states = ['GA']
     }
 }
 

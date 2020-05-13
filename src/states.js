@@ -59,7 +59,12 @@ const STATES = [
 
 class StateTable {
     fullName(abbreviation) {
-        return STATES.filter(s => s.abbreviation === abbreviation)[0].name
+        let stateRecord = STATES.filter(s => s.abbreviation === abbreviation)[0];
+        if (typeof stateRecord === "undefined") {
+            console.log("No state found for: " + JSON.stringify(abbreviation))
+            return "N/A"
+        }
+        return stateRecord.name
     }
     all_abbreviations() {
         return STATES.map(s => s.abbreviation)

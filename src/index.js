@@ -16,15 +16,19 @@ function initialize() {
             settings = new Settings()
             settings_store.store(settings)
         }
+        if (typeof settings.state === "string") {
+            settings = new Settings()
+            settings_store.store(settings)
+        }
         return settings
     }
     let settings = loadOrCreateSettings();
-    let initial_state = settings.state
+    let initialStates = settings.states
 
     let covidTracking = new ReadThroughCache(1000 * 60 * 60, new Clock(), new CovidTrackingCom())
     ReactDOM.render(<div>
                         <ByStateChartPanel dataProvider={covidTracking}
-                                           initialState={initial_state}
+                                           initialStates={initialStates}
                                            onSettingsChange={newSettings => {settings_store.store(newSettings)}}
                                     />
                         <Footer/>

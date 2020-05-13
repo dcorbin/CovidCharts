@@ -13,7 +13,6 @@ export default class Aggregator {
                             let log = "'" + accumulator + "' + '" + currentValue + "' : "
                             if (!isNumber(accumulator) ) {
                                 parent[property] = currentValue[property]
-                                console.log(log + parent[property])
                                 return
                             }
 
@@ -22,7 +21,6 @@ export default class Aggregator {
                             } else {
                                 parent[property] = accumulator[property]
                             }
-                            console.log(log  + parent[property])
                         }
 
                         let result = {
