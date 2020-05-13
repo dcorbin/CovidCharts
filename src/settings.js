@@ -14,7 +14,10 @@ class SettingsStore {
     }
 
     load() {
-       return JSON.parse(this.storage.getItem('settings'))
+        let item = this.storage.getItem('settings');
+        if (item === null)
+            return null
+        return JSON.parse(item)
     }
 }
 

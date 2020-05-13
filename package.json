@@ -4,14 +4,16 @@
   "description": "Corbin's Covid Chart",
   "private": true,
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": " ^7.0.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^5.1.1",
     "react-google-charts": "^3.0.15",
     "source-map-loader": "^0.2.4",
@@ -21,6 +23,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server",
     "build": "webpack"
   },
   "author": "",
