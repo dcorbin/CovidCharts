@@ -10,8 +10,8 @@ export default class Aggregator {
                             function isNumber(n) {
                                 return !(typeof n === 'undefined' || n == null || isNaN(n))
                             }
-                            let log = "'" + accumulator + "' + '" + currentValue + "' : "
-                            if (!isNumber(accumulator) ) {
+                            
+                            if (!isNumber(accumulator[property]) ) {
                                 parent[property] = currentValue[property]
                                 return
                             }
@@ -29,7 +29,6 @@ export default class Aggregator {
                         addValue(result, accumulator, currentValue, 'hospitalized')
                         addValue(result, accumulator, currentValue, 'death')
                         addValue(result, accumulator, currentValue, 'positive')
-
                         return result
                     }
                     let zero = {}
