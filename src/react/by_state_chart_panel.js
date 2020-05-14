@@ -1,7 +1,7 @@
 import React from "react";
 import {StateTable} from "../states";
 import AbstractCovidTrackingChartPanel from "./abstract_covid_tracking_chart_panel";
-import MultiRegionPickList from "./multi_state_pick_list";
+import MultiPickMatrix from "./multi_pick_matix";
 
 export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
     constructor(props) {
@@ -34,12 +34,22 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
         return newValue.map(state => new StateTable().fullName(state)).join(", ");
     }
 
+    byName(a, b) {
+        if (a.name < b.name)
+            return -1
+        if (a.name > b.name)
+            return 1
+        return 0
+    }
+
     render() {
+        let stateTable = new StateTable();
         return <div>
             <div>
-                {/*<StatePickList initialState={this.state.selectedStates[0]} onSelectionChange={this.stateSelectionChanged}/>*/}
-                <MultiRegionPickList initialRegions={this.state.selectedStates} all={new StateTable().all()}
-                                     onSelectionChange={this.stateSelectionChanged}/>
+                <MultiPickMatrix initialSelections={this.state.selectedStates}
+                                 allValues={stateTable.all().map(s => s.abbreviation).sort(this.byName) }
+                                 valueRenderer={s => stateTable.fullName(s)}
+                                 onSelectionChange={this.stateSelectionChanged}/>
 
             </div>
             <div>

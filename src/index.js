@@ -7,7 +7,7 @@ import ByStateChartPanel from "./react/by_state_chart_panel";
 import CovidTrackingCom from "./covid_tracking_com/covid_tracking_com";
 import ReadThroughCache from "./util/read_thru_cache";
 import Footer from "./react/footer";
-import MultiRegionPickList from "./react/multi_state_pick_list";
+import MultiPickMatrix from "./react/multi_pick_matix";
 import {StateTable} from "./states";
 
 function initialize() {

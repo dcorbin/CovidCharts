@@ -55,12 +55,12 @@ td.selected {
 tr td.selected img {
     visibility: visible;
 }
-td.selectableRegion img {
+td.selectable img {
     visibility: hidden;
 }
-td.selectableRegion {
+td.selectable {
     cursor: pointer;
 }
-td.selectableRegion:hover {
+td.selectable:hover {
     background-color: #b4c5f6;
 }
