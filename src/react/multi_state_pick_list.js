@@ -1,5 +1,4 @@
 import React from "react";
-import {StateTable} from '../states'
 
 export default class MultiRegionPickList extends React.Component {
     constructor(props) {
@@ -59,6 +58,9 @@ export default class MultiRegionPickList extends React.Component {
                                            data-id={region.abbreviation}
                                            onClick={this.regionClicked}
                                            style={cellStyle} key={region.abbreviation}>
+                                    <img alt="Selected" style={{width: 8, height:8, verticalAlign: 'middle'}}
+                                         src='/circle-16.png'/>
+                                    &nbsp;
                                     {region.name}
                                 </td>
                             })

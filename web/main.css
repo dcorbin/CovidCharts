@@ -9,7 +9,7 @@ h1 {
 
 h3 {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-variant: normal;
     font-weight: bold;
@@ -52,10 +52,15 @@ body {
 td.selected {
     font-weight: bold;
 }
+tr td.selected img {
+    visibility: visible;
+}
+td.selectableRegion img {
+    visibility: hidden;
+}
 td.selectableRegion {
     cursor: pointer;
 }
 td.selectableRegion:hover {
-    background-color: #ddddff;
-
+    background-color: #b4c5f6;
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import StatePickList from "./state_pick_list";
 import {StateTable} from "../states";
 import AbstractCovidTrackingChartPanel from "./abstract_covid_tracking_chart_panel";
 import MultiRegionPickList from "./multi_state_pick_list";
@@ -36,8 +35,6 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
     }
 
     render() {
-        console.log("SELECTION: " + this.state.selectedStates)
-
         return <div>
             <div>
                 {/*<StatePickList initialState={this.state.selectedStates[0]} onSelectionChange={this.stateSelectionChanged}/>*/}
