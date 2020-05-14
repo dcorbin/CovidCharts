@@ -28,7 +28,7 @@ export default class AbstractCovidTrackingChartPanel extends React.Component {
 
         let dataToChart = this.state.data.filter(this.state.subsetFilter).
                                           sort(compare_records_by_date)
-        dataToChart = new  Aggregator().aggregate(dataToChart)
+        dataToChart = new  Aggregator(['positive', 'death', 'hospitalized']).aggregate(dataToChart)
         dataToChart = new DeltaDecorator().decorate(dataToChart)
         dataToChart = new SevenDayAverageDecorator().decorate(dataToChart)
         return <MultiLineChart records={dataToChart} subject={this.state.subject}/>

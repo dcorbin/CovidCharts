@@ -5,3 +5,9 @@ export function compare_records_by_date(a, b) {
         return 1
     return 0
 }
+
+
+export function datesAreEqual(a, b) {
+    return a.getTime() === b.getTime()
+}
+

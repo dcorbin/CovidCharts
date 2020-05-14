@@ -48,3 +48,14 @@ body {
     font-weight: 400;
     line-height: 20px;
 }
+
+td.selected {
+    font-weight: bold;
+}
+td.selectableRegion {
+    cursor: pointer;
+}
+td.selectableRegion:hover {
+    background-color: #ddddff;
+
+}

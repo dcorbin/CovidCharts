@@ -10,6 +10,7 @@ module.exports = {
   ],
   target: "web",
   mode: "development",
+  devtool: 'inline-source-map',
   module: {
    rules: [
        {
