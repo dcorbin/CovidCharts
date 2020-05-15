@@ -30,8 +30,34 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
 
     }
 
-    calculateSubject(newValue) {
-        return newValue.map(state => new StateTable().fullName(state)).join(", ");
+    dataSeriesByState(records) {
+        let allStates = new StateTable().all_abbreviations();
+        return allStates.reduce( (result, state) => {
+            result[state] = this.dataSeriesAvailable(records, state)
+            return result
+        }, {})
+
+    }
+    dataSeriesAvailable(records, state) {
+        return  this.rawDataPropertyNames().map(propertyName => {
+            let hasValidData = records.filter(r => r.state === state).map(r => r[propertyName]).some(v => {
+                    return !(v === null || typeof v === 'undefined');
+                }
+            )
+            if (hasValidData) {
+                return propertyName
+            }
+            return null
+        }).filter(x => x != null)
+    }
+
+
+    calculateSubject(states) {
+        if (states.length === 0) {
+            return "No States selected."
+        }
+
+        return states.map(state => new StateTable().fullName(state)).join(", ");
     }
 
     byName(a, b) {
@@ -42,14 +68,32 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
         return 0
     }
 
+    renderDataSeriesWarnings(state) {
+        let series = this.state.dateSeriesByState[state]
+        if (series == null || typeof series === 'undefined')
+            return null
+        if (!series.includes('hospitalized')) {
+            return <img alt='No data on hospitalizations' style={{width: 12, height:12, verticalAlign: 'middle'}}
+                               src={'/data/hospitalized.png'}/>
+        }
+        return null
+    }
+
     render() {
         let stateTable = new StateTable();
         return <div>
             <div>
                 <MultiPickMatrix initialSelections={this.state.selectedStates}
                                  allValues={stateTable.all().map(s => s.abbreviation).sort(this.byName) }
-                                 valueRenderer={s => stateTable.fullName(s)}
-                                 onSelectionChange={this.stateSelectionChanged}/>
+                                 columns={6}
+                                 valueRenderer={state => {
+                                     let seriesIcons = this.renderDataSeriesWarnings(state)
+                                     return <span>{stateTable.fullName(state)}
+                                         &nbsp; {seriesIcons}</span>
+                                 }}
+                                 onSelectionChange={this.stateSelectionChanged}
+                                 footer={<div><img alt='No data on hospitalizations' style={{width: 12, height:12, verticalAlign: 'middle'}}
+                                                      src={'/data/hospitalized.png'}/> No data for hospitalizations available</div>}/>
 
             </div>
             <div>

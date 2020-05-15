@@ -55,7 +55,7 @@ td.selected {
 tr td.selected img {
     visibility: visible;
 }
-td.selectable img {
+td.selectable img.indicator {
     visibility: hidden;
 }
 td.selectable {

@@ -50,7 +50,7 @@ export default class MultiPickMatrix extends React.Component {
                                            data-id={value}
                                            onClick={this.valueClicked}
                                            style={cellStyle} key={value}>
-                                    <img alt="Selected" style={{width: 8, height:8, verticalAlign: 'middle'}}
+                                    <img className='indicator' alt="Selected" style={{width: 8, height:8, verticalAlign: 'middle'}}
                                          src='/circle-16.png'/>
                                     &nbsp;
                                     <span>{this.props.valueRenderer(value)}</span>
@@ -58,7 +58,8 @@ export default class MultiPickMatrix extends React.Component {
                             })
                         }</tr>
                 })
-        }</tbody></table>
+
+        }<tr><td colSpan={columns}><br/>{this.props.footer}</td></tr></tbody></table>
     }
 }
 MultiPickMatrix.defaultProps = {columns: 8}
