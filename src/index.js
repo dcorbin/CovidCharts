@@ -7,6 +7,7 @@ import ByStateChartPanel from "./react/by_state_chart_panel";
 import CovidTrackingCom from "./covid_tracking_com/covid_tracking_com";
 import ReadThroughCache from "./util/read_thru_cache";
 import Footer from "./react/footer";
+import ReactDom from 'react-dom'
 
 function initialize() {
     let settings_store = new SettingsStore(window.localStorage)
@@ -26,7 +27,7 @@ function initialize() {
     let initialStates = settings.states
 
     let covidTracking = new ReadThroughCache(1000 * 60 * 60, new Clock(), new CovidTrackingCom())
-    ReactDOM.render(<div>
+    ReactDom.render(<div>
                         <ByStateChartPanel dataProvider={covidTracking}
                                            initialStates={initialStates}
                                            onSettingsChange={newSettings => {settings_store.store(newSettings)}}

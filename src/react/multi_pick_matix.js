@@ -1,34 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 
-export default class MultiPickMatrix extends React.Component {
-    constructor(props) {
-        super(props);
-        let selections = new Set(this.props.initialSelections);
-        this.state = {
-            selections: selections
-        };
-
-        this.valueClicked = this.valueClicked.bind(this)
-    }
-
-    valueClicked(e) {
-        e.preventDefault();
-        let selectionClicked = e.currentTarget.dataset.id
-        let selections = this.state.selections
-        if (selections.has(selectionClicked)) {
-            selections.delete(selectionClicked)
-        } else {
-            selections.add(selectionClicked)
+export default function MultiPickMatrix(props) {
+        const [selections, setSelections] = useState(new Set(props.initialSelections))
+        function valueClicked(e) {
+            e.preventDefault();
+            let selectionClicked = e.currentTarget.dataset.id
+            let adjustedSelections = new Set([...selections])
+            if (selections.has(selectionClicked)) {
+                adjustedSelections.delete(selectionClicked)
+            } else {
+                adjustedSelections.add(selectionClicked)
+            }
+            setSelections(new Set(adjustedSelections))
+            if (props.onSelectionChange) {
+                props.onSelectionChange(Array.from(adjustedSelections))
+            }
         }
-        this.setState({selections: selections})
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange([...selections])
-        }
-    }
 
-    render() {
-        let columns = this.props.columns
-        let values = [...this.props.allValues].sort(this.byName)
+        let columns = props.columns
+        let values = [...props.allValues]
         let rowCount = Math.ceil((values.length / columns) + .99)
         let rows = []
         for (let i = 0; i<rowCount; i++) {
@@ -48,25 +38,23 @@ export default class MultiPickMatrix extends React.Component {
                 rows.map((row, index) => {
                     return <tr key={index}>{
                             row.map(value => {
-                                let selected = this.state.selections.has(value)
+                                let selected = selections.has(value)
                                 let classes = ['selectable']
                                 if (selected) {
                                     classes.push("selected")
                                 }
                                 return <td className={ classes.join(' ') }
                                            data-id={value}
-                                           onClick={this.valueClicked}
+                                           onClick={valueClicked}
                                            style={cellStyle} key={value}>
                                     <img className='indicator' alt="Selected" style={{width: 8, height:8, verticalAlign: 'middle'}}
                                          src='/circle-16.png'/>
                                     &nbsp;
-                                    <span>{this.props.valueRenderer(value)}</span>
+                                    <span>{props.valueRenderer(value)}</span>
                                 </td>
                             })
                         }</tr>
                 })
 
-        }<tr><td colSpan={columns}><br/>{this.props.footer}</td></tr></tbody></table>
+        }<tr><td colSpan={columns}><br/>{props.footer}</td></tr></tbody></table>
     }
-}
-MultiPickMatrix.defaultProps = {columns: 8}
