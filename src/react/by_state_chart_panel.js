@@ -31,24 +31,25 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
     }
 
     dataSeriesByState(records) {
+        function dataSeriesAvailable(records, rawDataPropertyNames, state) {
+            return  rawDataPropertyNames.map(propertyName => {
+                let hasValidData = records.filter(r => r.state === state).map(r => r[propertyName]).some(v => {
+                        return !(v === null || typeof v === 'undefined');
+                    }
+                )
+                if (hasValidData) {
+                    return propertyName
+                }
+                return null
+            }).filter(x => x != null)
+        }
+
+
         let allStates = new StateTable().all_abbreviations();
         return allStates.reduce( (result, state) => {
-            result[state] = this.dataSeriesAvailable(records, state)
+            result[state] = dataSeriesAvailable(records, this.rawDataPropertyNames(), state)
             return result
         }, {})
-
-    }
-    dataSeriesAvailable(records, state) {
-        return  this.rawDataPropertyNames().map(propertyName => {
-            let hasValidData = records.filter(r => r.state === state).map(r => r[propertyName]).some(v => {
-                    return !(v === null || typeof v === 'undefined');
-                }
-            )
-            if (hasValidData) {
-                return propertyName
-            }
-            return null
-        }).filter(x => x != null)
     }
 
 
@@ -97,7 +98,7 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
 
             </div>
             <div>
-                {this.chartContents()}
+                {this.chartContents(this.rawDataPropertyNames())}
             </div>
         </div>
     }
