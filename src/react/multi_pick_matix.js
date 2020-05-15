@@ -29,11 +29,18 @@ export default class MultiPickMatrix extends React.Component {
     render() {
         let columns = this.props.columns
         let values = [...this.props.allValues].sort(this.byName)
+        let rowCount = Math.ceil((values.length / columns) + .99)
         let rows = []
-        while (values.length > columns) {
-            rows.push(values.splice(0, columns))
+        for (let i = 0; i<rowCount; i++) {
+            rows.push([])
         }
-        rows.push(values)
+        for (let c=0; c<columns; c++) {
+            for (let r=0; r<rowCount; r++) {
+                let value = values.shift()
+                if (value != null)
+                    rows[r].push(value)
+            }
+        }
 
         let tableStyle = {width: '100%', "backgroundColor": "#e0e0e0", margin: '4px' };
         let cellStyle = {width: String(100/columns)+"%"}
