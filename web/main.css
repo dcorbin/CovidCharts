@@ -52,7 +52,7 @@ body {
 td.selected {
     font-weight: bold;
 }
-tr td.selected img {
+tr td.selected img.indicator {
     visibility: visible;
 }
 td.selectable img.indicator {
