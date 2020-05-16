@@ -1,53 +1,67 @@
 import React, {useState} from "react";
 
 export default function MultiPickMatrix(props) {
-        const [selections, setSelections] = useState(new Set(props.initialSelections))
-        function valueClicked(e) {
-            e.preventDefault();
-            let selectionClicked = e.currentTarget.dataset.id
-            let adjustedSelections = new Set([...selections])
-            if (selections.has(selectionClicked)) {
-                adjustedSelections.delete(selectionClicked)
-            } else {
-                adjustedSelections.add(selectionClicked)
-            }
-            setSelections(new Set(adjustedSelections))
-            if (props.onSelectionChange) {
-                props.onSelectionChange(Array.from(adjustedSelections))
-            }
-        }
+    const [selections, setSelections] = useState(new Set(props.initialSelections))
+    const [collapsed, setCollapsed] = useState(false)
 
-        let columns = props.columns
-        let values = [...props.allValues]
-        let rowCount = Math.ceil((values.length / columns) + .99)
-        let rows = []
-        for (let i = 0; i<rowCount; i++) {
-            rows.push([])
-        }
-        for (let c=0; c<columns; c++) {
-            for (let r=0; r<rowCount; r++) {
-                let value = values.shift()
-                if (value != null)
-                    rows[r].push(value)
-            }
-        }
+    function expansionControl () {
+        let image = collapsed ? '/collapsed.png' : '/expanded.png'
+        return <img className='expand-collapse-control'
+                    onClick={e => setCollapsed(!collapsed)}
+                    src={image}
+                    alt='Expansion control'/>
+    }
 
-        let tableStyle = {width: '100%', "backgroundColor": "#e0e0e0", margin: '4px' };
-        let cellStyle = {width: String(100/columns)+"%"}
-        return <table style={tableStyle}><tbody>{
+    function valueClicked(e) {
+        e.preventDefault();
+        let selectionClicked = e.currentTarget.dataset.id
+        let adjustedSelections = new Set([...selections])
+        if (selections.has(selectionClicked)) {
+            adjustedSelections.delete(selectionClicked)
+        } else {
+            adjustedSelections.add(selectionClicked)
+        }
+        setSelections(new Set(adjustedSelections))
+        if (props.onSelectionChange) {
+            props.onSelectionChange(Array.from(adjustedSelections))
+        }
+    }
+
+
+    let columns = props.columns
+    let values = [...props.allValues]
+    let rowCount = Math.ceil((values.length / columns) + .99)
+    let rows = []
+    for (let i = 0; i<rowCount; i++) {
+        rows.push([])
+    }
+    for (let c=0; c<columns; c++) {
+        for (let r=0; r<rowCount; r++) {
+            let value = values.shift()
+            if (value != null)
+                rows[r].push(value)
+        }
+    }
+
+    let cellStyle = {width: String(100/columns)+"%"}
+    function cellSelectionTable () {
+        return <table>
+            <tbody>{
                 rows.map((row, index) => {
-                    return <tr key={index}>{
+                    return <tr key={index}>
+                        {
                             row.map(value => {
                                 let selected = selections.has(value)
                                 let classes = ['selectable']
                                 if (selected) {
                                     classes.push("selected")
                                 }
-                                return <td className={ classes.join(' ') }
+                                return <td className={classes.join(' ')}
                                            data-id={value}
                                            onClick={valueClicked}
                                            style={cellStyle} key={value}>
-                                    <img className='indicator' alt="Selected" style={{width: 8, height:8, verticalAlign: 'middle'}}
+                                    <img className='indicator' alt="Selected"
+                                         style={{width: 8, height: 8, verticalAlign: 'middle'}}
                                          src='/circle-16.png'/>
                                     &nbsp;
                                     <span>{props.valueRenderer(value)}</span>
@@ -56,5 +70,21 @@ export default function MultiPickMatrix(props) {
                         }</tr>
                 })
 
-        }<tr><td colSpan={columns}><br/>{props.footer}</td></tr></tbody></table>
+            }
+            <tr>
+                <td colSpan={columns}><br/>{props.footer}</td>
+            </tr>
+            </tbody>
+        </table>
     }
+
+    function currentSelectionSummary() {
+        return <span>&nbsp; { props.summaryRenderer([...selections])}</span>
+    }
+
+    let content = collapsed ? currentSelectionSummary() : cellSelectionTable()
+    return <div className='MultiPickMatrix'>
+                <div style={{float: 'left'}}>{expansionControl()}</div>
+                <div>{content}</div>
+            </div>
+}

@@ -26,8 +26,7 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
             selectedStates: selectedStates,
             subject: subject,
             subsetFilter: r =>  selectedStates.includes(r.state),
-        };
-
+        }
     }
 
     dataSeriesByState(records) {
@@ -87,6 +86,17 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
                 <MultiPickMatrix initialSelections={this.state.selectedStates}
                                  allValues={stateTable.all().map(s => s.abbreviation).sort(this.byName) }
                                  columns={6}
+                                 summaryRenderer={selections => {
+                                     if (selections.length === 0) {
+                                         return "No states selected."
+                                     }
+                                     if (selections.length === 1) {
+                                         return "1 state selected: " + stateTable.fullName(selections[0])
+                                     }
+                                     return "" + selections.length + " states selected: " +
+                                         selections.slice(0, 7).map(s => stateTable.fullName(s)).join(', ') +
+                                         ( selections.length > 7 ? ', ...' : '')
+                                 }}
                                  valueRenderer={state => {
                                      let seriesIcons = this.renderDataSeriesWarnings(state)
                                      return <span>{stateTable.fullName(state)}
