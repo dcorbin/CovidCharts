@@ -1,3 +1,4 @@
+export var COVID_TRACKING_PROPERTIES = ['death', 'hospitalized', 'positive']
 export default class CovidTrackingCom {
     getData() {
         function normalize_data(records) {
@@ -9,9 +10,22 @@ export default class CovidTrackingCom {
             }
 
             return records.map(record => {
-                let updated_record = Object.assign({}, record)
-                updated_record.date = date_from_8digit_integer(record.date)
-                return updated_record
+                function normalizeNumber(v) {
+                    if (typeof v === 'undefined') {
+                        return null
+                    }
+                    return v
+                }
+
+                let normalizedRecord = {
+                    date: date_from_8digit_integer(record.date),
+                    state: record.state
+                }
+
+                COVID_TRACKING_PROPERTIES.forEach(property => {
+                    return normalizedRecord[property] = normalizeNumber(record[property]);
+                })
+                return normalizedRecord
             })
         }
 

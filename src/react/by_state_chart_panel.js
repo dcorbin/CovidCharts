@@ -6,6 +6,7 @@ import Aggregator from "../covid_tracking_com/aggregator";
 import DeltaDecorator from "../covid_tracking_com/delta_decorator";
 import SevenDayAverageDecorator from "../covid_tracking_com/seven_day_avg_decorator";
 import MultiLineChart from "./multi_line_chart";
+import {COVID_TRACKING_PROPERTIES} from "../covid_tracking_com/covid_tracking_com";
 
 export default class ByStateChartPanel extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ export default class ByStateChartPanel extends React.Component {
         function dataSeriesAvailable(records, rawDataPropertyNames, state) {
             return  rawDataPropertyNames.map(propertyName => {
                 let hasValidData = records.filter(r => r.state === state).map(r => r[propertyName]).some(v => {
-                        return !(v === null || typeof v === 'undefined');
+                        return !(v === null);
                     }
                 )
                 if (hasValidData) {
@@ -86,7 +87,7 @@ export default class ByStateChartPanel extends React.Component {
 
     renderDataSeriesWarnings(state) {
         let series = this.state.dateSeriesByState[state]
-        if (series == null || typeof series === 'undefined')
+        if (series == null)
             return null
         if (!series.includes('hospitalized')) {
             return <img alt='No data on hospitalizations' style={{width: 12, height:12, verticalAlign: 'middle'}}
@@ -96,7 +97,7 @@ export default class ByStateChartPanel extends React.Component {
     }
 
     rawDataPropertyNames() {
-        return ['positive', 'death', 'hospitalized'];
+        return COVID_TRACKING_PROPERTIES
     }
 
     chartContents(rawDataPropertyNames) {

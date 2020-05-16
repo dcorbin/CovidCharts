@@ -87,7 +87,7 @@ function findLinesWithData(records, lines) {
         function hasData(records, valueExtractor) {
             return records.some(r => {
                 let value = valueExtractor(r);
-                return !(value === null || typeof value === 'undefined' || isNaN(value));
+                return !(value === null || isNaN(value));
             })
         }
 
