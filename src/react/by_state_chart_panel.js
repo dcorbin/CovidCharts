@@ -1,16 +1,32 @@
 import React from "react";
 import {StateTable} from "../states";
-import AbstractCovidTrackingChartPanel from "./abstract_covid_tracking_chart_panel";
 import MultiPickMatrix from "./multi_pick_matix";
+import {compare_records_by_date} from "../util/date_comparison";
+import Aggregator from "../covid_tracking_com/aggregator";
+import DeltaDecorator from "../covid_tracking_com/delta_decorator";
+import SevenDayAverageDecorator from "../covid_tracking_com/seven_day_avg_decorator";
+import MultiLineChart from "./multi_line_chart";
 
-export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
+export default class ByStateChartPanel extends React.Component {
     constructor(props) {
         super(props);
         let newState = this.stateBasedReactState(this.props.initialStates)
-        this.state.selectedStates = newState.selectedStates
-        this.state.subject = newState.subject
-        this.state.subsetFilter = newState.subsetFilter
+        this.state = {
+            data:null,
+            dateSeriesByState: {},
+            selectedStates: newState.selectedStates,
+            subject: newState.subject,
+            subsetFilter: newState.subsetFilter
+        }
+
         this.stateSelectionChanged = this.stateSelectionChanged.bind(this)
+    }
+
+    componentDidMount() {
+        this.props.dataProvider.getData().then(d => {
+                this.setState({data: d, dateSeriesByState: this.dataSeriesByState(d)})
+            }
+        )
     }
 
     stateSelectionChanged(newValue) {
@@ -77,6 +93,29 @@ export default class ByStateChartPanel extends AbstractCovidTrackingChartPanel {
                                src={'/data/hospitalized.png'}/>
         }
         return null
+    }
+
+    rawDataPropertyNames() {
+        return ['positive', 'death', 'hospitalized'];
+    }
+
+    chartContents(rawDataPropertyNames) {
+        if (this.state.data == null) {
+            return "Waiting for data fetch to complete..."
+        }
+        if (this.state.selectedStates.length === 0) {
+            return <h3>{this.state.subject}</h3>
+        }
+        rawDataPropertyNames = rawDataPropertyNames.filter(name =>
+            this.state.selectedStates.every(state => this.state.dateSeriesByState[state].includes(name))
+        )
+
+        let dataToChart = this.state.data.filter(this.state.subsetFilter).
+        sort(compare_records_by_date)
+        dataToChart = new  Aggregator(rawDataPropertyNames).aggregate(dataToChart)
+        dataToChart = new DeltaDecorator().decorate(dataToChart)
+        dataToChart = new SevenDayAverageDecorator().decorate(dataToChart)
+        return <MultiLineChart records={dataToChart} subject={this.state.subject}/>
     }
 
     render() {
