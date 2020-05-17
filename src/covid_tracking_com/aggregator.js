@@ -6,29 +6,26 @@ export default class Aggregator {
         this.propertyNames = propertyNames
     }
     aggregate(records) {
+        let propertyNames = this.propertyNames
         return unique(records.map(r => r.date), datesAreEqual).map(date => {
-            function addRecords(accumulator, currentValue, propertyNames) {
+            function addRecords(accumulator, currentValue) {
                 function addValue(parent, accumulator, currentValue, property) {
-                    function isNumber(n) {
-                        return !(typeof n === 'undefined' || n == null || isNaN(n))
+                    let a = accumulator[property];
+                    let cv = currentValue[property];
+                    if (typeof cv === 'undefined') {
+                        throw new Error("'" + property + "' is undefined in one or more records.")
                     }
-
-                    if (!isNumber(accumulator[property])) {
-                        parent[property] = currentValue[property]
-                        return
-                    }
-
-                    if (isNumber(accumulator[property]) && isNumber(currentValue[property])) {
-                        parent[property] = accumulator[property] + currentValue[property]
-                    } else {
-                        parent[property] = accumulator[property]
-                    }
+                    let result = null;
+                    if (a !== null && cv !== null)
+                        result = a + cv;
+                    parent[property] = result
                 }
 
                 let result = {
                     date: date
                 }
-                this.propertyNames.forEach(property =>
+
+                propertyNames.forEach(property =>
                     addValue(result, accumulator, currentValue, property)
                 )
 
@@ -36,6 +33,7 @@ export default class Aggregator {
             }
 
             let zero = {}
+            this.propertyNames.forEach(p => zero[p] = 0)
             return records.filter(r => datesAreEqual(r.date, date)).reduce(addRecords.bind(this), zero)
         })
     }

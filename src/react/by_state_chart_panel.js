@@ -111,11 +111,19 @@ export default class ByStateChartPanel extends React.Component {
             this.state.selectedStates.every(state => this.state.dateSeriesByState[state].includes(name))
         )
 
-        let dataToChart = this.state.data.filter(this.state.subsetFilter).
-        sort(compare_records_by_date)
+        let dataToChart = this.state.data.filter(this.state.subsetFilter).sort(compare_records_by_date)
+        if (this.props.debug) {
+            console.log("Data to chart: \n" + JSON.stringify(dataToChart))
+        }
         dataToChart = new  Aggregator(rawDataPropertyNames).aggregate(dataToChart)
+        if (this.props.debug) {
+            console.log("Aggregated data: \n" + JSON.stringify(dataToChart))
+        }
         dataToChart = new DeltaDecorator().decorate(dataToChart)
         dataToChart = new SevenDayAverageDecorator().decorate(dataToChart)
+        if (this.props.debug) {
+            console.log("Decorated data: \n" + JSON.stringify(dataToChart))
+        }
         return <MultiLineChart records={dataToChart} subject={this.state.subject}/>
     }
 
