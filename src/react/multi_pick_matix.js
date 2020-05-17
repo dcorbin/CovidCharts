@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import ColumnarMatrix from "./columnar_matrix";
+
 
 export default function MultiPickMatrix(props) {
     const [selections, setSelections] = useState(new Set(props.initialSelections))
@@ -12,9 +14,9 @@ export default function MultiPickMatrix(props) {
                     alt='Expansion control'/>
     }
 
-    function valueClicked(e) {
-        e.preventDefault();
-        let selectionClicked = e.currentTarget.dataset.id
+    function valueClicked(value) {
+        console.log("Value Clicked: " + value)
+        let selectionClicked = value
         let adjustedSelections = new Set([...selections])
         if (selections.has(selectionClicked)) {
             adjustedSelections.delete(selectionClicked)
@@ -27,57 +29,27 @@ export default function MultiPickMatrix(props) {
         }
     }
 
-
-    let columns = props.columns
-    let values = [...props.allValues]
-    let rowCount = Math.ceil((values.length / columns) + .99)
-    let rows = []
-    for (let i = 0; i<rowCount; i++) {
-        rows.push([])
-    }
-    for (let c=0; c<columns; c++) {
-        for (let r=0; r<rowCount; r++) {
-            let value = values.shift()
-            if (value != null)
-                rows[r].push(value)
-        }
-    }
-
-    let cellStyle = {width: String(100/columns)+"%"}
     function cellSelectionTable () {
-        return <table>
-            <tbody>{
-                rows.map((row, index) => {
-                    return <tr key={index}>
-                        {
-                            row.map(value => {
-                                let selected = selections.has(value)
-                                let classes = ['selectable']
-                                if (selected) {
-                                    classes.push("selected")
-                                }
-                                return <td className={classes.join(' ')}
-                                           data-id={value}
-                                           onClick={valueClicked}
-                                           style={cellStyle} key={value}>
-                                    <img className='indicator' alt="Selected"
-                                         style={{width: 8, height: 8, verticalAlign: 'middle'}}
-                                         src='/circle-16.png'/>
-                                    &nbsp;
-                                    <span>{props.valueRenderer(value)}</span>
-                                </td>
-                            })
-                        }</tr>
-                })
-
-            }
-            <tr>
-                <td colSpan={columns}><br/>{props.footer}</td>
-            </tr>
-            </tbody>
-        </table>
+        return <ColumnarMatrix values={props.allValues}
+                               columns={props.columns}
+                               onValueClicked={valueClicked}
+                               valueRenderer={v => {
+                                   let classNames = ['indicator', 'selectable'];
+                                   let selected = ''
+                                   if (selections.has(v)) {
+                                       classNames.push('selected')
+                                       selected = 'selected'
+                                   }
+                                   return <span className={classNames.join(' ')}>
+                                        <img className='indicator' alt="Selected"
+                                             style={{width: 8, height: 8, verticalAlign: 'middle'}}
+                                             src='/circle-16.png'/>
+                                        &nbsp;<span className={selected}>
+                                       {props.valueRenderer(v)}</span></span>
+                                  }
+                               }
+        />
     }
-
     function currentSelectionSummary() {
         return <span>&nbsp; { props.summaryRenderer([...selections])}</span>
     }

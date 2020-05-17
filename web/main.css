@@ -63,22 +63,21 @@ body {
     width: 95%;
     margin: 4px;
 }
-.MultiPickMatrix td.selected {
+.MultiPickMatrix .selected {
     font-weight: bold;
 }
-.MultiPickMatrix tr td.selected img.indicator {
+.MultiPickMatrix tr .selected img.indicator {
     visibility: visible;
 }
-.MultiPickMatrix td.selectable img.indicator {
+.MultiPickMatrix .selectable img.indicator {
     visibility: hidden;
 }
-.MultiPickMatrix td.selectable {
+.MultiPickMatrix td {
     cursor: pointer;
 }
-.MultiPickMatrix  td.selectable:hover {
+.MultiPickMatrix  td:hover {
     background-color: #b4c5f6;
 }
-
 .expand-collapse-control {
     width: 12px;
     cursor: pointer;
