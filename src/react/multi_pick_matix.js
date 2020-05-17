@@ -1,18 +1,10 @@
 import React, {useState} from "react";
 import ColumnarMatrix from "./columnar_matrix";
+import useCollapsable from "./hooks/use_collapsable";
 
 
 export default function MultiPickMatrix(props) {
     const [selections, setSelections] = useState(new Set(props.initialSelections))
-    const [collapsed, setCollapsed] = useState(false)
-
-    function expansionControl () {
-        let image = collapsed ? '/collapsed.png' : '/expanded.png'
-        return <img className='expand-collapse-control'
-                    onClick={e => setCollapsed(!collapsed)}
-                    src={image}
-                    alt='Expansion control'/>
-    }
 
     function valueClicked(value) {
         console.log("Value Clicked: " + value)
@@ -54,9 +46,5 @@ export default function MultiPickMatrix(props) {
         return <span>&nbsp; { props.summaryRenderer([...selections])}</span>
     }
 
-    let content = collapsed ? currentSelectionSummary() : cellSelectionTable()
-    return <div className='MultiPickMatrix'>
-                <div style={{float: 'left'}}>{expansionControl()}</div>
-                <div>{content}</div>
-            </div>
+    return useCollapsable(cellSelectionTable, currentSelectionSummary, 'MultiPickMatrix')
 }
