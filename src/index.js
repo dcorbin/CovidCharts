@@ -3,7 +3,7 @@
 import Clock from './util/clock'
 import {Settings, SettingsStore} from './settings';
 import React from 'react'
-import ByStateChartPanel from "./react/by_state_chart_panel";
+import CovidTrackingChartPanel from "./react/covid_tracking_chart_panel";
 import CovidTrackingCom from "./covid_tracking_com/covid_tracking_com";
 import ReadThroughCache from "./util/read_thru_cache";
 import Footer from "./react/footer";
@@ -28,9 +28,9 @@ function initialize() {
 
     let covidTracking = new ReadThroughCache(1000 * 60 * 60, new Clock(), new CovidTrackingCom())
     ReactDom.render(<div>
-                        <ByStateChartPanel dataProvider={covidTracking}
-                                           initialStates={initialStates}
-                                           onSettingsChange={newSettings => {settings_store.store(newSettings)}}
+                        <CovidTrackingChartPanel dataProvider={covidTracking}
+                                                 initialStates={initialStates}
+                                                 onSettingsChange={newSettings => {settings_store.store(newSettings)}}
                                     />
                         <Footer/>
                     </div>,

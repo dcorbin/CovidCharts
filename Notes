@@ -1,4 +1,6 @@
 Add USA
+
+Tie recalculating dataSeriesByState to cache reloads
 Control 7DayAvg/or not
 React
 Logarithmic Y-axis support
