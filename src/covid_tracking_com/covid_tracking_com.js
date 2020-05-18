@@ -35,7 +35,7 @@ export default class CovidTrackingCom {
                 return normalize_data(data)
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching covidTrackingData:', error);
             });
     }
 }

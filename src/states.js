@@ -55,7 +55,16 @@ const STATES = [
     {"name": "West Virginia", "abbreviation": "WV", actualState: "true" },
     {"name": "Wisconsin", "abbreviation": "WI", actualState: "true" },
     {"name": "Wyoming", "abbreviation": "WY", actualState: "true" }
-]
+].sort(byName)
+
+function byName(a, b) {
+    if (a.name < b.name)
+        return -1
+    if (a.name > b.name)
+        return 1
+    return 0
+}
+
 
 class StateTable {
     fullName(abbreviation) {
@@ -69,7 +78,6 @@ class StateTable {
     all_abbreviations() {
         return STATES.map(s => s.abbreviation)
     }
-
     all() {
         return STATES
     }

@@ -1,6 +1,7 @@
 import React from "react";
 import Chart from "react-google-charts";
 import DataLine from "../charting/data_line";
+import PropTypes from 'prop-types'
 
 export default class MultiLineChart extends React.Component {
     constructor(props) {
@@ -72,7 +73,11 @@ export default class MultiLineChart extends React.Component {
             }}
         />
     }
+}
 
+MultiLineChart.propTypes = {
+    records: PropTypes.array.isRequired,
+    subject: PropTypes.string.isRequired
 }
 function dataFormattedForGoogleCharts(records, lines) {
     return records.map(r => {

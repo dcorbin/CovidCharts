@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import ColumnarMatrix from "./columnar_matrix";
 import useCollapsable from "./hooks/use_collapsable";
+import SelectableValue from "./selectable_value";
 
 
 export default function MultiPickMatrix(props) {
     const [selections, setSelections] = useState(new Set(props.initialSelections))
 
     function valueClicked(value) {
-        console.log("Value Clicked: " + value)
         let selectionClicked = value
         let adjustedSelections = new Set([...selections])
         if (selections.has(selectionClicked)) {
@@ -21,25 +21,16 @@ export default function MultiPickMatrix(props) {
         }
     }
 
+
     function cellSelectionTable () {
         return <ColumnarMatrix values={props.allValues}
                                columns={props.columns}
                                onValueClicked={valueClicked}
                                valueRenderer={v => {
-                                   let classNames = ['indicator', 'selectable'];
-                                   let selected = ''
-                                   if (selections.has(v)) {
-                                       classNames.push('selected')
-                                       selected = 'selected'
-                                   }
-                                   return <span className={classNames.join(' ')}>
-                                        <img className='indicator' alt="Selected"
-                                             style={{width: 8, height: 8, verticalAlign: 'middle'}}
-                                             src='/circle-16.png'/>
-                                        &nbsp;<span className={selected}>
-                                       {props.valueRenderer(v)}</span></span>
-                                  }
-                               }
+                                   return <SelectableValue value={v}
+                                                           valueRenderer={props.valueRenderer}
+                                                           selected={selections.has(v)}/>;
+                               }}
         />
     }
     function currentSelectionSummary() {
