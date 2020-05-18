@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export default function useCollapsable(expandedComponent, collapsedComponent, className) {
+export default function useCollapsable(renderExpandedFunction, renderCollapsedFunction, className) {
     const [collapsed, setCollapsed] = useState(false)
     function expansionControl () {
         let image = collapsed ? '/collapsed.png' : '/expanded.png'
@@ -12,6 +12,7 @@ export default function useCollapsable(expandedComponent, collapsedComponent, cl
 
     return <div className={className}>
         <div style={{float: 'left'}}>{expansionControl()}</div>
-        <div>{collapsed ? collapsedComponent() : expandedComponent()}</div>
+        <div>{collapsed ? renderCollapsedFunction() : renderExpandedFunction()}</div>
     </div>
 }
+

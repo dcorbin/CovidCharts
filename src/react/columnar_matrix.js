@@ -3,10 +3,10 @@ import React from "react";
 export default function ColumnarMatrix(props) {
     function valueClicked(e) {
         e.preventDefault();
-        let selectionClicked = e.currentTarget.dataset.id
+        let clickedValue = e.currentTarget.dataset.id
 
         if (props.onValueClicked) {
-            props.onValueClicked(selectionClicked)
+            props.onValueClicked(clickedValue)
         }
     }
 
