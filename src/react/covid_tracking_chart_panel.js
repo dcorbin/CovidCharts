@@ -4,7 +4,7 @@ import MultiPickMatrix from "./multi_pick_matix";
 import {COVID_TRACKING_PROPERTIES} from "../covid_tracking_com/covid_tracking_com";
 import CovidTrackingData from "../covid_tracking_com/covid_tracking_data";
 import ArraySummary from "./array_summary";
-import SevenDayAverageChart from "./sevem _day_average_chart";
+import SevenDayAverageChart from "./seven _day_average_chart";
 
 export default function CovidTrackingChartPanel(props) {
     const [data, setData] = useState(null)
