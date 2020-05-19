@@ -4,7 +4,6 @@ import CovidTrackingData from "../covid_tracking_com/covid_tracking_data";
 import SevenDayAverageChart from "./seven _day_average_chart";
 import useStateSelection from "./hooks/use_state_selection";
 
-
 function multipleSelections(clickedValue, selections) {
     if (selections.some(p => p === clickedValue)) {
         selections.splice (selections.indexOf(clickedValue), 1);
@@ -24,9 +23,12 @@ export default function CovidTrackingChartPanel(props) {
         )
     },[])
 
+    let dataSeriesByState = data == null ? null : data.dataSeriesByState;
     let [stateSelectionDisplay, selectedStates, formattedStateList ] =
-        useStateSelection(props.initialStates, multipleSelections,
-        data == null ? null : data.dataSeriesByState)
+        useStateSelection(props.settings.states, multipleSelections,  dataSeriesByState, states => {
+            props.settings.states = states
+            props.onSettingsChange(props.settings)
+        })
 
     if (data == null) {
         return "Waiting for covidTrackingData fetch to complete..."

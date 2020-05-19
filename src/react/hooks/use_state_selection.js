@@ -5,7 +5,7 @@ import ColumnarMatrix from "../columnar_matrix";
 import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
 
-export default function useStateSelection(initialSelections, selectionStrategy, dataSeriesByState) {
+export default function useStateSelection(initialSelections, selectionStrategy, dataSeriesByState, onSettingsChange) {
     let stateTable = new StateTable();
 
     const [selectedStates, setSelectedStates] = useState(initialSelections)
@@ -13,6 +13,7 @@ export default function useStateSelection(initialSelections, selectionStrategy, 
     function matrixItemClicked(clickedValue) {
         let newSelections = selectionStrategy(clickedValue, [...selectedStates]);
         setSelectedStates(newSelections)
+        onSettingsChange(newSelections)
     }
 
     function renderDataSeriesWarnings(state) {

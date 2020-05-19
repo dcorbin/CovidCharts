@@ -14,23 +14,22 @@ function initialize() {
     function loadOrCreateSettings() {
         let settings = settings_store.load()
         if (settings == null) {
-            settings = new Settings()
-            settings_store.store(settings)
+            settings = Settings.defaultSettings()
         }
-        if (typeof settings.state === "string") {
-            settings = new Settings()
-            settings_store.store(settings)
-        }
+        settings_store.store(settings)
         return settings
     }
     let settings = loadOrCreateSettings();
-    let initialStates = settings.states
 
     let covidTracking = new ReadThroughCache(1000 * 60 * 60, new Clock(), new CovidTrackingCom())
     ReactDom.render(<div>
                         <CovidTrackingChartPanel dataProvider={covidTracking}
-                                                 initialStates={initialStates}
-                                                 onSettingsChange={newSettings => {settings_store.store(newSettings)}}
+                                                 settings={settings.covidTracking}
+                                                 onSettingsChange={newCovidTrackingSettings => {
+                                                     let settings = settings_store.load()
+                                                     settings.covidTracking =  newCovidTrackingSettings
+                                                     settings_store.store(settings)
+                                                 }}
                                     />
                         <Footer/>
                     </div>,
