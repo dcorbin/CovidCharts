@@ -18,7 +18,7 @@ export default function CovidTrackingChartPanel(props) {
 
     useEffect(() => {
         props.dataProvider.getData().then(d => {
-                setData(new CovidTrackingData(d))
+                setData(d)
             }
         )
     },[])

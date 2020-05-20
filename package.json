@@ -28,6 +28,7 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack-dev-server",
+    "release": "webpack -p",
     "build": "webpack"
   },
   "author": "",
