@@ -1,9 +1,6 @@
-Add USA
-
 Tie recalculating dataSeriesByState to cache reloads
 Mark states with significant data gaps (American Somoa)
 Control 7DayAvg/or not
-React
 Logarithmic Y-axis support
 
 Cache CT data

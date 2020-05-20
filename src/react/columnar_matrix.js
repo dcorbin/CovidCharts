@@ -27,23 +27,24 @@ export default function ColumnarMatrix(props) {
     }
 
     let cellStyle = {width: String(100/columns)+"%"}
-    return <table>
-        <tbody>{
-            rows.map((row, index) => {
-                return <tr key={index}>
-                    {
-                        row.map(value => {
-                            return <td
-                                data-id={value}
-                                onClick={valueClicked}
-                                style={cellStyle} key={value}>
-                                {props.valueRenderer(value)}
-                            </td>
-                        })
-                    }</tr>
-            })
+    return <div className='ColumnarMatrix'><table>
+            <tbody>{
+                rows.map((row, index) => {
+                    return <tr key={index}>
+                        {
+                            row.map(value => {
+                                return <td
+                                    data-id={value}
+                                    onClick={valueClicked}
+                                    style={cellStyle} key={value}>
+                                    {props.valueRenderer(value)}
+                                </td>
+                            })
+                        }</tr>
+                })
 
-        }
-        </tbody>
-    </table>
+            }
+            </tbody>
+        </table>
+    </div>
 }

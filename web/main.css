@@ -49,7 +49,24 @@ body {
     line-height: 20px;
 }
 
+.StateQuickPicker {
+    float: right;
+    background-color: lightblue;
+
+    text-decoration: underline;
+}
+.StateQuickPicker .quickpick {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.ColumnarMatrix {
+    float: left;
+    width: 85%;
+}
+
 .StateSelection {
+    overflow: auto;
     background-color: #e0e0e0   ;
 
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -58,6 +75,9 @@ body {
     font-variant: normal;
     font-weight: 400;
     line-height: 20px;
+}
+.StateSelection div.footer {
+    clear:both;
 }
 .StateSelection table {
     width: 95%;

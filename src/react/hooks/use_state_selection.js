@@ -4,6 +4,7 @@ import ArraySummary from "../array_summary";
 import ColumnarMatrix from "../columnar_matrix";
 import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
+import StateQuickPick from "../state_quick_pick";
 
 export default function useStateSelection(initialSelections, selectionStrategy, dataSeriesByState, onSettingsChange) {
     let stateTable = new StateTable();
@@ -37,21 +38,27 @@ export default function useStateSelection(initialSelections, selectionStrategy, 
     }
 
     function stateSelectionPanel() {
-        return <div>
-            <ColumnarMatrix values={stateTable.all_abbreviations()}
-                            columns={6}
-                            onValueClicked={matrixItemClicked}
-                            valueRenderer={value => {
-                                let selected = selectedStates.includes(value)
-                                return <SelectableValue value={value}
-                                                        valueRenderer={state => {
-                                                            return <span>{stateTable.fullName(state)}
-                                                                &nbsp; {renderDataSeriesWarnings(state)}</span>
-                                                        }}
-                                                        selected={selected}/>;
-                            }}
-            />
-            <div><img alt='No data on hospitalizations' style={{width: 12, height: 12, verticalAlign: 'middle'}}
+        return <div className='StateSelection'>
+            <div>
+                    <ColumnarMatrix values={stateTable.all_abbreviations()}
+                                    columns={6}
+                                    onValueClicked={matrixItemClicked}
+                                    valueRenderer={value => {
+                                        let selected = selectedStates.includes(value)
+                                        return <SelectableValue value={value}
+                                                                valueRenderer={state => {
+                                                                    return <span>{stateTable.fullName(state)}
+                                                                        &nbsp; {renderDataSeriesWarnings(state)}</span>
+                                                                }}
+                                                                selected={selected}/>;
+                                    }}
+                    />
+                <StateQuickPick onClick={(states) => {
+                    setSelectedStates(states);
+                    onSettingsChange(states)
+                }}/>
+            </div>
+            <div className='footer'><img alt='No data on hospitalizations' style={{width: 12, height: 12, verticalAlign: 'middle'}}
                       src={'/data/hospitalized.png'}/> No data for hospitalizations available
             </div>
 
