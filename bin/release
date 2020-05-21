@@ -1,0 +1,7 @@
+#!/bin/bash -x
+set -e
+rm -rf dist/*
+npm run release
+pushd dist
+rsync --delete -r * covid.dcorbin.com:/var/www/html
+popd

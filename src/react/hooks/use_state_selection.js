@@ -5,6 +5,8 @@ import ColumnarMatrix from "../columnar_matrix";
 import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
 import StateQuickPick from "../state_quick_pick";
+import {COVID_TRACKING_PROPERTIES, propertyDisplay} from "../../covid_tracking_com/covid_tracking_com";
+import DataIcon from "../data_icon";
 
 export default function useStateSelection(initialSelections, selectionStrategy, covidTrackingData, onSettingsChange) {
     let stateTable = new StateTable();
@@ -19,13 +21,25 @@ export default function useStateSelection(initialSelections, selectionStrategy, 
 
     function renderDataSeriesWarnings(state) {
         if (covidTrackingData === null) {
-            return null
+            return []
         }
-        if (!covidTrackingData.hasValidData(state, 'hospitalized')) {
-            return <img alt='No data on hospitalizations' style={{width: 12, height: 12, verticalAlign: 'middle'}}
-                        src={'/data/hospitalized.png'}/>
+        let warningIcons = []
+        let hasHospitalizationData = covidTrackingData.hasValidData(state, 'hospitalized');
+        if (!hasHospitalizationData) {
+            warningIcons.push(<DataIcon label='No data on hospitalizations'
+                        url={'/data/hospitalized.png'}/>)
         }
-        return null
+        let brokenProperties = []
+        COVID_TRACKING_PROPERTIES.forEach(propertyName => {
+        if (!covidTrackingData.isContinuous(state, propertyName)) {
+            if (hasHospitalizationData || propertyName !== 'hospitalized')
+                brokenProperties.push(propertyDisplay(propertyName))
+        }})
+        if (brokenProperties.length > 0) {
+            warningIcons.push(<DataIcon label={'Missing data: ' + brokenProperties.join(', ')}
+                                        url='/data/broken.svg'/>)
+        }
+        return warningIcons
     }
 
     function collapsedStateSelectionPanel() {
@@ -45,7 +59,7 @@ export default function useStateSelection(initialSelections, selectionStrategy, 
                                         return <SelectableValue value={value}
                                                                 valueRenderer={state => {
                                                                     return <span>{stateTable.fullName(state)}
-                                                                        &nbsp; {renderDataSeriesWarnings(state)}</span>
+                                                                        {renderDataSeriesWarnings(state)}</span>
                                                                 }}
                                                                 selected={selected}/>;
                                     }}
@@ -55,8 +69,15 @@ export default function useStateSelection(initialSelections, selectionStrategy, 
                     onSettingsChange(states)
                 }}/>
             </div>
-            <div className='footer'><img alt='No data on hospitalizations' style={{width: 12, height: 12, verticalAlign: 'middle'}}
-                      src={'/data/hospitalized.png'}/> No data for hospitalizations available
+
+            <div className='footer'>
+                <span><DataIcon url='/data/hospitalized.png'/>No data on hospitalizations.</span>
+                <span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                </span>
+                <span> <DataIcon url='/data/broken.svg'/> Some data is missing.</span>
             </div>
 
         </div>;

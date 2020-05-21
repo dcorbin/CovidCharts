@@ -1,5 +1,17 @@
 import CovidTrackingData from "./covid_tracking_data";
 import debugDataLog from "./debug_data_log";
+export function propertyDisplay(property) {
+    if (property === 'hospitalized') {
+        return 'Hospitalizations'
+    }
+    if (property === 'death') {
+        return 'Deaths'
+    }
+    if (property === 'positive') {
+        return 'Positives'
+    }
+    return "Unknown"
+}
 
 export var COVID_TRACKING_PROPERTIES = ['death', 'hospitalized', 'positive']
 export default class CovidTrackingCom {
