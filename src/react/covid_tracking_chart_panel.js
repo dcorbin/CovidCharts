@@ -12,8 +12,17 @@ function multipleSelections(clickedValue, selections) {
     return selections
 }
 
+
 export default function CovidTrackingChartPanel(props) {
     const [covidTrackingData, setCovidTrackingData] = useState(null)
+    const [nullStrategy, setNullStrategy] = useState(props.settings.nullStrategy)
+    function nullStrategyChanged(e) {
+        e.preventDefault();
+        let newValue = e.currentTarget.options[e.currentTarget.selectedIndex].value;
+        setNullStrategy(newValue)
+        props.settings.nullStrategy = newValue
+        props.onSettingsChange(props.settings)
+    }
 
     useEffect(() => {
         props.dataProvider.getData().then(d => {
@@ -33,11 +42,23 @@ export default function CovidTrackingChartPanel(props) {
     }
 
     return  <div>
-                {stateSelectionDisplay}
+                <div className='ControlPanel'>
+                    {stateSelectionDisplay}
+                    <div>
+                        <form>
+                            <label>Missing Data Strategy:</label>
+                            <select onChange={nullStrategyChanged} value={props.settings.nullStrategy}>
+                                <option value='none'>Do not plot</option>
+                                <option value='leadingNullAsZero'>Tread leading gaps as zeros</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
                 <div>
                     <SevenDayAverageChart rawDataPropertyNames={COVID_TRACKING_PROPERTIES}
                                           selectedStates={selectedStates}
                                           covidTrackingData={covidTrackingData}
+                                          nullStrategy={nullStrategy}
                                           subject={formattedStateList}/>
                 </div>
             </div>

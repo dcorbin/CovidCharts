@@ -1,6 +1,6 @@
 export default function dataDebugLog(label, records, state=null) {
     // if (state !== null) {
-    //     records = records.filter(r.state === state)
+    //     records = records.filter(r => r.state === state)
     // }
     //
     // console.log(label)

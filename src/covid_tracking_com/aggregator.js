@@ -1,5 +1,5 @@
 import {unique} from "../util/unique";
-import {datesAreEqual} from "../util/date_comparison";
+import {compare_dates, datesAreEqual} from "../util/date_comparison";
 
 export default class Aggregator {
     constructor(propertyNames) {
@@ -7,7 +7,9 @@ export default class Aggregator {
     }
     aggregate(records) {
         let propertyNames = this.propertyNames
-        return unique(records.map(r => r.date), datesAreEqual).map(date => {
+        let dates = unique(records.map(r => r.date), datesAreEqual);
+        let orderedDates = dates.sort(compare_dates);
+        return orderedDates.map(date => {
             function addRecords(accumulator, currentValue) {
                 function addValue(parent, accumulator, currentValue, property) {
                     let a = accumulator[property];

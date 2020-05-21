@@ -8,6 +8,12 @@ class Settings {
     }
 }
 
+function ensureNullStrategySet(settings) {
+    if (settings.covidTracking.nullStrategy === null) {
+        settings.covidTracking.nullStrategy = 'none'
+    }
+    return settings
+}
 class SettingsStore {
     constructor(storage) {
         this.storage = storage
@@ -33,10 +39,10 @@ class SettingsStore {
             if (item === null) {
                 return null
             } else {
-                return handleOldSettings.bind(this)(item)
+                return ensureNullStrategySet(handleOldSettings.bind(this)(item))
             }
         }
-        return JSON.parse(item)
+        return ensureNullStrategySet(JSON.parse(item))
     }
 
 }

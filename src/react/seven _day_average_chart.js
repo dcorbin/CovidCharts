@@ -6,6 +6,7 @@ import MultiLineChart from "./multi_line_chart";
 import React from "react";
 import PropTypes from 'prop-types'
 import dataDebugLog from "../covid_tracking_com/debug_data_log";
+import LeadingNullAsZeroConverter from "../covid_tracking_com/leading_null_as_zero_converter";
 
 export default function SevenDayAverageChart(props) {
     let selectedStates = props.selectedStates
@@ -20,6 +21,10 @@ export default function SevenDayAverageChart(props) {
     let dataToChart = props.covidTrackingData.records.filter(r =>  selectedStates.includes(r.state)).
         sort(compare_records_by_date)
     dataDebugLog("Normalized Data for " + selectedStates.join(',')+":\n", dataToChart)
+    if (props.nullStrategy === 'leadingNullAsZero') {
+        dataToChart = new LeadingNullAsZeroConverter(rawDataPropertyNames).convert(dataToChart)
+        dataDebugLog("leadingNullAsZero Data for " + selectedStates.join(',')+":\n", dataToChart)
+    }
     dataToChart = new Aggregator(rawDataPropertyNames).aggregate(dataToChart)
     dataDebugLog("Aggregated Data:\n", dataToChart)
     dataToChart = new DeltaDecorator().decorate(dataToChart)

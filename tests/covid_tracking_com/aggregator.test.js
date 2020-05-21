@@ -4,7 +4,6 @@ import {expect} from "@jest/globals";
 let date1 = new Date(2020, 4, 1);
 let date2 = new Date(2020, 4, 2);
 let date3 = new Date(2020, 4, 3);
-let date4 = new Date(2020, 4, 4);
 
 const aggregator = new Aggregator(["foo", "bar"])
 test('aggregation of single record', () => {
@@ -79,4 +78,17 @@ test("when a an undefined value is received", () => {
     ]
 
     expect(() => aggregator.aggregate(input)).toThrow(new Error("'bar' is undefined in one or more records."))
+})
+
+test("when a an two states start in different places", () => {
+    const input = [
+        { date: date2, state: 'AL', foo: 4, bar: 4},
+        { date: date1, state: 'GA', foo: 1, bar: 1},
+        { date: date2, state: 'GA', foo: 2, bar: 12},
+    ]
+
+    const output = aggregator.aggregate(input)
+
+    expect(output[0].date).toEqual(date1)
+    expect(output[1].date).toEqual(date2)
 })
