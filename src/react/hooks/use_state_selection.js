@@ -6,7 +6,7 @@ import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
 import StateQuickPick from "../state_quick_pick";
 
-export default function useStateSelection(initialSelections, selectionStrategy, dataSeriesByState, onSettingsChange) {
+export default function useStateSelection(initialSelections, selectionStrategy, covidTrackingData, onSettingsChange) {
     let stateTable = new StateTable();
 
     const [selectedStates, setSelectedStates] = useState(initialSelections)
@@ -18,13 +18,10 @@ export default function useStateSelection(initialSelections, selectionStrategy, 
     }
 
     function renderDataSeriesWarnings(state) {
-        if (dataSeriesByState === null) {
+        if (covidTrackingData === null) {
             return null
         }
-        let series = dataSeriesByState[state]
-        if (series == null)
-            return null
-        if (!series.includes('hospitalized')) {
+        if (!covidTrackingData.hasValidData(state, 'hospitalized')) {
             return <img alt='No data on hospitalizations' style={{width: 12, height: 12, verticalAlign: 'middle'}}
                         src={'/data/hospitalized.png'}/>
         }

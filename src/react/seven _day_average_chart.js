@@ -5,7 +5,7 @@ import SevenDayAverageDecorator from "../covid_tracking_com/seven_day_avg_decora
 import MultiLineChart from "./multi_line_chart";
 import React from "react";
 import PropTypes from 'prop-types'
-
+import dataDebugLog from "../covid_tracking_com/debug_data_log";
 
 export default function SevenDayAverageChart(props) {
     let selectedStates = props.selectedStates
@@ -14,14 +14,18 @@ export default function SevenDayAverageChart(props) {
     }
 
     let rawDataPropertyNames = props.rawDataPropertyNames.filter(name =>
-        selectedStates.every(state => props.covidTrackingData.dataSeriesByState[state].includes(name))
+        selectedStates.every(state => props.covidTrackingData.hasValidData(state,name))
     )
 
     let dataToChart = props.covidTrackingData.records.filter(r =>  selectedStates.includes(r.state)).
-    sort(compare_records_by_date)
+        sort(compare_records_by_date)
+    dataDebugLog("Normalized Data for " + selectedStates.join(',')+":\n", dataToChart)
     dataToChart = new Aggregator(rawDataPropertyNames).aggregate(dataToChart)
+    dataDebugLog("Aggregated Data:\n", dataToChart)
     dataToChart = new DeltaDecorator().decorate(dataToChart)
+    dataDebugLog("Data with Deltas:\n", dataToChart)
     dataToChart = new SevenDayAverageDecorator().decorate(dataToChart)
+    dataDebugLog("Data with 7-day Avg.:\n", dataToChart)
     return <MultiLineChart records={dataToChart} subject={props.subject}/>
 }
 

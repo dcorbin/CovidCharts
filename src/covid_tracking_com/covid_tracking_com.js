@@ -1,4 +1,5 @@
 import CovidTrackingData from "./covid_tracking_data";
+import debugDataLog from "./debug_data_log";
 
 export var COVID_TRACKING_PROPERTIES = ['death', 'hospitalized', 'positive']
 export default class CovidTrackingCom {
@@ -25,7 +26,7 @@ export default class CovidTrackingCom {
                 }
 
                 COVID_TRACKING_PROPERTIES.forEach(property => {
-                    return normalizedRecord[property] = normalizeNumber(record[property]);
+                    normalizedRecord[property] = normalizeNumber(record[property]);
                 })
                 return normalizedRecord
             })
@@ -34,7 +35,11 @@ export default class CovidTrackingCom {
         return fetch('https://covidtracking.com/api/v1/states/daily.json', {method: 'GET', })
             .then(response => response.json())
             .then(data => {
-                return new CovidTrackingData(normalize_data(data))
+                debugDataLog("Raw Data", data, 'AS')
+
+                let normalizedData = normalize_data(data);
+                debugDataLog("Raw Data", normalizedData, 'AS')
+                return new CovidTrackingData(normalizedData)
             })
             .catch((error) => {
                 console.error('Error fetching covidTrackingData:', error);
