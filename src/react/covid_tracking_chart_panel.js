@@ -1,8 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {COVID_TRACKING_PROPERTIES} from "../covid_tracking_com/covid_tracking_com";
 import SevenDayAverageChart from "./seven _day_average_chart";
 import useRegionSelection from "./hooks/use_region_selection";
 import {StateRegionSpec} from "../states";
+import DataLine from "../charting/data_line";
+const LINES = [
+    new DataLine('New Positives', 'left', 'blue', 'positive', r => {
+        return r.seven_day_averages.new_positives
+    }),
+    new DataLine('New Hospitalizations', 'right', '#cc9900', 'hospitalized', r => {
+        return r.seven_day_averages.new_hospitalizations
+    }),
+    new DataLine('New Deaths', 'right', 'red', 'death', r => {
+        return r.seven_day_averages.new_deaths
+    }),
+];
+
 
 function multipleSelections(clickedValue, selections) {
     if (selections.some(p => p === clickedValue)) {
@@ -13,42 +25,42 @@ function multipleSelections(clickedValue, selections) {
     return selections
 }
 
-
 export default function CovidTrackingChartPanel(props) {
-    const [covidTrackingData, setCovidTrackingData] = useState(null)
+    let regionSpec = new StateRegionSpec();
+    const [normalizedRecordSet, setNormalizedRecordSet] = useState(null)
     const [nullStrategy, setNullStrategy] = useState(props.settings.nullStrategy)
     function nullStrategyChanged(e) {
         e.preventDefault();
-        let newValue = e.currentTarget.options[e.currentTarget.selectedIndex].value;
-        setNullStrategy(newValue)
-        props.settings.nullStrategy = newValue
+        let newStrategy = e.currentTarget.options[e.currentTarget.selectedIndex].value;
+        setNullStrategy(newStrategy)
+        props.settings.nullStrategy = newStrategy
         props.onSettingsChange(props.settings)
     }
 
     useEffect(() => {
         props.dataProvider.getData().then(d => {
-                setCovidTrackingData(d)
+                setNormalizedRecordSet(d)
             }
         )
     },[])
-    let [stateSelectionDisplay, selectedStates, formattedStateList ] =
+    let [regionSelectionDisplay, selectedRegions, formattedRegionList ] =
         useRegionSelection(props.settings.states,
                                 multipleSelections,
-                                covidTrackingData,
-                                new StateRegionSpec(),
+                                normalizedRecordSet,
+                                regionSpec,
                 regions => {
                                     props.settings.states = regions
                                     props.onSettingsChange(props.settings)
                                 },
                                 )
 
-    if (covidTrackingData == null) {
-        return "Waiting for covidTrackingData fetch to complete..."
+    if (normalizedRecordSet == null) {
+        return "Waiting for normalizedRecordSet fetch to complete..."
     }
 
     return  <div>
                 <div className='ControlPanel'>
-                    {stateSelectionDisplay}
+                    {regionSelectionDisplay}
                     <div>
                         <form>
                             <label>Missing Data Strategy:</label>
@@ -60,11 +72,15 @@ export default function CovidTrackingChartPanel(props) {
                     </div>
                 </div>
                 <div>
-                    <SevenDayAverageChart rawDataPropertyNames={COVID_TRACKING_PROPERTIES}
-                                          selectedRegions={selectedStates}
-                                          covidTrackingData={covidTrackingData}
+                    <SevenDayAverageChart
+                                          lines={LINES}
+                                          selectedRegions={selectedRegions}
+                                          normalizedRecordSet={normalizedRecordSet}
                                           nullStrategy={nullStrategy}
-                                          subject={formattedStateList}/>
+                                          pluralRegion={regionSpec.pluralNoun}
+                                          subject={formattedRegionList}
+
+                    />
                 </div>
             </div>
 

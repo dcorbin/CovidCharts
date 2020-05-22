@@ -11,14 +11,14 @@ import LeadingNullAsZeroConverter from "../covid_tracking_com/leading_null_as_ze
 export default function SevenDayAverageChart(props) {
     let selectedRegions = props.selectedRegions
     if (selectedRegions.length === 0) {
-        return <h3>No States Selected</h3>
+        return <h3>No {props.pluralRegion} Selected</h3>
     }
 
-    let rawDataPropertyNames = props.rawDataPropertyNames.filter(name =>
-        selectedRegions.every(region => props.covidTrackingData.hasValidData(region,name))
+    let rawDataPropertyNames = props.lines.map(l => l.sourceProperty).filter(name =>
+        selectedRegions.every(region => props.normalizedRecordSet.hasValidData(region,name))
     )
 
-    let dataToChart = props.covidTrackingData.records.filter(r =>  selectedRegions.includes(r.region)).
+    let dataToChart = props.normalizedRecordSet.records.filter(r =>  selectedRegions.includes(r.region)).
         sort(compare_records_by_date)
     dataDebugLog("Normalized Data for " + selectedRegions.join(',')+":\n", dataToChart)
     if (props.nullStrategy === 'leadingNullAsZero') {
@@ -31,13 +31,16 @@ export default function SevenDayAverageChart(props) {
     dataDebugLog("Data with Deltas:\n", dataToChart)
     dataToChart = new SevenDayAverageDecorator().decorate(dataToChart)
     dataDebugLog("Data with 7-day Avg.:\n", dataToChart)
-    return <MultiLineChart records={dataToChart} subject={props.subject}/>
+    return <MultiLineChart records={dataToChart}
+                           subject={props.subject}
+                           lines = {props.lines} />
 }
 
 SevenDayAverageChart.propTypes = {
-    rawDataPropertyNames: PropTypes.array.isRequired,
+    lines: PropTypes.array.isRequired,
     selectedRegions: PropTypes.array.isRequired,
-    covidTrackingData: PropTypes.object.isRequired,
-    subject: PropTypes.string.isRequired
+    normalizedRecordSet: PropTypes.object.isRequired,
+    subject: PropTypes.string.isRequired,
+    pluralRegion: PropTypes.string.isRequired
 }
 

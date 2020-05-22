@@ -1,10 +1,11 @@
-import {COVID_TRACKING_PROPERTIES} from "./covid_tracking_com";
 import DataQualityAssessor from "./data_quality_assessor";
 
-export default class CovidTrackingData {
+export var STANDARD_DATA_PROPERTIES = ['death', 'hospitalized', 'positive']
+
+export default class NormalizedRecordSet {
     constructor(covidTrackingRecords) {
         this.records = covidTrackingRecords
-        this.dataSeriesQualityByRegion = new DataQualityAssessor(COVID_TRACKING_PROPERTIES).
+        this.dataSeriesQualityByRegion = new DataQualityAssessor(STANDARD_DATA_PROPERTIES).
             assessQuality(covidTrackingRecords)
     }
 

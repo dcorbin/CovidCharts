@@ -1,27 +1,15 @@
 import React from "react";
 import Chart from "react-google-charts";
-import DataLine from "../charting/data_line";
 import PropTypes from 'prop-types'
 
 export default class MultiLineChart extends React.Component {
     constructor(props) {
         super(props);
-        this.LINES = [
-            new DataLine('New Positives', 'left', 'blue', r => {
-                return r.seven_day_averages.new_positives
-            }),
-            new DataLine('New Hospitalizations', 'right', '#cc9900', r => {
-                return r.seven_day_averages.new_hospitalizations
-            }),
-            new DataLine('New Deaths', 'right', 'red', r => {
-                return r.seven_day_averages.new_deaths
-            }),
-        ];
     }
 
     render() {
         let records = this.props.records
-        let linesWithData = findLinesWithData(records, this.LINES)
+        let linesWithData = findLinesWithData(records, this.props.lines)
         let optionMaker = new GoogleChartOptionMaker()
         let chartRows = dataFormattedForGoogleCharts(records, linesWithData)
         let yAxisLabels = optionMaker.createYAxisLables(linesWithData);
@@ -81,7 +69,7 @@ MultiLineChart.propTypes = {
 }
 function dataFormattedForGoogleCharts(records, lines) {
     return records.map(r => {
-        let data = lines.map(line => line.valueExtractor(r))
+        let data = lines.map(line => line.sevenDayAvgValueExtractor(r))
         data.unshift(r.date)
         return data
     });
@@ -96,7 +84,7 @@ function findLinesWithData(records, lines) {
             })
         }
 
-        return hasData(records, line.valueExtractor);
+        return hasData(records, line.sevenDayAvgValueExtractor);
     });
 }
 

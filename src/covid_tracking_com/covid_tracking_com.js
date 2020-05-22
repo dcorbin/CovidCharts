@@ -1,4 +1,4 @@
-import CovidTrackingData from "./covid_tracking_data";
+import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./normalized_record_set";
 import debugDataLog from "./debug_data_log";
 export function propertyDisplay(property) {
     if (property === 'hospitalized') {
@@ -13,7 +13,6 @@ export function propertyDisplay(property) {
     return "Unknown"
 }
 
-export var COVID_TRACKING_PROPERTIES = ['death', 'hospitalized', 'positive']
 export default class CovidTrackingCom {
     getData() {
         function normalize_data(records) {
@@ -37,7 +36,7 @@ export default class CovidTrackingCom {
                     region: record.state
                 }
 
-                COVID_TRACKING_PROPERTIES.forEach(property => {
+                STANDARD_DATA_PROPERTIES.forEach(property => {
                     normalizedRecord[property] = normalizeNumber(record[property]);
                 })
                 return normalizedRecord
@@ -51,10 +50,10 @@ export default class CovidTrackingCom {
 
                 let normalizedData = normalize_data(data);
                 debugDataLog("Raw Data", normalizedData, 'AS')
-                return new CovidTrackingData(normalizedData)
+                return new NormalizedRecordSet(normalizedData)
             })
             .catch((error) => {
-                console.error('Error fetching covidTrackingData:', error);
+                console.error('Error fetching normalizedRecordSet:', error);
             });
     }
 }
