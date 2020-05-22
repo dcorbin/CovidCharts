@@ -12,6 +12,7 @@ export default function useRegionSelection(initialSelections,
                                            selectionStrategy,
                                            covidTrackingData,
                                            regionSpec,
+                                           allRegions,
                                            onSettingsChange,
                                            ) {
 
@@ -56,7 +57,7 @@ export default function useRegionSelection(initialSelections,
     function regionSelectionPanel() {
         return <div>
             <div>
-                    <ColumnarMatrix values={regionSpec.values}
+                    <ColumnarMatrix values={allRegions}
                                     columns={6}
                                     onValueClicked={matrixItemClicked}
                                     valueRenderer={value => {
