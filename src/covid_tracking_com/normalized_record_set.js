@@ -1,12 +1,14 @@
 import DataQualityAssessor from "./data_quality_assessor";
+import {unique} from "../util/unique";
 
 export var STANDARD_DATA_PROPERTIES = ['death', 'hospitalized', 'positive']
 
 export default class NormalizedRecordSet {
-    constructor(covidTrackingRecords) {
-        this.records = covidTrackingRecords
+    constructor(records) {
+        this.records = records
         this.dataSeriesQualityByRegion = new DataQualityAssessor(STANDARD_DATA_PROPERTIES).
-            assessQuality(covidTrackingRecords)
+            assessQuality(records)
+        this.regions = unique(this.records.map(record => record.region).sort())
     }
 
     hasValidData(region, propertyName) {

@@ -88,7 +88,6 @@ export class StateRegionSpec {
         let stateTable = new StateTable()
         this.singleNoun = 'state'
         this.pluralNoun = 'states'
-        this.values = stateTable.all_abbreviations()
         this.displayNameFor = function(state) {
             return stateTable.fullName(state)
         }

@@ -29,6 +29,7 @@ export default function CovidTrackingChartPanel(props) {
     let regionSpec = new StateRegionSpec();
     const [normalizedRecordSet, setNormalizedRecordSet] = useState(null)
     const [nullStrategy, setNullStrategy] = useState(props.settings.nullStrategy)
+    const [allRegions, setRegions] = useState([])
     function nullStrategyChanged(e) {
         e.preventDefault();
         let newStrategy = e.currentTarget.options[e.currentTarget.selectedIndex].value;
@@ -38,8 +39,9 @@ export default function CovidTrackingChartPanel(props) {
     }
 
     useEffect(() => {
-        props.dataProvider.getData().then(d => {
-                setNormalizedRecordSet(d)
+        props.dataProvider.getData().then(recordSet => {
+                setNormalizedRecordSet(recordSet)
+                setRegions(recordSet.regions)
             }
         )
     },[])
@@ -48,8 +50,9 @@ export default function CovidTrackingChartPanel(props) {
                                 multipleSelections,
                                 normalizedRecordSet,
                                 regionSpec,
-                regions => {
-                                    props.settings.states = regions
+                                allRegions,
+                newRegions => {
+                                    props.settings.states = newRegions
                                     props.onSettingsChange(props.settings)
                                 },
                                 )
