@@ -4,8 +4,9 @@ import ColumnarMatrix from "../columnar_matrix";
 import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
 import RegionQuickPick from "../region_quick_pick";
-import {COVID_TRACKING_PROPERTIES, propertyDisplay} from "../../covid_tracking_com/covid_tracking_com";
+import {propertyDisplay} from "../../covid_tracking_com/covid_tracking_com";
 import DataIcon from "../data_icon";
+import {STANDARD_DATA_PROPERTIES} from "../../covid_tracking_com/normalized_record_set";
 
 export default function useRegionSelection(initialSelections,
                                            selectionStrategy,
@@ -33,11 +34,12 @@ export default function useRegionSelection(initialSelections,
                         url={'/data/hospitalized.png'}/>)
         }
         let brokenProperties = []
-        COVID_TRACKING_PROPERTIES.forEach(propertyName => {
-        if (!covidTrackingData.isContinuous(region, propertyName)) {
-            if (hasHospitalizationData || propertyName !== 'hospitalized')
-                brokenProperties.push(propertyDisplay(propertyName))
-        }})
+        STANDARD_DATA_PROPERTIES.forEach(propertyName => {
+            if (!covidTrackingData.isContinuous(region, propertyName)) {
+                if (hasHospitalizationData || propertyName !== 'hospitalized')
+                    brokenProperties.push(propertyDisplay(propertyName))
+            }
+        })
         if (brokenProperties.length > 0) {
             warningIcons.push(<DataIcon key={'broken_' +  brokenProperties } label={'Missing data: ' + brokenProperties.join(', ')}
                                         url='/data/broken.svg'/>)
