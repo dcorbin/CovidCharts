@@ -49,13 +49,13 @@ body {
     line-height: 20px;
 }
 
-.StateQuickPicker {
+.QuickPicker {
     float: right;
     background-color: lightblue;
 
     text-decoration: underline;
 }
-.StateQuickPicker .quickpick {
+.QuickPicker .quickpick {
     margin: 5px;
     cursor: pointer;
 }
@@ -65,7 +65,7 @@ body {
     width: 85%;
 }
 
-.StateSelection {
+.RegionSelection {
     overflow: auto;
     background-color: #e0e0e0   ;
 
@@ -76,26 +76,26 @@ body {
     font-weight: 400;
     line-height: 20px;
 }
-.StateSelection div.footer {
+.RegionSelection div.footer {
     clear:both;
 }
-.StateSelection table {
+.RegionSelection table {
     width: 95%;
     margin: 4px;
 }
-.StateSelection .selected {
+.RegionSelection .selected {
     font-weight: bold;
 }
-.StateSelection tr .selected img.indicator {
+.RegionSelection tr .selected img.indicator {
     visibility: visible;
 }
-.StateSelection .selectable img.indicator {
+.RegionSelection .selectable img.indicator {
     visibility: hidden;
 }
-.StateSelection td {
+.RegionSelection td {
     cursor: pointer;
 }
-.StateSelection  td:hover {
+.RegionSelection  td:hover {
     background-color: #b4c5f6;
 }
 .expand-collapse-control {

@@ -66,7 +66,7 @@ function byName(a, b) {
 }
 
 
-class StateTable {
+export class StateTable {
     fullName(abbreviation) {
         let stateRecord = STATES.filter(s => s.abbreviation === abbreviation)[0];
         if (typeof stateRecord === "undefined") {
@@ -83,34 +83,57 @@ class StateTable {
     }
 }
 
-class State {
-    static populate_state_control(selected_state_abbreviation, changeCallback) {
-        let table = new StateTable()
-        let state_options = table.all().sort(byStateName).map(state => {
-            let selected = (state.abbreviation === selected_state_abbreviation) ? ' SELECTED' : ''
-            return "<option value='" + state.abbreviation + "' " + selected + ">" + state.name + "</option>"
-        })
-        let selectElement = document.getElementById('state');
-        selectElement.innerHTML = state_options.join("\n")
-        selectElement.onchange = changeCallback
-    }
-
-    static current_selected_state() {
-        let result = null
-        document.getElementById('state').childNodes.forEach(n => {
-            if (n.nodeType === Node.ELEMENT_NODE) {
-                if (n.nodeName === "OPTION") {
-                    if (n.selected) {
-                        result = n.value
-                    }
-                }
-            }
-        })
-        return result
+export class StateRegionSpec {
+    constructor() {
+        let stateTable = new StateTable()
+        this.singleNoun = 'state'
+        this.pluralNoun = 'states'
+        this.values = stateTable.all_abbreviations()
+        this.displayNameFor = function(state) {
+            return stateTable.fullName(state)
+        }
+        this.quickPicks = createQuickPicks(stateTable)
     }
 }
 
-export {State, StateTable }
+function createQuickPicks(stateTable) {
+    let allStates = stateTable.all();
+    let continentalStates = allStates.filter(s => s.continental)
+    return  [
+        {
+            key: 'none',
+            text: "None",
+            regions: []
+        },
+        {
+            key: 'southeast',
+            text: "Southeast",
+            regions:['FL', 'GA', 'SC', 'NC', 'AL', 'TN', 'KY', 'AR', 'MS', 'LA']
+        },
+        {
+            key: 'tri-state',
+            text: "Tri-state",
+            regions:['NY', 'NJ', 'CT']
+        },
+        {
+            key: 'usa',
+            text: "United States",
+            regions: allStates.map(s => s.abbreviation)},
+        {
+            key: 'continentalUs',
+            text: "Continental US",
+            regions: continentalStates.map(s => s.abbreviation)
+        },
+        {
+            key: 'continental-ny',
+            text: "Continental US w/o NY",
+            regions: allStates.map(s => s.abbreviation).
+            filter(s => s.abbreviation !== 'NY')
+        },
+    ]
+}
+
+
 
 
 

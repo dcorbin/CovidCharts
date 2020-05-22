@@ -1,11 +1,18 @@
 Control 7DayAvg/or not
 Logarithmic Y-axis support
 
-Cache CT data
 GA County Data
 Other CT data charts
 Image (download) Link
 
-Alternate State selection
+Add Bootstrap?
 
+Per Capita charts?
 Other calculated charts
+    Estimated Hospital usage
+    Estimated Active cases
+    Trend detection?
+    Ratios?
+    State vs State (one property)
+
+Dashboard building?

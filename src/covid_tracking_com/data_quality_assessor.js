@@ -49,11 +49,11 @@ export default class DataQualityAssessor {
         this.propertyNames = propertyNames
     }
     assessQuality(records) {
-        let states = unique(records.map(r => r.state)).sort()
+        let regions = unique(records.map(r => r.region)).sort()
         let result = new Map()
-        states.forEach(state => {
-            let stateQuality = assessQualityForState(records.filter(r => r.state === state), this.propertyNames, `STATE=${state}`);
-            result.set(state, stateQuality)
+        regions.forEach(region => {
+            let regionQuality = assessQualityForState(records.filter(r => r.region === region), this.propertyNames, `STATE=${region}`);
+            result.set(region, regionQuality)
         })
         return result
     }

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {COVID_TRACKING_PROPERTIES} from "../covid_tracking_com/covid_tracking_com";
 import SevenDayAverageChart from "./seven _day_average_chart";
-import useStateSelection from "./hooks/use_state_selection";
+import useRegionSelection from "./hooks/use_region_selection";
+import {StateRegionSpec} from "../states";
 
 function multipleSelections(clickedValue, selections) {
     if (selections.some(p => p === clickedValue)) {
@@ -30,12 +31,16 @@ export default function CovidTrackingChartPanel(props) {
             }
         )
     },[])
-
     let [stateSelectionDisplay, selectedStates, formattedStateList ] =
-        useStateSelection(props.settings.states, multipleSelections,  covidTrackingData, states => {
-            props.settings.states = states
-            props.onSettingsChange(props.settings)
-        })
+        useRegionSelection(props.settings.states,
+                                multipleSelections,
+                                covidTrackingData,
+                                new StateRegionSpec(),
+                regions => {
+                                    props.settings.states = regions
+                                    props.onSettingsChange(props.settings)
+                                },
+                                )
 
     if (covidTrackingData == null) {
         return "Waiting for covidTrackingData fetch to complete..."
@@ -56,7 +61,7 @@ export default function CovidTrackingChartPanel(props) {
                 </div>
                 <div>
                     <SevenDayAverageChart rawDataPropertyNames={COVID_TRACKING_PROPERTIES}
-                                          selectedStates={selectedStates}
+                                          selectedRegions={selectedStates}
                                           covidTrackingData={covidTrackingData}
                                           nullStrategy={nullStrategy}
                                           subject={formattedStateList}/>

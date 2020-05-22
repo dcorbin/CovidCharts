@@ -4,14 +4,14 @@ import DataQualityAssessor from "./data_quality_assessor";
 export default class CovidTrackingData {
     constructor(covidTrackingRecords) {
         this.records = covidTrackingRecords
-        this.dataSeriesQualityByState = new DataQualityAssessor(COVID_TRACKING_PROPERTIES).
+        this.dataSeriesQualityByRegion = new DataQualityAssessor(COVID_TRACKING_PROPERTIES).
             assessQuality(covidTrackingRecords)
     }
 
-    hasValidData(state, propertyName) {
-        return this.dataSeriesQualityByState.get(state).get(propertyName).validDataStartingAt !== null
+    hasValidData(region, propertyName) {
+        return this.dataSeriesQualityByRegion.get(region).get(propertyName).validDataStartingAt !== null
     }
-    isContinuous(state, propertyName) {
-        return this.dataSeriesQualityByState.get(state).get(propertyName).continuous
+    isContinuous(region, propertyName) {
+        return this.dataSeriesQualityByRegion.get(region).get(propertyName).continuous
     }
 }

@@ -6,10 +6,10 @@ export default class LeadingNullAsZeroConverter {
         this.propertyNames = propertyNames
     }
     convert(records) {
-        let states = unique(records.map(r => r.state)).sort()
-        let result = states.map(s => {
+        let regions = unique(records.map(r => r.region)).sort()
+        let result = regions.map(region => {
             let inLeadingNullRunByProperty = new Map(this.propertyNames.map(p => [p, true]))
-            let sortedStateRecords = records.filter(r => r.state === s).sort(compare_records_by_date);
+            let sortedStateRecords = records.filter(r => r.region === region).sort(compare_records_by_date);
             return sortedStateRecords.map(r => {
                 let result = {...r}
                 this.propertyNames.forEach(p => {

@@ -1,6 +1,6 @@
-export default function dataDebugLog(label, records, state=null) {
-    // if (state !== null) {
-    //     records = records.filter(r => r.state === state)
+export default function dataDebugLog(label, records, region=null) {
+    // if (region !== null) {
+    //     records = records.filter(r => r.region === region)
     // }
     //
     // console.log(label)

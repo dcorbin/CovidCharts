@@ -34,7 +34,7 @@ export default class CovidTrackingCom {
 
                 let normalizedRecord = {
                     date: date_from_8digit_integer(record.date),
-                    state: record.state
+                    region: record.state
                 }
 
                 COVID_TRACKING_PROPERTIES.forEach(property => {
