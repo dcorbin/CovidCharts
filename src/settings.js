@@ -8,12 +8,6 @@ class Settings {
     }
 }
 
-function ensureNullStrategySet(settings) {
-    if (settings.covidTracking.nullStrategy === null) {
-        settings.covidTracking.nullStrategy = 'none'
-    }
-    return settings
-}
 class SettingsStore {
     constructor(storage) {
         this.storage = storage
@@ -24,6 +18,16 @@ class SettingsStore {
     }
 
     load() {
+        function ensureSettingsCurrent(settings) {
+            if (!settings.covidTracking.nullStrategy) {
+                settings.covidTracking.nullStrategy = 'none'
+            }
+            if (!settings.georgia) {
+                settings.georgia = {counties: [], nullStrategy: 'none'}
+            }
+            return settings
+        }
+
         function handleOldSettings(json) {
             console.log("Migrating old settings: " + json)
             let oldSettings = JSON.parse(json)
@@ -39,10 +43,10 @@ class SettingsStore {
             if (item === null) {
                 return null
             } else {
-                return ensureNullStrategySet(handleOldSettings.bind(this)(item))
+                return ensureSettingsCurrent(handleOldSettings.bind(this)(item))
             }
         }
-        return ensureNullStrategySet(JSON.parse(item))
+        return ensureSettingsCurrent(JSON.parse(item))
     }
 
 }

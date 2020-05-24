@@ -15,7 +15,32 @@ class Warning {
     }
 }
 
-export var STANDARD_DATA_PROPERTIES = ['death', 'hospitalized', 'positive']
+
+function buildWarningsByRegion(recordSet) {
+    function calculateDataSeriesWarningsFor(region) {
+        let warnings = []
+        let hasHospitalizationData = recordSet.hasValidData(region, 'hospitalized');
+        if (!hasHospitalizationData) {
+            warnings.push(Warning.noHospitalization())
+        }
+        let brokenProperties = []
+        STANDARD_DATA_PROPERTIES.forEach(propertyName => {
+            if (!recordSet.isContinuous(region, propertyName)) {
+                if (hasHospitalizationData || propertyName !== 'hospitalized')
+                    brokenProperties.push(propertyDisplay(propertyName))
+            }
+        })
+        if (brokenProperties.length > 0) {
+            warnings.push(Warning.brokenDataLines(brokenProperties))
+        }
+        return warnings
+    }
+    let warningsByRegion = new Map()
+    recordSet.regions.forEach(region => {
+        return warningsByRegion.set(region, calculateDataSeriesWarningsFor(region));
+    })
+    return warningsByRegion;
+}
 
 export default class NormalizedRecordSet {
     constructor(records) {
@@ -50,4 +75,19 @@ export default class NormalizedRecordSet {
         return unique(warnings.flat().map(w => w.type));
     };
 
+}
+
+export var STANDARD_DATA_PROPERTIES = ['death', 'hospitalized', 'positive']
+
+export function propertyDisplay(property) {
+    if (property === 'hospitalized') {
+        return 'Hospitalizations'
+    }
+    if (property === 'death') {
+        return 'Deaths'
+    }
+    if (property === 'positive') {
+        return 'Positives'
+    }
+    return "Unknown"
 }

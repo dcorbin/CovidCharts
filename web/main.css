@@ -76,14 +76,14 @@ body {
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
-    line-height: 20px;
+    line-height: 14px;
 }
 .RegionSelection div.footer {
     clear:both;
 }
 .RegionSelection table {
-    width: 95%;
-    margin: 4px;
+    width: 100%;
+    margin: 2px;
 }
 .RegionSelection .selected {
     /*font-weight: bold;*/

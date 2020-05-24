@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import SevenDayAverageChart from "./seven _day_average_chart";
 import useRegionSelection from "./hooks/use_region_selection";
-import {StateRegionSpec} from "../states";
 import DataLine from "../charting/data_line";
+import NormalizedRecordSet from "../covid_tracking_com/normalized_record_set";
 const LINES = [
     new DataLine('New Positives', 'left', 'blue', 'positive', r => {
         return r.seven_day_averages.new_positives
@@ -15,7 +15,6 @@ const LINES = [
     }),
 ];
 
-
 function multipleSelections(clickedValue, selections) {
     if (selections.some(p => p === clickedValue)) {
         selections.splice (selections.indexOf(clickedValue), 1);
@@ -25,9 +24,8 @@ function multipleSelections(clickedValue, selections) {
     return selections
 }
 
-export default function CovidTrackingChartPanel(props) {
-    let regionSpec = new StateRegionSpec();
-    const [normalizedRecordSet, setNormalizedRecordSet] = useState(null)
+export default function ChartPanel(props) {
+    const [normalizedRecordSet, setNormalizedRecordSet] = useState(new NormalizedRecordSet([]))
     const [nullStrategy, setNullStrategy] = useState(props.settings.nullStrategy)
     const [allRegions, setRegions] = useState([])
     function nullStrategyChanged(e) {
@@ -60,19 +58,20 @@ export default function CovidTrackingChartPanel(props) {
         )
     },[])
     let [regionSelectionDisplay, selectedRegions, formattedRegionList ] =
-        useRegionSelection(props.settings.states,
+        useRegionSelection(props.initialSelections,
                                 multipleSelections,
                                 normalizedRecordSet,
-                                regionSpec,
+                                props.regionSpec,
                                 allRegions,
+                                props.columns,
                 newRegions => {
                                     props.settings.states = newRegions
                                     props.onSettingsChange(props.settings)
                                 },
                                 )
 
-    if (normalizedRecordSet == null) {
-        return "Waiting for normalizedRecordSet fetch to complete..."
+    if (normalizedRecordSet.isEmpty()) {
+        return "Waiting for data fetch to complete..."
     }
 
     return  <div>

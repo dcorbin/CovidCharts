@@ -1,17 +1,5 @@
 import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./normalized_record_set";
 import debugDataLog from "./debug_data_log";
-export function propertyDisplay(property) {
-    if (property === 'hospitalized') {
-        return 'Hospitalizations'
-    }
-    if (property === 'death') {
-        return 'Deaths'
-    }
-    if (property === 'positive') {
-        return 'Positives'
-    }
-    return "Unknown"
-}
 
 export default class CovidTrackingCom {
     getData() {

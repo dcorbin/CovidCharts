@@ -6,11 +6,34 @@ import useCollapsable from "./use_collapsable";
 import RegionQuickPick from "../region_quick_pick";
 import DataIcon from "../data_icon";
 
+class WarningRenderer {
+    static footerFor(type) {
+        if (type === 'noHosp') {
+            return <span key={type}><DataIcon url='/data/hospitalized.png'/>No data on hospitalizations. &nbsp;</span>
+        }
+        if (type === 'broken') {
+            return <span key={type}> <DataIcon url='/data/broken.svg'/> Some data is missing. &nbsp;</span>
+        }
+        return null
+    }
+    static renderIcon(warning) {
+        if (warning.type === 'noHosp') {
+            return <DataIcon key="no_hosp" label='No data on hospitalizations'
+                              url={'/data/hospitalized.png'}/>
+        }
+        if (warning.type === 'broken') {
+            return <DataIcon key={'broken'} label={'Missing data: ' + warning.renderingDetails.join(', ')}
+                             url='/data/broken.svg'/>
+        }
+        return null
+    }
+}
 export default function useRegionSelection(initialSelections,
                                            selectionStrategy,
                                            recordSet,
                                            regionSpec,
                                            allRegions,
+                                           columns,
                                            onSettingsChange,
                                            ) {
 
@@ -22,29 +45,6 @@ export default function useRegionSelection(initialSelections,
         onSettingsChange(newSelections)
     }
 
-    function renderDataSeriesWarnings(region) {
-        if (covidTrackingData === null) {
-            return []
-        }
-        let warningIcons = []
-        let hasHospitalizationData = covidTrackingData.hasValidData(region, 'hospitalized');
-        if (!hasHospitalizationData) {
-            warningIcons.push(<DataIcon key="no_hosp" label='No data on hospitalizations'
-                        url={'/data/hospitalized.png'}/>)
-        }
-        let brokenProperties = []
-        STANDARD_DATA_PROPERTIES.forEach(propertyName => {
-            if (!covidTrackingData.isContinuous(region, propertyName)) {
-                if (hasHospitalizationData || propertyName !== 'hospitalized')
-                    brokenProperties.push(propertyDisplay(propertyName))
-            }
-        })
-        if (brokenProperties.length > 0) {
-            warningIcons.push(<DataIcon key={'broken_' +  brokenProperties } label={'Missing data: ' + brokenProperties.join(', ')}
-                                        url='/data/broken.svg'/>)
-        }
-        return warningIcons
-    }
 
     function collapsedRegionSelectionPanel() {
         return <ArraySummary singleNoun={regionSpec.singleNoun}
@@ -52,22 +52,27 @@ export default function useRegionSelection(initialSelections,
                              values={selectedRegions.map(s => regionSpec.displayNameFor(s))}/>
     }
 
+    function renderWarningFooters() {
+        let uniqueTypes = recordSet.warningTypes();
+        return uniqueTypes.map(type => WarningRenderer.footerFor(type))
+    }
+
     function regionSelectionPanel() {
-        return <div>
-            <div>
-                    <ColumnarMatrix values={allRegions}
-                                    columns={6}
-                                    onValueClicked={matrixItemClicked}
-                                    valueRenderer={value => {
-                                        let selected = selectedRegions.includes(value)
-                                        return <SelectableValue value={value}
-                                                                valueRenderer={region => {
-                                                                    return <span>{regionSpec.displayNameFor(region)}
-                                                                        {renderDataSeriesWarnings(region)}</span>
-                                                                }}
-                                                                selected={selected}/>;
-                                    }}
-                    />
+        let footers = renderWarningFooters();
+        return <div className='RegionSelection'>
+            <div className='RegionSelectionMain'>
+                <ColumnarMatrix values={allRegions}
+                                columns={columns}
+                                onValueClicked={matrixItemClicked}
+                                valueRenderer={value => {
+                                    let selected = selectedRegions.includes(value)
+                                    return <SelectableValue value={value}
+                                                            valueRenderer={region => {
+                                                                return <span>{regionSpec.displayNameFor(region)}{recordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
+                                                            }}
+                                                            selected={selected}/>;
+                                }}
+                />
                 <RegionQuickPick quickPicks={regionSpec.quickPicks}
                                  regions={allRegions}
                                  onClick={(regions) => {
@@ -75,16 +80,8 @@ export default function useRegionSelection(initialSelections,
                                      onSettingsChange(regions)
                                  }}/>
             </div>
-
-            <div className='footer'>
-                <span><DataIcon url='/data/hospitalized.png'/>No data on hospitalizations.</span>
-                <span>
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                </span>
-                <span> <DataIcon url='/data/broken.svg'/> Some data is missing.</span>
-            </div>
+            <div>&nbsp;</div>
+            <div className='footer'> {footers}</div>
 
         </div>;
     }
