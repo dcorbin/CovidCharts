@@ -1,7 +1,9 @@
 import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./covid_tracking_com/normalized_record_set";
 
+import React from 'react'
 
-
+const NON_RESIDENT_CODE = '~ngr';
+const UNKNOWN_CODE = '~unknown';
 export default class GeorgiaByCounty {
     getData() {
         function normalize_data(records) {
@@ -19,7 +21,10 @@ export default class GeorgiaByCounty {
                     region: record.county
                 }
                 if (normalizedRecord.region === "Non-Georgia Resident") {
-                    normalizedRecord.region = "NGR"
+                    normalizedRecord.region = NON_RESIDENT_CODE
+                }
+                if (normalizedRecord.region === "Unknown") {
+                    normalizedRecord.region = UNKNOWN_CODE
                 }
 
                 STANDARD_DATA_PROPERTIES.forEach(property => {
@@ -47,6 +52,12 @@ export class CountyRegionSpec {
         this.singleNoun = 'county'
         this.pluralNoun = 'counties'
         this.displayNameFor = function(region) {
+            if (region === NON_RESIDENT_CODE) {
+                return <i>Non-resident</i>
+            }
+            if (region === UNKNOWN_CODE) {
+                return <i>Unknown</i>
+            }
             return region
         }
         this.quickPicks = createQuickPicks()
@@ -60,14 +71,20 @@ function createQuickPicks() {
             regions: []
         },
         {
+            key: 'georgia',
+            text: "Georgia",
+            regions: null,
+            regionsFilter: r => r === NON_RESIDENT_CODE
+        },
+        {
             key: 'atlanta',
             text: "Atlanta",
-            regions: ['Fulton', 'Dekalb']
+            regions: ['Fulton', 'DeKalb']
         },
         {
             key: 'atlanta5',
             text: "Metro Atlanta (5)",
-            regions: ['Fulton', 'Dekalb', 'Gwinett', 'Clayton', 'Cobb']
+            regions: ['Fulton', 'DeKalb', 'Gwinnett', 'Clayton', 'Cobb']
         },
         {
             key: 'atlanta-masa',

@@ -69,6 +69,7 @@ export default function useRegionSelection(initialSelections,
                                     }}
                     />
                 <RegionQuickPick quickPicks={regionSpec.quickPicks}
+                                 regions={allRegions}
                                  onClick={(regions) => {
                                      setSelectedRegions(regions)
                                      onSettingsChange(regions)
