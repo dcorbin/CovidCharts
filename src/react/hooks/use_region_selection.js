@@ -70,9 +70,9 @@ export default function useRegionSelection(initialSelections,
                     />
                 <RegionQuickPick quickPicks={regionSpec.quickPicks}
                                  onClick={(regions) => {
-                                    setSelectedRegions(regions)
-                                    onSettingsChange(regions)
-                                }}/>
+                                     setSelectedRegions(regions)
+                                     onSettingsChange(regions)
+                                 }}/>
             </div>
 
             <div className='footer'>

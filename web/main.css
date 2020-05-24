@@ -50,19 +50,21 @@ body {
 }
 
 .QuickPicker {
-    float: right;
     background-color: lightblue;
 
     text-decoration: underline;
+}
+.ColumnarMatrix {
+    width: 100%;
 }
 .QuickPicker .quickpick {
     margin: 5px;
     cursor: pointer;
 }
 
-.ColumnarMatrix {
-    float: left;
-    width: 85%;
+.RegionSelectionMain {
+    display:grid;
+    grid-template-columns: 6fr 1fr;
 }
 
 .RegionSelection {
@@ -84,7 +86,7 @@ body {
     margin: 4px;
 }
 .RegionSelection .selected {
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 .RegionSelection tr .selected img.indicator {
     visibility: visible;
@@ -94,6 +96,7 @@ body {
 }
 .RegionSelection td {
     cursor: pointer;
+    min-width: 140px
 }
 .RegionSelection  td:hover {
     background-color: #b4c5f6;

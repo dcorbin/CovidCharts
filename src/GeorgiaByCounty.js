@@ -1,5 +1,7 @@
 import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./covid_tracking_com/normalized_record_set";
 
+
+
 export default class GeorgiaByCounty {
     getData() {
         function normalize_data(records) {
@@ -40,7 +42,6 @@ export default class GeorgiaByCounty {
     }
 }
 
-
 export class CountyRegionSpec {
     constructor() {
         this.singleNoun = 'county'
@@ -51,13 +52,88 @@ export class CountyRegionSpec {
         this.quickPicks = createQuickPicks()
     }
 }
-
 function createQuickPicks() {
     return [
         {
             key: 'none',
             text: "None",
             regions: []
+        },
+        {
+            key: 'atlanta',
+            text: "Atlanta",
+            regions: ['Fulton', 'Dekalb']
+        },
+        {
+            key: 'atlanta5',
+            text: "Metro Atlanta (5)",
+            regions: ['Fulton', 'Dekalb', 'Gwinett', 'Clayton', 'Cobb']
+        },
+        {
+            key: 'atlanta-masa',
+            text: "Metro Atlanta Statistical Area",
+            regions: [
+                "Fulton",
+                "Gwinnett",
+                "Cobb",
+                "DeKalb",
+                "Clayton",
+                "Cherokee",
+                "Forsyth",
+                "Henry",
+                "Paulding",
+                "Coweta",
+                "Douglas",
+                "Carroll",
+                "Fayette",
+                "Newton",
+                "Bartow",
+                "Walton",
+                "Rockdale",
+                "Barrow",
+                "Spalding",
+                "Pickens",
+                "Haralson",
+                "Dawson",
+                "Butts",
+                "Meriwether",
+                "Lamar",
+                "Morgan",
+                "Pike",
+                "Jasper",
+                "Heard",
+            ]
+        },
+        {
+            key: 'athens-clark-metro',
+            text: "Athens/Clarke County Area",
+            regions: [
+                "Clarke",
+                "Madison",
+                "Oconee",
+                "Oglethorpe",
+            ]
+        },
+        {
+            key: 'dougherty',
+            text: "Dougherty 'metro'",
+            regions: [
+                "Dougherty",
+                "Lee",
+                "Terrell",
+                "Baker",
+                "Mitchell",
+                "Worth",
+            ]
+        },
+        {
+            key: 'hall+',
+            text: "Hall county plus",
+            regions: [
+                "Hall",
+                "White",
+                "Habersham",
+            ]
         },
     ]
 }

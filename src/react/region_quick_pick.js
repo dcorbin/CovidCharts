@@ -9,7 +9,7 @@ export default function RegionQuickPick(props) {
 
        props.quickPicks.map(p => {
             return <div key={p.key}  className='quickpick' onClick={() => clicked(p)}>
-                {p.text}
+                • {p.text}
             </div>
         })
     }
