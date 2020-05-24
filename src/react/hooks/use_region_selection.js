@@ -4,13 +4,11 @@ import ColumnarMatrix from "../columnar_matrix";
 import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
 import RegionQuickPick from "../region_quick_pick";
-import {propertyDisplay} from "../../covid_tracking_com/covid_tracking_com";
 import DataIcon from "../data_icon";
-import {STANDARD_DATA_PROPERTIES} from "../../covid_tracking_com/normalized_record_set";
 
 export default function useRegionSelection(initialSelections,
                                            selectionStrategy,
-                                           covidTrackingData,
+                                           recordSet,
                                            regionSpec,
                                            allRegions,
                                            onSettingsChange,

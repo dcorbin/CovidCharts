@@ -38,6 +38,20 @@ export default function CovidTrackingChartPanel(props) {
         props.onSettingsChange(props.settings)
     }
 
+    function renderNullStrategyControl() {
+        if (normalizedRecordSet.hasWarning('broken')) {
+            return <div>
+                <form>
+                    <label>Missing Data Strategy:</label>
+                    <select onChange={nullStrategyChanged} value={props.settings.nullStrategy}>
+                        <option value='none'>Do not plot</option>
+                        <option value='leadingNullAsZero'>Tread leading gaps as zeros</option>
+                    </select>
+                </form>
+            </div>;
+        }
+    }
+
     useEffect(() => {
         props.dataProvider.getData().then(recordSet => {
                 setNormalizedRecordSet(recordSet)
@@ -62,30 +76,22 @@ export default function CovidTrackingChartPanel(props) {
     }
 
     return  <div>
-                <div className='ControlPanel'>
-                    {regionSelectionDisplay}
-                    <div>
-                        <form>
-                            <label>Missing Data Strategy:</label>
-                            <select onChange={nullStrategyChanged} value={props.settings.nullStrategy}>
-                                <option value='none'>Do not plot</option>
-                                <option value='leadingNullAsZero'>Tread leading gaps as zeros</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
-                <div>
-                    <SevenDayAverageChart
-                                          lines={LINES}
-                                          selectedRegions={selectedRegions}
-                                          normalizedRecordSet={normalizedRecordSet}
-                                          nullStrategy={nullStrategy}
-                                          pluralRegion={regionSpec.pluralNoun}
-                                          subject={formattedRegionList}
+        <div className='ControlPanel'>
+            {regionSelectionDisplay}
+            {renderNullStrategyControl()}
+        </div>
+        <div>
+            <SevenDayAverageChart
+                lines={LINES}
+                selectedRegions={selectedRegions}
+                normalizedRecordSet={normalizedRecordSet}
+                nullStrategy={nullStrategy}
+                pluralRegion={props.regionSpec.pluralNoun}
+                subject={formattedRegionList}
 
-                    />
-                </div>
-            </div>
+            />
+        </div>
+    </div>
 
 }
 
