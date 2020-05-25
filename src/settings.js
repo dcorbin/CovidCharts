@@ -22,6 +22,9 @@ class SettingsStore {
             if (!settings.covidTracking.nullStrategy) {
                 settings.covidTracking.nullStrategy = 'none'
             }
+            if (settings.covidTracking) {
+                settings.covidTracking.states = settings.covidTracking.states.filter(e => e !== null)
+            }
             if (!settings.georgia) {
                 settings.georgia = {counties: [], nullStrategy: 'none'}
             }
