@@ -1,10 +1,11 @@
 class Settings {
     static defaultSettings() {
-        return new Settings({states: ['GA']})
+        return new Settings({states: ['GA']},  {counties: [], nullStrategy: 'none'})
     }
 
-    constructor(covidTracking) {
+    constructor(covidTracking, georgia) {
         this.covidTracking = covidTracking
+        this.georgia = georgia
     }
 }
 
@@ -14,7 +15,7 @@ class SettingsStore {
     }
 
     store(settings) {
-        this.storage.setItem('settings.v2', JSON.stringify(settings))
+        this.storage.setItem('settings.v3', JSON.stringify(settings))
     }
 
     load() {
@@ -40,7 +41,7 @@ class SettingsStore {
             }
         }
 
-        let item = this.storage.getItem('settings.v2')
+        let item = this.storage.getItem('settings.v3')
         if (item === null) {
             let item = this.storage.getItem('settings')
             if (item === null) {
