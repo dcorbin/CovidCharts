@@ -54,7 +54,7 @@ function initialize() {
                                 initialSelections={settings.covidTracking.states}
                                 regionSpec={new StateRegionSpec()}
                                 settings={settings.covidTracking}
-                                columns={8}
+                                columns={6}
                                 onSettingsChange={createSettingsChangeHandler('covidTracking')}/>
                      <Footer source={<a href="https://covidtracking.com">covidtracking.com</a>}/>
                 </TabPanel>
@@ -63,7 +63,7 @@ function initialize() {
                                 initialSelections={settings.georgia.counties}
                                 regionSpec={new CountyRegionSpec()}
                                 settings={settings.georgia}
-                                columns={10}
+                                columns={8}
                                 onSettingsChange={createSettingsChangeHandler('georgia')}/>
                     <Footer source={<a href="https://dph.georgia.gov/covid-19-daily-status-report">Georgia Department of Public Health</a>}/>
                 </TabPanel>
