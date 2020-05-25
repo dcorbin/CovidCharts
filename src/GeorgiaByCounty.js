@@ -74,7 +74,7 @@ function createQuickPicks() {
             key: 'georgia',
             text: "Georgia",
             regions: null,
-            regionsFilter: r => r === NON_RESIDENT_CODE
+            regionsFilter: r => r !== NON_RESIDENT_CODE
         },
         {
             key: 'atlanta',
