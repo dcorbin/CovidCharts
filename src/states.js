@@ -1,3 +1,5 @@
+import US from "Maps/US";
+
 const STATES = [
     {"name": "Alabama", "abbreviation": "AL", actualState: true, continental: true },
     {"name": "Alaska", "abbreviation": "AK", actualState: true, continental: false },
@@ -9,10 +11,10 @@ const STATES = [
     {"name": "Delaware", "abbreviation": "DE", actualState: true, continental: true },
     {"name": "District of Columbia", "abbreviation": "DC", actualState: false, continental: true },
     {"name": "Puerto Rico", "abbreviation": "PR", actualState: false, continental: false },
-    {"name": "U.S. Virgin Islands", "abbreviation": "VI", actualState: false, continental: false },
+    {"name": "U.S. Virgin Is.", "abbreviation": "VI", actualState: false, continental: false },
     {"name": "American Samoa", "abbreviation": "AS", actualState: false, continental: false },
     {"name": "Guam", "abbreviation": "GU", actualState: false, continental: false },
-    {"name": "N. Mariana Islands", "abbreviation": "MP", actualState: false, continental: false },
+    {"name": "N. Mariana Is.", "abbreviation": "MP", actualState: false, continental: false },
     {"name": "Florida", "abbreviation": "FL", actualState: true, continental: true },
     {"name": "Georgia", "abbreviation": "GA", actualState: true, continental: true },
     {"name": "Hawaii", "abbreviation": "HI", actualState: true, continental: false },
@@ -92,6 +94,7 @@ export class StateRegionSpec {
             return stateTable.fullName(state)
         }
         this.quickPicks = createQuickPicks(stateTable)
+        this.map = US
     }
 }
 
@@ -126,8 +129,8 @@ function createQuickPicks(stateTable) {
         {
             key: 'continental-ny',
             text: "Continental US w/o NY",
-            regions: allStates.map(s => s.abbreviation).
-            filter(s => s.abbreviation !== 'NY')
+            regions: null,
+            regionsFilter: s => s !== 'NY'
         },
     ]
 }

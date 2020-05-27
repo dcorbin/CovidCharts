@@ -5,6 +5,8 @@ import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
 import RegionQuickPick from "../region_quick_pick";
 import DataIcon from "../data_icon";
+import US from 'Maps/US.js'
+import SvgMap from "../maps/svg_map";
 
 class WarningRenderer {
     static footerFor(type) {
@@ -61,24 +63,35 @@ export default function useRegionSelection(initialSelections,
         let footers = renderWarningFooters();
         return <div className='RegionSelection'>
             <div className='RegionSelectionMain'>
-                <ColumnarMatrix values={allRegions}
-                                columns={columns}
-                                onValueClicked={matrixItemClicked}
-                                valueRenderer={value => {
-                                    let selected = selectedRegions.includes(value)
-                                    return <SelectableValue value={value}
-                                                            valueRenderer={region => {
-                                                                return <span>{regionSpec.displayNameFor(region)}{recordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
-                                                            }}
-                                                            selected={selected}/>;
-                                }}
-                />
-                <RegionQuickPick quickPicks={regionSpec.quickPicks}
-                                 regions={allRegions}
-                                 onClick={(regions) => {
-                                     setSelectedRegions(regions)
-                                     onSettingsChange(regions)
-                                 }}/>
+                <div>
+                    <ColumnarMatrix values={allRegions}
+                                    columns={columns}
+                                    onValueClicked={matrixItemClicked}
+                                    valueRenderer={value => {
+                                        let selected = selectedRegions.includes(value)
+                                        return <SelectableValue value={value}
+                                                                valueRenderer={region => {
+                                                                    return <span>{regionSpec.displayNameFor(region)}{recordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
+                                                                }}
+                                                                selected={selected}/>;
+                                    }}
+                    />
+                </div>
+                <div>
+                    <RegionQuickPick quickPicks={regionSpec.quickPicks}
+                                     regions={allRegions}
+                                     onClick={(regions) => {
+                                         setSelectedRegions(regions)
+                                         onSettingsChange(regions)
+                                     }}/>
+                </div>
+                <div>
+                    {regionSpec.map ? (<SvgMap
+                        map={regionSpec.map}
+                        selected={selectedRegions}
+                    />) : null}
+
+                </div>
             </div>
             <div>&nbsp;</div>
             <div className='footer'> {footers}</div>

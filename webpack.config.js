@@ -11,6 +11,11 @@ module.exports = {
   target: "web",
   mode: "development",
   devtool: 'source-map',
+  resolve: {
+      alias: {
+          Maps: path.resolve(__dirname, 'generated/maps'),
+      }
+  },
   module: {
    rules: [
        {

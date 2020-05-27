@@ -13,6 +13,7 @@ import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import GeorgiaByCounty, {CountyRegionSpec} from "./GeorgiaByCounty";
 import 'react-tabs/style/react-tabs.css';
 
+
 function initialize() {
     let settings_store = new SettingsStore(window.localStorage)
     function loadOrCreateSettings() {
@@ -54,7 +55,7 @@ function initialize() {
                                 initialSelections={settings.covidTracking.states}
                                 regionSpec={new StateRegionSpec()}
                                 settings={settings.covidTracking}
-                                columns={6}
+                                columns={4}
                                 onSettingsChange={createSettingsChangeHandler('covidTracking')}/>
                      <Footer source={<a href="https://covidtracking.com">covidtracking.com</a>}/>
                 </TabPanel>

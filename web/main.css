@@ -64,7 +64,7 @@ body {
 
 .RegionSelectionMain {
     display:grid;
-    grid-template-columns: 6fr 1fr;
+    grid-template-columns: 3fr 1fr 2fr;
 }
 
 .RegionSelection {
@@ -106,3 +106,27 @@ body {
     cursor: pointer;
     margin: 2px;
 }
+
+.map {
+    width: 100%;
+    height: auto;
+    stroke: #666;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.map path.selected {
+    fill: #208420;
+    stroke:white;
+}
+
+.map .region {
+    fill: #f7e0a6;
+    cursor: pointer;
+}
+
+/*.map .region:hover {*/
+/*    fill: #ffbb29;*/
+/*    outline: 0;*/
+/*}*/
