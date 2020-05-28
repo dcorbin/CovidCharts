@@ -9,14 +9,19 @@ export default function RegionQuickPick(props) {
         }
         props.onClick(regions)
     }
-    return <div className='QuickPicker'> <h3>Quick Picks</h3> {
 
-       props.quickPicks.map(p => {
-            return <div key={p.key} className='quickpick' onClick={() => clicked(p)}>
-                • {p.text}
-            </div>
-        })
-    }
+    return <div className='QuickPickBar'>
+            <b>Quick Picks: </b>
+            <span className='QuickPicker'>
+                {
+
+                    props.quickPicks.map(p => {
+                        return <span key={p.key} className='quickpick' onClick={() => clicked(p)}>
+                        {p.text}
+                    </span>
+                    })
+                }
+            </span>
     </div>
 
 }

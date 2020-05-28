@@ -1,6 +1,7 @@
 import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./covid_tracking_com/normalized_record_set";
 
 import React from 'react'
+import Georgia from 'Maps/Georgia'
 
 const NON_RESIDENT_CODE = '~ngr';
 const UNKNOWN_CODE = '~unknown';
@@ -61,6 +62,7 @@ export class CountyRegionSpec {
             return region
         }
         this.quickPicks = createQuickPicks()
+        this.map = Georgia
     }
 }
 function createQuickPicks() {

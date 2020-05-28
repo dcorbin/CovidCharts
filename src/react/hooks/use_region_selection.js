@@ -62,6 +62,14 @@ export default function useRegionSelection(initialSelections,
     function regionSelectionPanel() {
         let footers = renderWarningFooters();
         return <div className='RegionSelection'>
+            <div>
+                <RegionQuickPick quickPicks={regionSpec.quickPicks}
+                                 regions={allRegions}
+                                 onClick={(regions) => {
+                                     setSelectedRegions(regions)
+                                     onSettingsChange(regions)
+                                 }}/>
+            </div>
             <div className='RegionSelectionMain'>
                 <div>
                     <ColumnarMatrix values={allRegions}
@@ -78,17 +86,14 @@ export default function useRegionSelection(initialSelections,
                     />
                 </div>
                 <div>
-                    <RegionQuickPick quickPicks={regionSpec.quickPicks}
-                                     regions={allRegions}
-                                     onClick={(regions) => {
-                                         setSelectedRegions(regions)
-                                         onSettingsChange(regions)
-                                     }}/>
-                </div>
-                <div>
                     {regionSpec.map ? (<SvgMap
                         map={regionSpec.map}
-                        selected={selectedRegions}
+                        classNamesProvider={(region) => {
+                            if (selectedRegions.includes(region)) {
+                                return ['selected']
+                            }
+                            return []
+                        }}
                     />) : null}
 
                 </div>

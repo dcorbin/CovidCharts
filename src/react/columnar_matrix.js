@@ -10,10 +10,9 @@ export default function ColumnarMatrix(props) {
         }
     }
 
-
     let columns = props.columns
     let values = [...props.values]
-    let rowCount = Math.ceil((values.length / columns) + .99)
+    let rowCount = Math.ceil((values.length / columns))
     let rows = []
     for (let i = 0; i<rowCount; i++) {
         rows.push([])

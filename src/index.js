@@ -46,7 +46,7 @@ function initialize() {
                       return true
                   }}>
                 <TabList>
-                    <Tab>USA</Tab>
+                    <Tab>United States</Tab>
                     <Tab>Georgia</Tab>
                 </TabList>
 
@@ -64,7 +64,7 @@ function initialize() {
                                 initialSelections={settings.georgia.counties}
                                 regionSpec={new CountyRegionSpec()}
                                 settings={settings.georgia}
-                                columns={8}
+                                columns={6}
                                 onSettingsChange={createSettingsChangeHandler('georgia')}/>
                     <Footer source={<a href="https://dph.georgia.gov/covid-19-daily-status-report">Georgia Department of Public Health</a>}/>
                 </TabPanel>

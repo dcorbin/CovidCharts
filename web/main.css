@@ -49,22 +49,25 @@ body {
     line-height: 20px;
 }
 
-.QuickPicker {
-    background-color: lightblue;
-
-    text-decoration: underline;
-}
 .ColumnarMatrix {
     width: 100%;
 }
+.QuickPickBar {
+    margin-top: 8px;
+}
+
 .QuickPicker .quickpick {
-    margin: 5px;
+    margin: 8px;
     cursor: pointer;
+    background-color: #335fa6;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
 }
 
 .RegionSelectionMain {
     display:grid;
-    grid-template-columns: 3fr 1fr 2fr;
+    grid-template-columns: 3fr 2fr;
 }
 
 .RegionSelection {
@@ -72,11 +75,10 @@ body {
     background-color: #e0e0e0   ;
 
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
-    line-height: 14px;
 }
 .RegionSelection div.footer {
     clear:both;
@@ -84,9 +86,6 @@ body {
 .RegionSelection table {
     width: 100%;
     margin: 2px;
-}
-.RegionSelection .selected {
-    /*font-weight: bold;*/
 }
 .RegionSelection tr .selected img.indicator {
     visibility: visible;
@@ -98,9 +97,12 @@ body {
     cursor: pointer;
     min-width: 140px
 }
+
 .RegionSelection  td:hover {
-    background-color: #b4c5f6;
+    background-color: #335fa6;
+    color: white;
 }
+
 .expand-collapse-control {
     width: 12px;
     cursor: pointer;
@@ -110,23 +112,18 @@ body {
 .map {
     width: 100%;
     height: auto;
-    stroke: #666;
+    stroke: #000;
     stroke-width: 1;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
 .map path.selected {
-    fill: #208420;
-    stroke:white;
+    fill: #adebad;
 }
 
 .map .region {
     fill: #f7e0a6;
+    stroke-width: 0.5;
     cursor: pointer;
 }
-
-/*.map .region:hover {*/
-/*    fill: #ffbb29;*/
-/*    outline: 0;*/
-/*}*/

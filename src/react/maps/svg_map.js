@@ -5,18 +5,17 @@ export default function SvgMap(props) {
     return <svg className='map' viewBox={props.map.viewBox} xmlns="http://www.w3.org/2000/svg">
                 <title>{props.map.label}</title>
                 <g>
-                    {props.map.locations.map(l => {
-                        let classNames = ['region']
-                        if (props.selected.includes(l.id))
-                            classNames.push('selected')
+                    {props.map.locations.map(location => {
+                        let items = props.classNamesProvider(location.id);
+                        let classNames = ['region'].concat(items)
                         return (
-                                <path key={l.id}
+                                <path key={location.id}
                                       className={classNames.join(' ')}
-                                      id={l.id}
-                                      d={l.path}
-                                      onFocus={props.onFocus ? () => props.onFocus(l.id) : null}
-                                      onBlur={props.onBlur ? () => props.onBlur(l.id) : null}>
-                                    <title>{l.name}</title>
+                                      id={location.id}
+                                      d={location.path}
+                                      onFocus={props.onFocus(location.id)}
+                                      onBlur={props.onBlur(location.id)}>
+                                    <title>{location.name}</title>
                                 </path>
                             )
                         })
@@ -24,7 +23,11 @@ export default function SvgMap(props) {
                 </g>
             </svg>
 }
-
+SvgMap.defaultProps = {
+    onFocus: (id) => {},
+    onBlur: (id) => {},
+    classNamesProvidier: (id) => []
+}
 SvgMap.propTypes =  {
     map: PropTypes.shape({
         viewBox: PropTypes.string.isRequired,
@@ -37,10 +40,8 @@ SvgMap.propTypes =  {
         ).isRequired,
         label: PropTypes.string
     }).isRequired,
-    selected: PropTypes.arrayOf(
-        PropTypes.string,
-    ).isRequired,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    classNamesProvider : PropTypes.func
 }
 

@@ -2,11 +2,7 @@ Control 7DayAvg/or not
 Logarithmic Y-axis support
 
 Introduce Maps
-    Reflect selection
-    Cleanup Overall selecton layout
-    Build Map for GA
-        Pass Map as RegionSpec
-Click to select
+Click Map to select
     Hover/Focus indication
     Better select options for tiny regions
 
