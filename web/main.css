@@ -118,12 +118,19 @@ body {
     stroke-linejoin: round;
 }
 
+.map .region {
+    fill: #f7e0a6;
+    stroke-width: 0.5;
+}
+
 .map path.selected {
     fill: #adebad;
 }
 
-.map .region {
-    fill: #f7e0a6;
-    stroke-width: 0.5;
+.map path.selected:hover {
+    fill: #8dcb8d;
+}
+.map .region:hover {
     cursor: pointer;
+    fill: #d7c086;
 }
