@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types'
 
 export default function ColumnarMatrix(props) {
     function valueClicked(e) {
@@ -26,7 +27,7 @@ export default function ColumnarMatrix(props) {
     }
 
     let cellStyle = {width: String(100/columns)+"%"}
-    return <div className='ColumnarMatrix'><table>
+    return <div className={props.className}><table>
             <tbody>{
                 rows.map((row, index) => {
                     return <tr key={index}>
@@ -46,4 +47,17 @@ export default function ColumnarMatrix(props) {
             </tbody>
         </table>
     </div>
+}
+
+ColumnarMatrix.defaultProps = {
+    valueRenderer: (id) => id,
+    className: 'ColumnarMatrix'
+}
+
+ColumnarMatrix.propTypes = {
+    onValueClicked: PropTypes.func,
+    columns: PropTypes.number.isRequired,
+    values:PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueRenderer: PropTypes.func,
+    className: PropTypes.string,
 }

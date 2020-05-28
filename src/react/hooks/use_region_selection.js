@@ -40,6 +40,7 @@ export default function useRegionSelection(initialSelections,
                                            ) {
 
     const [selectedRegions, setSelectedRegions] = useState(initialSelections)
+    const [hoverRegion, setHoverRegion] = useState(null)
 
     function matrixItemClicked(clickedValue) {
         let newSelections = selectionStrategy(clickedValue, [...selectedRegions]);
@@ -88,6 +89,7 @@ export default function useRegionSelection(initialSelections,
                 <div>
                     {regionSpec.map ? (<SvgMap
                         map={regionSpec.map}
+                        onClick={matrixItemClicked}
                         classNamesProvider={(region) => {
                             if (selectedRegions.includes(region)) {
                                 return ['selected']

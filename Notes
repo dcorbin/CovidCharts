@@ -1,9 +1,9 @@
 Control 7DayAvg/or not
 Logarithmic Y-axis support
 
-Introduce Maps
-Click Map to select
-    Hover/Focus indication
+Map works:
+    Link "hovers" between the two controls
+
     Better select options for tiny regions
 
 Other CT data charts

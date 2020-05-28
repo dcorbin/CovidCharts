@@ -4,7 +4,12 @@ import React from "react";
 export default function SvgMap(props) {
     return <svg className='map' viewBox={props.map.viewBox} xmlns="http://www.w3.org/2000/svg">
                 <title>{props.map.label}</title>
-                <g>
+                <g onClick={(e) => {
+                    let id = e.target.id;
+                    if (id && id.length > 0) {
+                        props.onClick(id);
+                    }
+                }}>
                     {props.map.locations.map(location => {
                         let items = props.classNamesProvider(location.id);
                         let classNames = ['region'].concat(items)
@@ -26,6 +31,7 @@ export default function SvgMap(props) {
 SvgMap.defaultProps = {
     onFocus: (id) => {},
     onBlur: (id) => {},
+    onClick: (id) => {},
     classNamesProvidier: (id) => []
 }
 SvgMap.propTypes =  {
@@ -42,6 +48,7 @@ SvgMap.propTypes =  {
     }).isRequired,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    onClick: PropTypes.func,
     classNamesProvider : PropTypes.func
 }
 
