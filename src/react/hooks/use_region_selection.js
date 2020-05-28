@@ -59,6 +59,9 @@ export default function useRegionSelection(initialSelections,
         let uniqueTypes = recordSet.warningTypes();
         return uniqueTypes.map(type => WarningRenderer.footerFor(type))
     }
+    function onHover(region) {
+        setHoverRegion(region)
+    }
 
     function regionSelectionPanel() {
         let footers = renderWarningFooters();
@@ -76,6 +79,8 @@ export default function useRegionSelection(initialSelections,
                     <ColumnarMatrix values={allRegions}
                                     columns={columns}
                                     onValueClicked={matrixItemClicked}
+                                    onHover={onHover}
+                                    hoverValue={hoverRegion}
                                     valueRenderer={value => {
                                         let selected = selectedRegions.includes(value)
                                         return <SelectableValue value={value}
@@ -89,7 +94,9 @@ export default function useRegionSelection(initialSelections,
                 <div>
                     {regionSpec.map ? (<SvgMap
                         map={regionSpec.map}
+                        hoverLocation={hoverRegion}
                         onClick={matrixItemClicked}
+                        onHover={onHover}
                         classNamesProvider={(region) => {
                             if (selectedRegions.includes(region)) {
                                 return ['selected']
@@ -102,7 +109,6 @@ export default function useRegionSelection(initialSelections,
             </div>
             <div>&nbsp;</div>
             <div className='footer'> {footers}</div>
-
         </div>;
     }
 

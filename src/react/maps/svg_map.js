@@ -13,26 +13,27 @@ export default function SvgMap(props) {
                     {props.map.locations.map(location => {
                         let items = props.classNamesProvider(location.id);
                         let classNames = ['region'].concat(items)
-                        return (
-                                <path key={location.id}
-                                      className={classNames.join(' ')}
-                                      id={location.id}
-                                      d={location.path}
-                                      onFocus={props.onFocus(location.id)}
-                                      onBlur={props.onBlur(location.id)}>
-                                    <title>{location.name}</title>
-                                </path>
-                            )
+                        if (location.id === props.hoverLocation) {
+                            classNames.push('hover')
+                        }
+                        return <path key={location.id}
+                              className={classNames.join(' ')}
+                              id={location.id}
+                              d={location.path}
+                              onMouseEnter={() => props.onHover(location.id)}
+                              onMouseLeave={() => props.onHover(null)}>
+                            <title>{location.name}</title>
+                        </path>
                         })
                     }
                 </g>
             </svg>
 }
 SvgMap.defaultProps = {
-    onFocus: (id) => {},
-    onBlur: (id) => {},
+    onHover: (id) => {},
     onClick: (id) => {},
-    classNamesProvidier: (id) => []
+    hoverLocation: null,
+    classNamesProvider: (id) => []
 }
 SvgMap.propTypes =  {
     map: PropTypes.shape({
@@ -46,8 +47,8 @@ SvgMap.propTypes =  {
         ).isRequired,
         label: PropTypes.string
     }).isRequired,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
+    hoverLocation: PropTypes.string,
+    onHover: PropTypes.func,
     onClick: PropTypes.func,
     classNamesProvider : PropTypes.func
 }

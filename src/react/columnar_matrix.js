@@ -33,9 +33,13 @@ export default function ColumnarMatrix(props) {
                     return <tr key={index}>
                         {
                             row.map(value => {
+                                let className = props.hoverValue === value ? 'hover' : null
                                 return <td
+                                    className={className}
                                     data-id={value}
                                     onClick={valueClicked}
+                                    onMouseEnter={(e) => props.onHover(value)}
+                                    onMouseLeave={(e) => props.onHover(null)}
                                     style={cellStyle} key={value}>
                                     {props.valueRenderer(value)}
                                 </td>
@@ -50,14 +54,18 @@ export default function ColumnarMatrix(props) {
 }
 
 ColumnarMatrix.defaultProps = {
-    valueRenderer: (id) => id,
-    className: 'ColumnarMatrix'
+    valueRenderer: (value) => value,
+    className: 'ColumnarMatrix',
+    hoverValue: null,
+    onHover: (value) => {},
 }
 
 ColumnarMatrix.propTypes = {
-    onValueClicked: PropTypes.func,
     columns: PropTypes.number.isRequired,
+    hoverValue: PropTypes.string,
     values:PropTypes.arrayOf(PropTypes.string).isRequired,
-    valueRenderer: PropTypes.func,
     className: PropTypes.string,
+    valueRenderer: PropTypes.func,
+    onHover: PropTypes.func,
+    onValueClicked: PropTypes.func,
 }

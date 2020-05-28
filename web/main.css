@@ -103,6 +103,11 @@ body {
     color: white;
 }
 
+.RegionSelection  td.hover {
+    background-color: #335fa6;
+    color: white;
+}
+
 .expand-collapse-control {
     width: 12px;
     cursor: pointer;
@@ -130,7 +135,15 @@ body {
 .map path.selected:hover {
     fill: #8dcb8d;
 }
+.map path.selected.hover {
+    fill: #8dcb8d;
+}
 .map .region:hover {
+    cursor: pointer;
+    fill: #d7c086;
+}
+
+.map .region.hover {
     cursor: pointer;
     fill: #d7c086;
 }
