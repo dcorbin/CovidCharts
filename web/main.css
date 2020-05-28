@@ -124,26 +124,26 @@ body {
 }
 
 .map .region {
-    fill: #f7e0a6;
+    fill: #d7c086;
     stroke-width: 0.5;
 }
 
-.map path.selected {
-    fill: #adebad;
-}
-
-.map path.selected:hover {
-    fill: #8dcb8d;
-}
-.map path.selected.hover {
-    fill: #8dcb8d;
-}
 .map .region:hover {
     cursor: pointer;
-    fill: #d7c086;
+    fill: #f7e0a6;
 }
 
 .map .region.hover {
     cursor: pointer;
-    fill: #d7c086;
+    fill: #f7e0a6;
+}
+.map path.selected {
+    fill: #8dcb8d;
+}
+
+.map path.selected:hover {
+    fill: #adebad;
+}
+.map path.selected.hover {
+    fill: #adebad;
 }
