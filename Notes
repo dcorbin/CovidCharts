@@ -1,10 +1,7 @@
 Control 7DayAvg/or not
 Logarithmic Y-axis support
 
-Map works:
-    Link "hovers" between the two controls
-
-    Better select options for tiny regions
+Better map select options for tiny regions
 
 Other CT data charts
 Image (download) Link
@@ -18,5 +15,5 @@ Other calculated charts
     Trend detection?
     Ratios?
     State vs State (one property)
-
+Find Hot spots?
 Dashboard building?

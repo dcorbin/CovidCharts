@@ -91,7 +91,7 @@ export default function useRegionSelection(initialSelections,
                                     }}
                     />
                 </div>
-                <div>
+                <div style={{margin: '10px'}}>
                     {regionSpec.map ? (<SvgMap
                         map={regionSpec.map}
                         hoverLocation={hoverRegion}

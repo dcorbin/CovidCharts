@@ -1,7 +1,7 @@
 import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./covid_tracking_com/normalized_record_set";
 
 import React from 'react'
-import Georgia from 'Maps/Georgia'
+import GA from 'Maps/GA'
 
 const NON_RESIDENT_CODE = '~ngr';
 const UNKNOWN_CODE = '~unknown';
@@ -62,10 +62,41 @@ export class CountyRegionSpec {
             return region
         }
         this.quickPicks = createQuickPicks()
-        this.map = Georgia
+        this.map = GA
     }
 }
 function createQuickPicks() {
+    let METRO_ATLANTA_STATISTICAL_AREA = [
+        "Fulton",
+        "Gwinnett",
+        "Cobb",
+        "DeKalb",
+        "Clayton",
+        "Cherokee",
+        "Forsyth",
+        "Henry",
+        "Paulding",
+        "Coweta",
+        "Douglas",
+        "Carroll",
+        "Fayette",
+        "Newton",
+        "Bartow",
+        "Walton",
+        "Rockdale",
+        "Barrow",
+        "Spalding",
+        "Pickens",
+        "Haralson",
+        "Dawson",
+        "Butts",
+        "Meriwether",
+        "Lamar",
+        "Morgan",
+        "Pike",
+        "Jasper",
+        "Heard",
+    ];
     return [
         {
             key: 'none',
@@ -91,37 +122,13 @@ function createQuickPicks() {
         {
             key: 'atlanta-masa',
             text: "Metro Atlanta Statistical Area",
-            regions: [
-                "Fulton",
-                "Gwinnett",
-                "Cobb",
-                "DeKalb",
-                "Clayton",
-                "Cherokee",
-                "Forsyth",
-                "Henry",
-                "Paulding",
-                "Coweta",
-                "Douglas",
-                "Carroll",
-                "Fayette",
-                "Newton",
-                "Bartow",
-                "Walton",
-                "Rockdale",
-                "Barrow",
-                "Spalding",
-                "Pickens",
-                "Haralson",
-                "Dawson",
-                "Butts",
-                "Meriwether",
-                "Lamar",
-                "Morgan",
-                "Pike",
-                "Jasper",
-                "Heard",
-            ]
+            regions: METRO_ATLANTA_STATISTICAL_AREA
+        },
+        {
+            key: 'georgia-minus-atlanta-masa',
+            text: "Georgia - Metro Atlanta Statistical Area",
+            regions: null,
+            regionsFilter: r => !METRO_ATLANTA_STATISTICAL_AREA.includes((r))
         },
         {
             key: 'athens-clark-metro',
