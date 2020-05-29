@@ -98,11 +98,6 @@ body {
     min-width: 140px
 }
 
-.RegionSelection  td:hover {
-    background-color: #335fa6;
-    color: white;
-}
-
 .RegionSelection  td.hover {
     background-color: #335fa6;
     color: white;
