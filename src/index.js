@@ -7,11 +7,12 @@ import CovidTrackingCom from "./covid_tracking_com/covid_tracking_com";
 import ReadThroughCache from "./util/read_thru_cache";
 import Footer from "./react/footer";
 import ReactDom from 'react-dom'
-import {StateRegionSpec} from "./states";
+import {StateRegionSpec} from "./subject/us/states";
 import ChartPanel from "./react/chart_panel";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
-import GeorgiaByCounty, {CountyRegionSpec} from "./GeorgiaByCounty";
+import GeorgiaByCounty from "./subject/georgia/GeorgiaByCounty";
 import 'react-tabs/style/react-tabs.css';
+import {CountyRegionSpec} from "./subject/georgia/county_spec";
 
 
 function initialize() {

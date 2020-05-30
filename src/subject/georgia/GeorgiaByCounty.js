@@ -1,10 +1,9 @@
-import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./covid_tracking_com/normalized_record_set";
+import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "../../covid_tracking_com/normalized_record_set";
 
 import React from 'react'
-import GA from 'Maps/GA'
 
-const NON_RESIDENT_CODE = '~ngr';
-const UNKNOWN_CODE = '~unknown';
+export const NON_RESIDENT_CODE = '~ngr';
+export const UNKNOWN_CODE = '~unknown';
 export default class GeorgiaByCounty {
     getData() {
         function normalize_data(records) {
@@ -48,24 +47,7 @@ export default class GeorgiaByCounty {
     }
 }
 
-export class CountyRegionSpec {
-    constructor() {
-        this.singleNoun = 'county'
-        this.pluralNoun = 'counties'
-        this.displayNameFor = function(region) {
-            if (region === NON_RESIDENT_CODE) {
-                return <i>Non-resident</i>
-            }
-            if (region === UNKNOWN_CODE) {
-                return <i>Unknown</i>
-            }
-            return region
-        }
-        this.quickPicks = createQuickPicks()
-        this.map = GA
-    }
-}
-function createQuickPicks() {
+export function createQuickPicks() {
     let METRO_ATLANTA_STATISTICAL_AREA = [
         "Fulton",
         "Gwinnett",
