@@ -1,3 +1,6 @@
+Fix build warning in production mode.
+FIX tests
+
 Control 7DayAvg/or not
 Logarithmic Y-axis support
 
