@@ -1,5 +1,3 @@
-import US from "Maps/US";
-
 const STATES = [
     {"name": "Alabama", "abbreviation": "AL", actualState: true, continental: true },
     {"name": "Alaska", "abbreviation": "AK", actualState: true, continental: false },
@@ -94,7 +92,7 @@ export class StateRegionSpec {
             return stateTable.fullName(state)
         }
         this.quickPicks = createQuickPicks(stateTable)
-        this.map = US
+        this.mapURI = '/api/maps/US.json'
     }
 }
 

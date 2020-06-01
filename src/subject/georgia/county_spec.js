@@ -1,4 +1,3 @@
-import GA from 'Maps/GA'
 import {createQuickPicks, NON_RESIDENT_CODE, UNKNOWN_CODE} from "./GeorgiaByCounty";
 import React from 'react'
 
@@ -16,6 +15,6 @@ export class CountyRegionSpec {
             return region
         }
         this.quickPicks = createQuickPicks()
-        this.map = GA
+        this.mapURI = '/api/maps/GA.json'
     }
 }

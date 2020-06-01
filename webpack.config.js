@@ -1,11 +1,26 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let config = {
+    entry: {
+        main: './src/index.js',
+    },
+
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     plugins: [
-        new CopyPlugin([
-            {from: 'web', to: '.'},
-        ], {}),
+        new HtmlWebpackPlugin({
+            title: "Corbin's Covid Charting",
+            template: __dirname + '/src/index.html'
+        })
     ],
     target: "web",
     mode: "development",
@@ -38,10 +53,20 @@ let config = {
 };
 
 module.exports = function(env, argv) {
+    let copyPatterns = [
+            { from: 'web', to: '.' },
+            { from: 'generated/api', to: './api'}
+        ]
+
+    console.log(`MODE: ${argv.mode}`)
     if (argv.mode === 'development') {
-        config.plugins.push(new CopyPlugin([
-            { from: 'web-dev', to: '.' },
-        ], {}))
+        copyPatterns.push({ from: 'web-dev', to: '.' })
     }
+    if (argv.mode === 'production') {
+        config.performance = {
+            hints: false
+        }
+    }
+    config.plugins.push(new CopyPlugin(copyPatterns))
     return config
 }

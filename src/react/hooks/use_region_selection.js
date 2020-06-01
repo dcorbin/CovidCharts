@@ -5,7 +5,6 @@ import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
 import RegionQuickPick from "../region_quick_pick";
 import DataIcon from "../data_icon";
-import US from 'Maps/US.js'
 import SvgMap from "../maps/svg_map";
 
 class WarningRenderer {
@@ -41,6 +40,16 @@ export default function useRegionSelection(initialSelections,
 
     const [selectedRegions, setSelectedRegions] = useState(initialSelections)
     const [hoverRegion, setHoverRegion] = useState(null)
+    const [regionMap, setRegionMap] = useState(regionSpec.map)
+    if (!regionMap)
+        initiateMapFetch(regionSpec.mapURI)
+
+    function initiateMapFetch(uri) {
+        fetch(uri, {method: 'GET', })
+            .then(response => response.json())
+            .then(json => setRegionMap(json))
+        return null
+    }
 
     function matrixItemClicked(clickedValue) {
         let newSelections = selectionStrategy(clickedValue, [...selectedRegions]);
@@ -65,6 +74,24 @@ export default function useRegionSelection(initialSelections,
 
     function regionSelectionPanel() {
         let footers = renderWarningFooters();
+        function mapSection(map) {
+            if (!map) {
+                return null
+            }
+            return <div>
+                <SvgMap
+                    map={map}
+                    hoverLocation={hoverRegion}
+                    onClick={matrixItemClicked}
+                    onHover={onHover}
+                    classNamesProvider={(region) => {
+                        if (selectedRegions.includes(region)) {
+                            return ['selected']
+                        }
+                        return []
+                    }}/>
+            </div>
+        }
         return <div className='RegionSelection'>
             <div>
                 <RegionQuickPick quickPicks={regionSpec.quickPicks}
@@ -91,21 +118,7 @@ export default function useRegionSelection(initialSelections,
                                     }}
                     />
                 </div>
-                <div style={{margin: '10px'}}>
-                    {regionSpec.map ? (<SvgMap
-                        map={regionSpec.map}
-                        hoverLocation={hoverRegion}
-                        onClick={matrixItemClicked}
-                        onHover={onHover}
-                        classNamesProvider={(region) => {
-                            if (selectedRegions.includes(region)) {
-                                return ['selected']
-                            }
-                            return []
-                        }}
-                    />) : null}
-
-                </div>
+                <div style={{margin: '10px'}}>{mapSection(regionMap)}</div>
             </div>
             <div>&nbsp;</div>
             <div className='footer'> {footers}</div>

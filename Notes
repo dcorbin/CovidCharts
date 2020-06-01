@@ -1,6 +1,11 @@
-Fix build warning in production mode.
-FIX tests
 
+Fix build warning in production mode.
+    Why is main still large
+    Split GA further?
+How is failure to get data displayed
+AutoRestart web-dev-server
+FIX tests
+PRODUCTION:  configure table.json to come from different folder, source is kept separate from data
 Control 7DayAvg/or not
 Logarithmic Y-axis support
 

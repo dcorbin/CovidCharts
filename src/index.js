@@ -41,6 +41,7 @@ function initialize() {
     let json = window.localStorage.getItem("activeTab")
     if (json) { activeTab = JSON.parse(json)}
     ReactDom.render(<div>
+            <h1>Corbin's Covid Charting</h1>
             <Tabs defaultIndex={activeTab}
                   onSelect={index => {
                       window.localStorage.setItem("activeTab", JSON.stringify(index));
