@@ -53,12 +53,12 @@ let config = {
 };
 
 module.exports = function(env, argv) {
+    console.log(`MODE: ${argv.mode}`)
     let copyPatterns = [
             { from: 'web', to: '.' },
             { from: 'generated/api', to: './api'}
         ]
 
-    console.log(`MODE: ${argv.mode}`)
     if (argv.mode === 'development') {
         copyPatterns.push({ from: 'web-dev', to: '.' })
     }

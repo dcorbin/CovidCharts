@@ -24,6 +24,7 @@
     "fs": "0.0.1-security",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
@@ -31,12 +32,14 @@
     "webpack-dev-server": "^3.11.0",
     "xml2js": "^0.4.23"
   },
+
   "scripts": {
     "test": "jest",
-    "dev": "webpack-dev-server --mode development",
+    "dev": "nodemon --watch webpack.config.js --exec 'npm run dev-server'",
+    "dev-server": "webpack-dev-server --mode development",
     "release": "webpack -p",
     "build": "webpack"
   },
-  "author": "",
+  "author": "David Corbin",
   "license": "ISC"
 }
