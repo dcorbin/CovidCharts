@@ -37,8 +37,8 @@
     "test": "jest",
     "dev": "nodemon --watch webpack.config.js --exec 'npm run dev-server'",
     "dev-server": "webpack-dev-server --mode development",
-    "release": "webpack -p",
-    "build": "webpack"
+    "release": "webpack --mode production",
+    "build": "webpack --mode development"
   },
   "author": "David Corbin",
   "license": "ISC"

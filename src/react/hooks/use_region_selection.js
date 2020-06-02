@@ -46,7 +46,16 @@ export default function useRegionSelection(initialSelections,
 
     function initiateMapFetch(uri) {
         fetch(uri, {method: 'GET', })
-            .then(response => response.json())
+            .then(
+                response => {
+                    if (response.status == 200) {
+                        return response.json();
+                    }
+                    console.log(`STATUS: ${response.status}`)
+                    response.text().then(t => console.log(`JSON: ${t}`))
+                    return null
+                }
+            )
             .then(json => setRegionMap(json))
         return null
     }

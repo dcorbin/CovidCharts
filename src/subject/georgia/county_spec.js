@@ -1,5 +1,6 @@
 import {createQuickPicks, NON_RESIDENT_CODE, UNKNOWN_CODE} from "./GeorgiaByCounty";
 import React from 'react'
+import {GA_URL} from './GA.svg'
 
 export class CountyRegionSpec {
     constructor() {
@@ -15,6 +16,6 @@ export class CountyRegionSpec {
             return region
         }
         this.quickPicks = createQuickPicks()
-        this.mapURI = '/api/maps/GA.json'
+        this.mapURI = GA_URL
     }
 }

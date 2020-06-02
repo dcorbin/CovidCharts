@@ -1,7 +1,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const SvgMapGeneratorPlugin = require('./webpack/svg_map_generator_plugin');
 let config = {
     entry: {
         main: './src/index.js',
@@ -20,7 +20,8 @@ let config = {
         new HtmlWebpackPlugin({
             title: "Corbin's Covid Charting",
             template: __dirname + '/src/index.html'
-        })
+        }),
+        new SvgMapGeneratorPlugin()
     ],
     target: "web",
     mode: "development",
@@ -47,7 +48,17 @@ let config = {
                 test: /\.js$/,
                 use: ["source-map-loader"],
                 enforce: "pre"
-            }
+            },
+            {
+                test: /\.svg$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: path.resolve('webpack/svg_map_loader.js'),
+                        options: {}
+                    }
+                ]
+            },
         ],
     },
 };
