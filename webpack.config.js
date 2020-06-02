@@ -67,7 +67,6 @@ module.exports = function(env, argv) {
     console.log(`MODE: ${argv.mode}`)
     let copyPatterns = [
             { from: 'web', to: '.' },
-            { from: 'generated/api', to: './api'}
         ]
 
     if (argv.mode === 'development') {

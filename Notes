@@ -1,5 +1,7 @@
 
 Integrate Map-JSON generation with webpack
+    specify normalization function in config
+    
 Move all source under src
 How is failure to get data displayed
 FIX tests
