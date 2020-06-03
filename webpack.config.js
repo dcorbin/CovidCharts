@@ -79,12 +79,11 @@ let config = {
 module.exports = function(env, argv) {
     console.log(`MODE: ${argv.mode}`)
     let copyPatterns = [
-            { from: 'web', to: '.', globOptions: {ignore: '**/GA-By-County.json'}},
+            { from: '**/*.{svg,png,css}', to: '.', context: path.resolve(__dirname, 'web')},
         ]
 
     if (argv.mode === 'development') {
-        delete copyPatterns[0].globOptions
-        copyPatterns.push({ from: 'web-dev', to: '.' })
+        copyPatterns.push({from:'GA-By-County.json', to: '.', context: path.resolve(__dirname, 'web')})
     }
     if (argv.mode === 'production') {
         config.performance = {
