@@ -79,10 +79,11 @@ let config = {
 module.exports = function(env, argv) {
     console.log(`MODE: ${argv.mode}`)
     let copyPatterns = [
-            { from: 'web', to: '.' },
+            { from: 'web', to: '.', globOptions: {ignore: '**/GA-By-County.json'}},
         ]
 
     if (argv.mode === 'development') {
+        delete copyPatterns[0].globOptions
         copyPatterns.push({ from: 'web-dev', to: '.' })
     }
     if (argv.mode === 'production') {
