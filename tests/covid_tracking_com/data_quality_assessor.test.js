@@ -9,7 +9,7 @@ let date4 = new Date(2020, 4, 4);
 const assessor = new DataQualityAssessor(["foo", "bar"])
 test('aggregation of single record', () => {
     const input = [
-        { date: date1, state: 'AB', foo: 1, bar: 2},
+        { date: date1, region: 'AB', foo: 1, bar: 2},
     ]
 
     const assessmentByState = assessor.assessQuality(input)
@@ -27,8 +27,8 @@ test('aggregation of single record', () => {
 
 test('with only nulls in a series', () => {
     const input = [
-        { date: date1, state: 'AB', foo: null, bar: 2},
-        { date: date2, state: 'AB', foo: null, bar: 2},
+        { date: date1, region: 'AB', foo: null, bar: 2},
+        { date: date2, region: 'AB', foo: null, bar: 2},
     ]
 
     const assessmentByState = assessor.assessQuality(input)
@@ -46,10 +46,10 @@ test('with only nulls in a series', () => {
 
 test('with  leading nulls in a series', () => {
     const input = [
-        { date: date1, state: 'AB', foo: null, bar: 2},
-        { date: date2, state: 'AB', foo: null, bar: 2},
-        { date: date3, state: 'AB', foo: 1, bar: 2},
-        { date: date4, state: 'AB', foo: 4, bar: 2},
+        { date: date1, region: 'AB', foo: null, bar: 2},
+        { date: date2, region: 'AB', foo: null, bar: 2},
+        { date: date3, region: 'AB', foo: 1, bar: 2},
+        { date: date4, region: 'AB', foo: 4, bar: 2},
     ]
 
     const assessmentByState = assessor.assessQuality(input)
@@ -67,10 +67,10 @@ test('with  leading nulls in a series', () => {
 
 test('with nulls in the middle of data', () => {
     const input = [
-        { date: date1, state: 'AB', foo: 1, bar: 2},
-        { date: date2, state: 'AB', foo: null, bar: 2},
-        { date: date3, state: 'AB', foo: 1, bar: 2},
-        { date: date4, state: 'AB', foo: 4, bar: 2},
+        { date: date1, region: 'AB', foo: 1, bar: 2},
+        { date: date2, region: 'AB', foo: null, bar: 2},
+        { date: date3, region: 'AB', foo: 1, bar: 2},
+        { date: date4, region: 'AB', foo: 4, bar: 2},
     ]
 
     const assessmentByState = assessor.assessQuality(input)
@@ -88,8 +88,8 @@ test('with nulls in the middle of data', () => {
 
 test('aggregation of multiple states', () => {
     const input = [
-        { date: date1, state: 'AB', foo: 1, bar: 2},
-        { date: date1, state: 'CD', foo: 1, bar: 2},
+        { date: date1, region: 'AB', foo: 1, bar: 2},
+        { date: date1, region: 'CD', foo: 1, bar: 2},
     ]
 
     const assessmentByState = assessor.assessQuality(input)
