@@ -1,7 +1,15 @@
-#!/bin/bash -x
+#!/bin/bash 
 set -e
-rm -rf dist/*
-npm run release
-pushd dist
-rsync --delete -r * covid.dcorbin.com:/var/www/html
-popd
+
+if [ -z "$1" ]; then
+	echo "usage: $0 <release-tag>" >&2
+	git tag
+	exit 1
+fi
+git co master
+git pull
+git merge develop --ff-only
+git tag "$1"
+git push
+git push --tags
+git co develop
