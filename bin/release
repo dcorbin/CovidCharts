@@ -14,4 +14,4 @@ git tag "$1"
 git push
 git push --tags
 git co develop
-ssh covid.dcorbin.com ./update-covid-charts
+ssh covid.dcorbin.com ./update-covid-charts -f
