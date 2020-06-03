@@ -1,11 +1,9 @@
 
-Integrate Map-JSON generation with webpack
-    specify normalization function in config
-    
 Move all source under src
 How is failure to get data displayed
 FIX tests
 PRODUCTION:  configure table.json to come from different folder, source is kept separate from data
+
 Control 7DayAvg/or not
 Logarithmic Y-axis support
 

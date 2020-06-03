@@ -35,7 +35,7 @@
 
   "scripts": {
     "test": "jest",
-    "dev": "nodemon --watch webpack.config.js --exec 'npm run dev-server'",
+    "dev": "nodemon --watch webpack.config.js  --watch webpack --exec 'npm run dev-server'",
     "dev-server": "webpack-dev-server --mode development",
     "release": "webpack --mode production",
     "build": "webpack --mode development"

@@ -1,6 +1,6 @@
 import {createQuickPicks, NON_RESIDENT_CODE, UNKNOWN_CODE} from "./GeorgiaByCounty";
 import React from 'react'
-import {GA_URL} from './GA.svg'
+import {GA_URL} from './GA.svg-map'
 
 export class CountyRegionSpec {
     constructor() {

@@ -2,50 +2,25 @@ let SvgMapStore = require('./svg_map_store.js')
 const { RawSource } = require('webpack-sources')
 const xml2js = require('xml2js')
 
-function normalizeGAXml(xml) {
-    function generateLocation(pathElement) {
-        let id = pathElement.$.id
-        return {
-            name: id,
-            id: id,
-            path: pathElement.$.d
-        }
-    }
 
-    let viewBox = "0 0 ${xml.svg.$.width} ${xml.svg.$.height}"
-    if (xml.svg.$.viewBox) {
-        viewBox = xml.svg.$.viewBox
-    }
-    return {
-        label : "Georgia",
-        viewBox: viewBox,
-        locations: xml.svg.g[0].path.map(generateLocation)
-    }
-}
-
-function normalizeUsXml(xml) {
-    function generateLocation(pathElement) {
-        return {
-            name: pathElement.title[0],
-            id: pathElement.$.id,
-            path: pathElement.$.d
-        }
-    }
-
-    return {
-        label : xml.svg.title[0],
-        viewBox: xml.svg.$.viewBox,
-        locations: xml.svg.g[0].path.map(generateLocation)
-    }
-}
-const XML_CONVERTS = {
-    'GA': normalizeGAXml,
-    'US': normalizeUsXml
-}
 
 class SvgMapGeneratorPlugin {
-
+    constructor(options) {
+        this.options = options
+    }
     apply(compiler) {
+        let options = this.options
+        function normalizerFor(name) {
+            let normalizer = options.normalizers.find(n => {
+                return n.test.test(name);
+            });
+
+            if (normalizer) {
+                return require(normalizer.file)
+            }
+            return null
+        }
+
         let parser = new xml2js.Parser()
         compiler.hooks.thisCompilation.tap('SvgMapGenerator', (compilation) => {
             compilation.hooks.additionalAssets.tap('SvgMapGenerator', () => {
@@ -56,7 +31,7 @@ class SvgMapGeneratorPlugin {
                     let svg = singleton.svgContentFor(name)
                     parser.parseString(svg, function (err, parsedXml) {
                         if (err === null) {
-                            let normalizer = XML_CONVERTS[name];
+                            let normalizer = normalizerFor(name);
                             if (!normalizer) {
                                 console.log(`ERROR: SvgMapGenerator ${name} has no normalizer`)
                             } else {
@@ -71,6 +46,8 @@ class SvgMapGeneratorPlugin {
             })
         })
     }
+
+
 }
 
 module.exports = SvgMapGeneratorPlugin

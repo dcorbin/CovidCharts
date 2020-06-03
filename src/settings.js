@@ -29,6 +29,7 @@ class SettingsStore {
             if (!settings.georgia) {
                 settings.georgia = {counties: [], nullStrategy: 'none'}
             }
+            delete settings.georgia.states
             return settings
         }
 

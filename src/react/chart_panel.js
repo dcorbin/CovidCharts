@@ -65,7 +65,7 @@ export default function ChartPanel(props) {
                                 allRegions,
                                 props.columns,
                 newRegions => {
-                                    props.settings.states = newRegions
+                                    props.settings[props.regionSpec.pluralNoun] = newRegions
                                     props.onSettingsChange(props.settings)
                                 },
                                 )

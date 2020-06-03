@@ -21,7 +21,19 @@ let config = {
             title: "Corbin's Covid Charting",
             template: __dirname + '/src/index.html'
         }),
-        new SvgMapGeneratorPlugin()
+        new SvgMapGeneratorPlugin({
+                normalizers: [
+                    {
+                        test: /^GA$/,
+                        file: path.resolve('webpack/normalize-GA.js')
+                    },
+                    {
+                        test: /^US$/,
+                        file: path.resolve('webpack/normalize-US.js')
+                    }
+                ]
+            }
+        )
     ],
     target: "web",
     mode: "development",
@@ -50,12 +62,13 @@ let config = {
                 enforce: "pre"
             },
             {
-                test: /\.svg$/,
+                test: /\.svg-map$/,
                 exclude: /node_modules/,
                 use: [
                     {
                         loader: path.resolve('webpack/svg_map_loader.js'),
-                        options: {}
+                        options: {
+                        }
                     }
                 ]
             },

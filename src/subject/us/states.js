@@ -1,4 +1,4 @@
-import {US_URL} from './US.svg'
+import {US_URL} from './US.svg-map'
 const STATES = [
     {"name": "Alabama", "abbreviation": "AL", actualState: true, continental: true },
     {"name": "Alaska", "abbreviation": "AK", actualState: true, continental: false },
