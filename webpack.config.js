@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SvgMapGeneratorPlugin = require('./webpack/svg_map_generator_plugin');
 let config = {
     entry: {
-        main: './src/index.js',
+        main: './src/js/index.js',
     },
 
     output: {
@@ -19,7 +19,7 @@ let config = {
     plugins: [
         new HtmlWebpackPlugin({
             title: "Corbin's Covid Charting",
-            template: __dirname + '/src/index.html'
+            template: __dirname + '/src/index-template.html'
         }),
         new SvgMapGeneratorPlugin({
                 normalizers: [
@@ -79,11 +79,11 @@ let config = {
 module.exports = function(env, argv) {
     console.log(`MODE: ${argv.mode}`)
     let copyPatterns = [
-            { from: '**/*.{svg,png,css}', to: '.', context: path.resolve(__dirname, 'web')},
+            { from: '**/*.{svg,png,css}', to: '.', context: path.resolve(__dirname, 'src', 'web')},
         ]
 
     if (argv.mode === 'development') {
-        copyPatterns.push({from:'GA-By-County.json', to: '.', context: path.resolve(__dirname, 'web')})
+        copyPatterns.push({from:'GA-By-County.json', to: '.', context: path.resolve(__dirname, 'src', 'web')})
     }
     if (argv.mode === 'production') {
         config.performance = {

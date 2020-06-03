@@ -1,6 +1,6 @@
 import {expect} from "@jest/globals";
-import onlyUnique, {unique} from "../../src/util/unique";
-import {datesAreEqual} from "../../src/util/date_comparison";
+import onlyUnique, {unique} from "../../src/js/util/unique";
+import {datesAreEqual} from "../../src/js/util/date_comparison";
 
 test('uniqueWithDatesAndCompFunction', () => {
     let date1a = new Date(2020, 4, 1);

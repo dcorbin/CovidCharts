@@ -1,4 +1,4 @@
-import Aggregator from "../../src/covid_tracking_com/aggregator";
+import Aggregator from "../../src/js/covid_tracking_com/aggregator";
 import {expect} from "@jest/globals";
 
 let date1 = new Date(2020, 4, 1);

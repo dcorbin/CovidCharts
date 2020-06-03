@@ -1,5 +1,5 @@
 import {expect} from "@jest/globals";
-import DataQualityAssessor from "../../src/covid_tracking_com/data_quality_assessor";
+import DataQualityAssessor from "../../src/js/covid_tracking_com/data_quality_assessor";
 
 let date1 = new Date(2020, 4, 1);
 let date2 = new Date(2020, 4, 2);

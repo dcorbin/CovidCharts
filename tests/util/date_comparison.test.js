@@ -1,5 +1,5 @@
 import {expect} from "@jest/globals";
-import {datesAreEqual} from "../../src/util/date_comparison";
+import {datesAreEqual} from "../../src/js/util/date_comparison";
 
 test('datesAreEqual', () => {
     expect(datesAreEqual(new Date(2020, 4,13), new Date(2020,4,13))).toEqual(true)

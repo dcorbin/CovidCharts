@@ -1,5 +1,5 @@
 import {expect} from "@jest/globals";
-import LeadingNullAsZeroConverter from "../../src/covid_tracking_com/leading_null_as_zero_converter";
+import LeadingNullAsZeroConverter from "../../src/js/covid_tracking_com/leading_null_as_zero_converter";
 
 let date1 = new Date(2020, 4, 1);
 let date2 = new Date(2020, 4, 2);

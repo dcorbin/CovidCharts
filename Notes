@@ -1,5 +1,4 @@
 
-Move all source under src
 How is failure to get data displayed
 FIX tests
 PRODUCTION:  configure table.json to come from different folder, source is kept separate from data
