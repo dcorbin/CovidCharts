@@ -26,7 +26,6 @@ class SvgMapGeneratorPlugin {
             compilation.hooks.additionalAssets.tap('SvgMapGenerator', () => {
                 let singleton = SvgMapStore.singleton;
                 for (let name of singleton.mapNames()) {
-                    console.log("SVGMAP: " + name)
                     const resourcePath = `api/maps/${name}.json`
                     let svg = singleton.svgContentFor(name)
                     parser.parseString(svg, function (err, parsedXml) {
