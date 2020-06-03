@@ -8,6 +8,10 @@ export default class GeorgiaByCounty {
     getData() {
         function normalize_data(records) {
 
+            function parseDate(date) {
+                let match = date.match(/(?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d)/)
+                return new Date(parseInt(match.groups.year), parseInt(match.groups.month)-1, parseInt(match.groups.day))
+            }
             return records.map(record => {
                 function normalizeNumber(v) {
                     if (typeof v === 'undefined') {
@@ -17,7 +21,7 @@ export default class GeorgiaByCounty {
                 }
 
                 let normalizedRecord = {
-                    date: new Date(Date.parse(record.date)),
+                    date: parseDate(record.date),
                     region: record.county
                 }
                 if (normalizedRecord.region === "Non-Georgia Resident") {

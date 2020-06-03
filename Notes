@@ -1,5 +1,6 @@
-PRODUCTION:  configure table.json to come from different folder, source is kept separate from data
-    Outbound Mail notifications
+RISK: Make fetching more robust than just "the fourth JSON block"
+FEATURE: Examine Fetched data options
+
 Control 7DayAvg/or not
 Logarithmic Y-axis support
 
