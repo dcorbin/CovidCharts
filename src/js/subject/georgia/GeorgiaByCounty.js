@@ -34,7 +34,7 @@ export default class GeorgiaByCounty {
             })
         }
 
-        return fetch('/GA-By-County.json', {method: 'GET', })
+        return fetch('/api/data/GA-By-County.json', {method: 'GET', })
             .then(response => {
                 if (response.status === 200)
                     return response.json()

@@ -83,7 +83,7 @@ module.exports = function(env, argv) {
         ]
 
     if (argv.mode === 'development') {
-        copyPatterns.push({from:'GA-By-County.json', to: '.', context: path.resolve(__dirname, 'src', 'web')})
+        copyPatterns.push({from:'api/data/GA-By-County.json', to: '.', context: path.resolve(__dirname, 'src', 'web')})
     }
     if (argv.mode === 'production') {
         config.performance = {
