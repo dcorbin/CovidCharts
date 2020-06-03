@@ -35,14 +35,18 @@ export default class GeorgiaByCounty {
         }
 
         return fetch('/GA-By-County.json', {method: 'GET', })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 200)
+                    return response.json()
+                throw 'Failure fetching data (GA): ' + response.status
+            })
             .then(data => {
-
                 let normalizedData = normalize_data(data);
                 return new NormalizedRecordSet(normalizedData)
             })
             .catch((error) => {
                 console.error('Error fetching normalizedRecordSet:', error);
+                return NormalizedRecordSet.forError('Error fetching data for GA')
             });
     }
 }

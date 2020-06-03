@@ -1,6 +1,3 @@
-
-How is failure to get data displayed
-
 PRODUCTION:  configure table.json to come from different folder, source is kept separate from data
     Outbound Mail notifications
 Control 7DayAvg/or not

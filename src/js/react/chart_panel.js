@@ -25,7 +25,7 @@ function multipleSelections(clickedValue, selections) {
 }
 
 export default function ChartPanel(props) {
-    const [normalizedRecordSet, setNormalizedRecordSet] = useState(new NormalizedRecordSet([]))
+    const [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
     const [nullStrategy, setNullStrategy] = useState(props.settings.nullStrategy)
     const [allRegions, setRegions] = useState([])
     function nullStrategyChanged(e) {
@@ -70,6 +70,9 @@ export default function ChartPanel(props) {
                                 },
                                 )
 
+    if (normalizedRecordSet.error) {
+        return normalizedRecordSet.error
+    }
     if (normalizedRecordSet.isEmpty()) {
         return "Waiting for data fetch to complete..."
     }

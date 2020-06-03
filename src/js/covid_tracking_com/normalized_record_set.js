@@ -43,7 +43,14 @@ function buildWarningsByRegion(recordSet) {
 }
 
 export default class NormalizedRecordSet {
-    constructor(records) {
+    static forError(message) {
+        return new NormalizedRecordSet([], message)
+    }
+    static empty() {
+        return new NormalizedRecordSet([])
+    }
+    constructor(records, error = null) {
+        this.error = error
         this.records = records
         this.dataSeriesQualityByRegion = new DataQualityAssessor(STANDARD_DATA_PROPERTIES).
             assessQuality(records)

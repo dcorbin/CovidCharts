@@ -32,16 +32,18 @@ export default class CovidTrackingCom {
         }
 
         return fetch('https://covidtracking.com/api/v1/states/daily.json', {method: 'GET', })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 200)
+                    return response.json();
+                throw 'Failure fetching data (CovidTracking.com): ' + response.status
+            })
             .then(data => {
-                debugDataLog("Raw Data", data, 'AS')
-
                 let normalizedData = normalize_data(data);
-                debugDataLog("Raw Data", normalizedData, 'AS')
                 return new NormalizedRecordSet(normalizedData)
             })
             .catch((error) => {
                 console.error('Error fetching normalizedRecordSet:', error);
+                return NormalizedRecordSet.forError('Error fetching data for US')
             });
     }
 }

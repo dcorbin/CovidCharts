@@ -6,6 +6,7 @@ if [ -z "$1" ]; then
 	git tag
 	exit 1
 fi
+npm run test
 git co master
 git pull
 git merge develop --ff-only
