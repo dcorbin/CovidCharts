@@ -1,4 +1,5 @@
 import {US_URL} from './US.svg-map'
+import QuickPick from "../../model/quick_pick";
 const STATES = [
     {"name": "Alabama", "abbreviation": "AL", actualState: true, continental: true },
     {"name": "Alaska", "abbreviation": "AK", actualState: true, continental: false },
@@ -92,45 +93,23 @@ export class StateRegionSpec {
         this.displayNameFor = function(state) {
             return stateTable.fullName(state)
         }
-        this.quickPicks = createQuickPicks(stateTable)
+        this.quickPicks = createUSQuickPicks(stateTable)
         this.mapURI = US_URL
     }
 }
 
-function createQuickPicks(stateTable) {
+function createUSQuickPicks(stateTable) {
     let allStates = stateTable.all();
-    let continentalStates = allStates.filter(s => s.continental)
+    let continentalStates = allStates.filter(s => s.continental).map(s => s.abbreviation)
+
     return  [
-        {
-            key: 'none',
-            text: "None",
-            regions: []
-        },
-        {
-            key: 'southeast',
-            text: "Southeast",
-            regions:['FL', 'GA', 'SC', 'NC', 'AL', 'TN', 'KY', 'AR', 'MS', 'LA']
-        },
-        {
-            key: 'tri-state',
-            text: "Tri-state",
-            regions:['NY', 'NJ', 'CT']
-        },
-        {
-            key: 'usa',
-            text: "United States",
-            regions: allStates.map(s => s.abbreviation)},
-        {
-            key: 'continentalUs',
-            text: "Continental US",
-            regions: continentalStates.map(s => s.abbreviation)
-        },
-        {
-            key: 'continental-ny',
-            text: "Continental US w/o NY",
-            regions: null,
-            regionsFilter: s => s !== 'NY'
-        },
+        QuickPick.NONE,
+        new QuickPick('southeast', "Southeast", ['FL', 'GA', 'SC', 'NC', 'AL', 'TN', 'KY', 'AR', 'MS', 'LA']),
+        new QuickPick('tri-state', "Tri-state", ['NY', 'NJ', 'CT']),
+        new QuickPick('usa', "United States",  allStates.map(s => s.abbreviation)),
+        new QuickPick('continentalUs', "Continental US",  continentalStates),
+        new QuickPick('continental-ny', "Continental US w/o NY",
+                continentalStates.filter(s => s !== 'NY'))
     ]
 }
 

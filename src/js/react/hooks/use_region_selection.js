@@ -3,7 +3,7 @@ import ArraySummary from "../array_summary";
 import ColumnarMatrix from "../columnar_matrix";
 import SelectableValue from "../selectable_value";
 import useCollapsable from "./use_collapsable";
-import RegionQuickPick from "../region_quick_pick";
+import QuickPickButtonBar from "../quick_pick_button_bar";
 import DataIcon from "../data_icon";
 import SvgMap from "../maps/svg_map";
 
@@ -35,7 +35,7 @@ export default function useRegionSelection(initialSelections,
                                            regionSpec,
                                            allRegions,
                                            columns,
-                                           onSettingsChange,
+                                           onSelectionChange,
                                            ) {
 
     const [selectedRegions, setSelectedRegions] = useState(initialSelections)
@@ -48,7 +48,7 @@ export default function useRegionSelection(initialSelections,
         fetch(uri, {method: 'GET', })
             .then(
                 response => {
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         return response.json();
                     }
                     console.log(`STATUS: ${response.status}`)
@@ -63,7 +63,7 @@ export default function useRegionSelection(initialSelections,
     function matrixItemClicked(clickedValue) {
         let newSelections = selectionStrategy(clickedValue, [...selectedRegions]);
         setSelectedRegions(newSelections)
-        onSettingsChange(newSelections)
+        onSelectionChange(newSelections)
     }
 
 
@@ -77,6 +77,7 @@ export default function useRegionSelection(initialSelections,
         let uniqueTypes = recordSet.warningTypes();
         return uniqueTypes.map(type => WarningRenderer.footerFor(type))
     }
+
     function onHover(region) {
         setHoverRegion(region)
     }
@@ -101,13 +102,16 @@ export default function useRegionSelection(initialSelections,
                     }}/>
             </div>
         }
+
+
         return <div className='RegionSelection'>
             <div>
-                <RegionQuickPick quickPicks={regionSpec.quickPicks}
-                                 regions={allRegions}
-                                 onClick={(regions) => {
+                <QuickPickButtonBar quickPicks={regionSpec.quickPicks}
+                                    regions={allRegions}
+                                    onCreateNew={(name) => console.log("Save QPB: " + name)}
+                                    onClick={(regions) => {
                                      setSelectedRegions(regions)
-                                     onSettingsChange(regions)
+                                     onSelectionChange(regions)
                                  }}/>
             </div>
             <div className='RegionSelectionMain'>

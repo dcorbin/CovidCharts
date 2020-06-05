@@ -1,10 +1,11 @@
 RISK: Make fetching more robust than just "the fourth JSON block"
-FEATURE: Examine Fetched data options
+Create-your-own Quick Picks
+Breakup CSS and import fragments
+
+HotSpot Quick Picks
 
 Control 7DayAvg/or not
 Logarithmic Y-axis support
-
-Better map select options for tiny regions
 
 Other CT data charts
 Image (download) Link
@@ -18,5 +19,5 @@ Other calculated charts
     Trend detection?
     Ratios?
     State vs State (one property)
-Find Hot spots?
+Chart region vs region
 Dashboard building?

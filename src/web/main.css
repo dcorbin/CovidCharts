@@ -55,14 +55,35 @@ body {
 .QuickPickBar {
     margin-top: 8px;
 }
+.QuickPickBar .QuickPickForm {
+    margin: 8px;
+}
+.QuickPickBar .QuickPickForm #quickPickName {
+    margin: 4px;
+}
 
-.QuickPicker .quickpick {
+.QuickPicker .quickPick {
     margin: 8px;
     cursor: pointer;
     background-color: #335fa6;
     color: white;
     padding: 4px 8px;
     border-radius: 8px;
+}
+
+ .Button {
+    margin: 8px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border:  black 1px;
+}
+
+.Button.disabled {
+    background-color: #888;
+    color: #ccc;
 }
 
 .RegionSelectionMain {

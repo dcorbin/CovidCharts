@@ -54,7 +54,6 @@ function initialize() {
 
                 <TabPanel>
                     <ChartPanel dataProvider={covidTracking}
-                                initialSelections={settings.covidTracking.states}
                                 regionSpec={new StateRegionSpec()}
                                 settings={settings.covidTracking}
                                 columns={4}
@@ -63,7 +62,6 @@ function initialize() {
                 </TabPanel>
                 <TabPanel>
                     <ChartPanel dataProvider={georgiaDataProvider}
-                                initialSelections={settings.georgia.counties}
                                 regionSpec={new CountyRegionSpec()}
                                 settings={settings.georgia}
                                 columns={6}

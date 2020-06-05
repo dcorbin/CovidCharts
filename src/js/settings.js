@@ -1,6 +1,8 @@
 class Settings {
     static defaultSettings() {
-        return new Settings({states: ['GA']},  {counties: [], nullStrategy: 'none'})
+        return new Settings(
+            {selectedRegions: ['GA'], nullStrategy: 'none', userQuickPicks: []},
+            {selectedRegions: [], nullStrategy: 'none', userQuickPicks: []})
     }
 
     constructor(covidTracking, georgia) {
@@ -20,16 +22,26 @@ class SettingsStore {
 
     load() {
         function ensureSettingsCurrent(settings) {
-            if (!settings.covidTracking.nullStrategy) {
-                settings.covidTracking.nullStrategy = 'none'
-            }
-            if (settings.covidTracking) {
-                settings.covidTracking.states = settings.covidTracking.states.filter(e => e !== null)
-            }
-            if (!settings.georgia) {
-                settings.georgia = {counties: [], nullStrategy: 'none'}
+            function normalizeTabSettings(tabSettings, outdatedSelectionProperties) {
+                if (tabSettings[outdatedSelectionProperties]) {
+                    tabSettings.selectedRegions = tabSettings[outdatedSelectionProperties]
+                    delete tabSettings[outdatedSelectionProperties]
+                }
+
+                if (!tabSettings.selectedRegions)
+                    tabSettings.selectedRegions = []
+
+                if (!tabSettings.userQuickPicks)
+                    tabSettings.userQuickPicks = []
+
+                if (!tabSettings.nullStrategy) {
+                    tabSettings.nullStrategy = 'none'
+                }
+                tabSettings.selectedRegions = tabSettings.selectedRegions.filter(e => e !== null)
             }
             delete settings.georgia.states
+            normalizeTabSettings(settings.georgia, 'counties')
+            normalizeTabSettings(settings.covidTracking, 'states')
             return settings
         }
 

@@ -1,9 +1,42 @@
 import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "../../covid_tracking_com/normalized_record_set";
-
+import QuickPick from '../../model/quick_pick'
 import React from 'react'
 
 export const NON_RESIDENT_CODE = '~ngr';
 export const UNKNOWN_CODE = '~unknown';
+
+let METRO_ATLANTA_STATISTICAL_AREA = [
+    "Fulton",
+    "Gwinnett",
+    "Cobb",
+    "DeKalb",
+    "Clayton",
+    "Cherokee",
+    "Forsyth",
+    "Henry",
+    "Paulding",
+    "Coweta",
+    "Douglas",
+    "Carroll",
+    "Fayette",
+    "Newton",
+    "Bartow",
+    "Walton",
+    "Rockdale",
+    "Barrow",
+    "Spalding",
+    "Pickens",
+    "Haralson",
+    "Dawson",
+    "Butts",
+    "Meriwether",
+    "Lamar",
+    "Morgan",
+    "Pike",
+    "Jasper",
+    "Heard",
+];
+
 export default class GeorgiaByCounty {
     getData() {
         function normalize_data(records) {
@@ -56,100 +89,34 @@ export default class GeorgiaByCounty {
 }
 
 export function createQuickPicks() {
-    let METRO_ATLANTA_STATISTICAL_AREA = [
-        "Fulton",
-        "Gwinnett",
-        "Cobb",
-        "DeKalb",
-        "Clayton",
-        "Cherokee",
-        "Forsyth",
-        "Henry",
-        "Paulding",
-        "Coweta",
-        "Douglas",
-        "Carroll",
-        "Fayette",
-        "Newton",
-        "Bartow",
-        "Walton",
-        "Rockdale",
-        "Barrow",
-        "Spalding",
-        "Pickens",
-        "Haralson",
-        "Dawson",
-        "Butts",
-        "Meriwether",
-        "Lamar",
-        "Morgan",
-        "Pike",
-        "Jasper",
-        "Heard",
-    ];
     return [
-        {
-            key: 'none',
-            text: "None",
-            regions: []
-        },
-        {
-            key: 'georgia',
-            text: "Georgia",
-            regions: null,
-            regionsFilter: r => r !== NON_RESIDENT_CODE
-        },
-        {
-            key: 'atlanta',
-            text: "Atlanta",
-            regions: ['Fulton', 'DeKalb']
-        },
-        {
-            key: 'atlanta5',
-            text: "Metro Atlanta (5)",
-            regions: ['Fulton', 'DeKalb', 'Gwinnett', 'Clayton', 'Cobb']
-        },
-        {
-            key: 'atlanta-masa',
-            text: "Metro Atlanta Statistical Area",
-            regions: METRO_ATLANTA_STATISTICAL_AREA
-        },
-        {
-            key: 'georgia-minus-atlanta-masa',
-            text: "Georgia - Metro Atlanta Statistical Area",
-            regions: null,
-            regionsFilter: r => !METRO_ATLANTA_STATISTICAL_AREA.includes((r))
-        },
-        {
-            key: 'athens-clark-metro',
-            text: "Athens/Clarke County Area",
-            regions: [
-                "Clarke",
-                "Madison",
-                "Oconee",
-                "Oglethorpe",
-            ]
-        },
-        {
-            key: 'dougherty',
-            text: "Dougherty 'metro'",
-            regions: [
-                "Dougherty",
-                "Lee",
-                "Terrell",
-                "Baker",
-                "Mitchell",
-                "Worth",
-            ]
-        },
-        {
-            key: 'hall+',
-            text: "Hall county plus",
-            regions: [
-                "Hall",
-                "White",
-                "Habersham",
-            ]
-        },
+        QuickPick.NONE,
+        new QuickPick("georgia", "Georgia", null, r => r !== NON_RESIDENT_CODE),
+        new QuickPick("atlanta", "Atlanta", ['Fulton', 'DeKalb']),
+        new QuickPick("atlanta5", "Metro Atlanta (5)", ['Fulton', 'DeKalb', 'Gwinnett', 'Clayton', 'Cobb']),
+        new QuickPick("atlanta-masa", "Metro Atlanta Statistical Area", METRO_ATLANTA_STATISTICAL_AREA),
+        new QuickPick("georgia-minus-atlanta-masa", "Georgia - Metro Atlanta Statistical Area", null,
+            r => !METRO_ATLANTA_STATISTICAL_AREA.includes((r))
+            ),
+        new QuickPick("athens-clark-metro", "Athens/Clarke County Area", [
+            "Clarke",
+            "Madison",
+            "Oconee",
+            "Oglethorpe",
+        ]),
+        new QuickPick("dougherty", "Dougherty 'metro'", [
+            "Dougherty",
+            "Lee",
+            "Terrell",
+            "Baker",
+            "Mitchell",
+            "Worth",
+            "Calhoun",
+        ]),
+        new QuickPick("hall+", "Hall county plus", [
+            "Hall",
+            "White",
+            "Habersham",
+        ]),
     ]
 }
