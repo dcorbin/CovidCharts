@@ -6,6 +6,7 @@ import useCollapsable from "./use_collapsable";
 import QuickPickButtonBar from "../quick_pick_button_bar";
 import DataIcon from "../data_icon";
 import SvgMap from "../maps/svg_map";
+import QuickPick from "../../model/quick_pick";
 
 class WarningRenderer {
     static footerFor(type) {
@@ -35,7 +36,9 @@ export default function useRegionSelection(initialSelections,
                                            regionSpec,
                                            allRegions,
                                            columns,
+                                           userQuickPicks,
                                            onSelectionChange,
+                                           onUserQuickPicksChange
                                            ) {
 
     const [selectedRegions, setSelectedRegions] = useState(initialSelections)
@@ -43,6 +46,19 @@ export default function useRegionSelection(initialSelections,
     const [regionMap, setRegionMap] = useState(regionSpec.map)
     if (!regionMap)
         initiateMapFetch(regionSpec.mapURI)
+
+    function createNewQuickPick(name) {
+        let picks = regionSpec.quickPicks.concat(userQuickPicks)
+        console.log("createNewQuickPick: " + name)
+        if (picks.some(qpb => qpb.name === name)) {
+            return `Quick Pick named '${name}' already exists.`
+        }
+        let key = "_" + name
+        let copiedQuickPicks = [...userQuickPicks]
+        copiedQuickPicks.push(QuickPick.createUserManaged(key, name, selectedRegions))
+        onUserQuickPicksChange(copiedQuickPicks)
+        return null
+    }
 
     function initiateMapFetch(uri) {
         fetch(uri, {method: 'GET', })
@@ -106,13 +122,14 @@ export default function useRegionSelection(initialSelections,
 
         return <div className='RegionSelection'>
             <div>
-                <QuickPickButtonBar quickPicks={regionSpec.quickPicks}
+                <QuickPickButtonBar quickPicks={regionSpec.quickPicks.concat(userQuickPicks)}
                                     regions={allRegions}
-                                    onCreateNew={(name) => console.log("Save QPB: " + name)}
+                                    onCreateNew={(name) => createNewQuickPick(name)}
                                     onClick={(regions) => {
                                      setSelectedRegions(regions)
                                      onSelectionChange(regions)
-                                 }}/>
+                                 }}
+                />
             </div>
             <div className='RegionSelectionMain'>
                 <div>

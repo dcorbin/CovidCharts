@@ -91,20 +91,20 @@ export default class GeorgiaByCounty {
 export function createQuickPicks() {
     return [
         QuickPick.NONE,
-        new QuickPick("georgia", "Georgia", null, r => r !== NON_RESIDENT_CODE),
-        new QuickPick("atlanta", "Atlanta", ['Fulton', 'DeKalb']),
-        new QuickPick("atlanta5", "Metro Atlanta (5)", ['Fulton', 'DeKalb', 'Gwinnett', 'Clayton', 'Cobb']),
-        new QuickPick("atlanta-masa", "Metro Atlanta Statistical Area", METRO_ATLANTA_STATISTICAL_AREA),
-        new QuickPick("georgia-minus-atlanta-masa", "Georgia - Metro Atlanta Statistical Area", null,
+        QuickPick.createDynamic("georgia", "Georgia",  r => r !== NON_RESIDENT_CODE),
+        QuickPick.createStatic("atlanta", "Atlanta", ['Fulton', 'DeKalb']),
+        QuickPick.createStatic("atlanta5", "Metro Atlanta (5)", ['Fulton', 'DeKalb', 'Gwinnett', 'Clayton', 'Cobb']),
+        QuickPick.createStatic("atlanta-masa", "Metro Atlanta Statistical Area", METRO_ATLANTA_STATISTICAL_AREA),
+        QuickPick.createDynamic("georgia-minus-atlanta-masa", "Georgia - Metro Atlanta Statistical Area",
             r => !METRO_ATLANTA_STATISTICAL_AREA.includes((r))
             ),
-        new QuickPick("athens-clark-metro", "Athens/Clarke County Area", [
+        QuickPick.createStatic("athens-clark-metro", "Athens/Clarke County Area", [
             "Clarke",
             "Madison",
             "Oconee",
             "Oglethorpe",
         ]),
-        new QuickPick("dougherty", "Dougherty 'metro'", [
+        QuickPick.createStatic("dougherty", "Dougherty 'metro'", [
             "Dougherty",
             "Lee",
             "Terrell",
@@ -113,7 +113,7 @@ export function createQuickPicks() {
             "Worth",
             "Calhoun",
         ]),
-        new QuickPick("hall+", "Hall county plus", [
+        QuickPick.createStatic("hall+", "Hall county plus", [
             "Hall",
             "White",
             "Habersham",

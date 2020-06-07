@@ -81,6 +81,12 @@ body {
     border:  black 1px;
 }
 
+ .menuTrigger {
+     width: 12px;
+     vertical-align: middle;
+     margin-left: 4px;
+ }
+
 .Button.disabled {
     background-color: #888;
     color: #ccc;

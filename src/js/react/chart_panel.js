@@ -45,10 +45,12 @@ export default function ChartPanel(props) {
                                 props.regionSpec,
                                 allRegions,
                                 props.columns,
+                                props.settings.userQuickPicks,
                 newRegions => {
                                     props.settings.selectedRegions = newRegions
                                     props.onSettingsChange(props.settings)
                                 },
+                                updateQuickPicks
                                 )
 
     if (normalizedRecordSet.error) {
@@ -65,6 +67,12 @@ export default function ChartPanel(props) {
         props.settings.nullStrategy = newStrategy
         props.onSettingsChange(props.settings)
     }
+
+    function updateQuickPicks(newQuickPicks) {
+        props.settings.userQuickPicks = newQuickPicks
+        props.onSettingsChange(props.settings)
+    }
+
 
     function renderNullStrategyControl() {
         if (normalizedRecordSet.hasWarning('broken')) {
@@ -105,12 +113,12 @@ ChartPanel.propTypes = {
     settings: PropTypes.shape({
         nullStrategy: PropTypes.string.isRequired,
         selectedRegions: PropTypes.arrayOf(PropTypes.string).isRequired,
-        userQuickPicks: PropTypes.arrayOf({
+        userQuickPicks: PropTypes.arrayOf(PropTypes.shape({
             key: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
             regions: PropTypes.arrayOf(PropTypes.string),
             regionsFilter: PropTypes.func
-        }).isRequired
+        })).isRequired
     }).isRequired,
     columns: PropTypes.number.isRequired,
     regionSpec: PropTypes.shape({
@@ -122,7 +130,7 @@ ChartPanel.propTypes = {
                 PropTypes.shape(
                     {
                         key: PropTypes.string.isRequired,
-                        text: PropTypes.string.isRequired,
+                        name: PropTypes.string.isRequired,
                         regions: PropTypes.arrayOf(PropTypes.string),
                         regionsFilter: PropTypes.func
                     }

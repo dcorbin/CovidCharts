@@ -1,15 +1,29 @@
 export default class QuickPick {
 
-    constructor(key, name, regions = null, regionsFilter=null) {
-        if (regions === null && this.regionsFilter === null) {
+    static createStatic(key, name, regions) {
+        return new QuickPick({
+            key: key, name: name, regions: regions, regionsFilter: null, userManaged: false
+        })
+    }
+    static createUserManaged(key, name, regions) {
+        return new QuickPick({
+            key: key, name: name, regions: regions, regionsFilter: null, userManaged: true
+        })
+    }
+    static createDynamic(key, name, regionsFilter) {
+        return new QuickPick({
+            key: key, name: name, regions: null, regionsFilter: regionsFilter, userManaged: false
+        })
+    }
+    static fromGenericObject(obj) {
+        return new QuickPick(obj)
+    }
+    constructor(obj) {
+        if (obj.regions === null && obj.regionsFilter === null) {
             console.log("QuickPick: invalid construction - must specify regions or regionsFilter")
         }
-        this.key = key
-        this.name = name
-        this.text = name
-        this.regions = regions
-        this.regionsFilter = regionsFilter
+        Object.assign(this, obj)
     }
 }
 
-QuickPick.NONE = new QuickPick("none", "None", [])
+QuickPick.NONE = QuickPick.createStatic("none", "None", [])

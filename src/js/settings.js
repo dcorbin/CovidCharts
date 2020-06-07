@@ -1,3 +1,5 @@
+import QuickPick from "./model/quick_pick";
+
 class Settings {
     static defaultSettings() {
         return new Settings(
@@ -17,7 +19,8 @@ class SettingsStore {
     }
 
     store(settings) {
-        this.storage.setItem('settings.v3', JSON.stringify(settings))
+        let json = JSON.stringify(settings, null, 2);
+        this.storage.setItem('settings.v3', json)
     }
 
     load() {
@@ -33,6 +36,12 @@ class SettingsStore {
 
                 if (!tabSettings.userQuickPicks)
                     tabSettings.userQuickPicks = []
+                else {
+                    tabSettings.userQuickPicks = tabSettings.userQuickPicks.map(qpo => {
+                        return QuickPick.fromGenericObject(qpo);
+                    })
+                }
+
 
                 if (!tabSettings.nullStrategy) {
                     tabSettings.nullStrategy = 'none'
@@ -63,7 +72,8 @@ class SettingsStore {
                 return ensureSettingsCurrent(handleOldSettings.bind(this)(item))
             }
         }
-        return ensureSettingsCurrent(JSON.parse(item))
+        let result = ensureSettingsCurrent(JSON.parse(item));
+        return result
     }
 
 }

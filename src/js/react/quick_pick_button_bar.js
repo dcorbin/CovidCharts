@@ -27,15 +27,23 @@ export default function QuickPickButtonBar(props) {
         return null
     }
 
-    function saveClicked() {
+    function processForm() {
         let textBox = document.getElementById('quickPickName')
+        if (textBox.value.length === 0) {
+            return
+        }
+        let error = props.onCreateNew(textBox.value)
+        if (error) {
+            console.log("ERROR: " + error)
+            return
+        }
         setShowNewQuickPickForm(false)
-        this.props.onCreateNew(textBox.value)
     }
 
     function renderQuickPick(quickPick) {
         return <span key={quickPick.key} className='quickPick' onClick={() => clicked(quickPick)}>
-                        {quickPick.text.replace(/ /g, '\u00a0')}
+                        {quickPick.name.replace(/ /g, '\u00a0')}
+                        {quickPick.userManaged ? <img className='menuTrigger' src='/whiteTriangleDown.svg'/> : null}
                     </span>
     }
     let createButtonClassNames = ['Button']
@@ -61,10 +69,18 @@ export default function QuickPickButtonBar(props) {
             <form id='quickPickSave'>
                 <label htmlFor='quickPickName'>Quick Pick Name:</label>
                 <input type='text' id="quickPickName" defaultValue="" autoFocus={true}
+                       onKeyDown={e => {
+
+                           if (e.keyCode === 13) {
+                               e.preventDefault()
+                               processForm()
+                           }
+                       }}
                        onChange={(e) => {
+                           e.preventDefault()
                            setCreateEnabled(e.currentTarget.value.length > 0)
                        }}/>
-                <span className={createButtonClassNames.join(' ')}  onClick={saveClicked}>Create</span>
+                <span className={createButtonClassNames.join(' ')}  onClick={processForm}>Create</span>
                 <span className='Button'  onClick={()=>setShowNewQuickPickForm(false)}>Cancel</span>
             </form>
 
@@ -76,7 +92,8 @@ export default function QuickPickButtonBar(props) {
 QuickPickButtonBar.propTypes = {
     regions: PropTypes.arrayOf(PropTypes.string).isRequired,
     quickPicks: PropTypes.arrayOf(PropTypes.shape({
-        text: PropTypes.string.isRequired,
+        key: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         regions: PropTypes.arrayOf(PropTypes.string),
         regionsFilter: PropTypes.func
     })),
