@@ -47,29 +47,10 @@ export default function QuickPickButtonBar(props) {
         createButtonClassNames.push('disabled')
     }
 
-    return <table className='QuickPickBar'>
-            <tbody>
-            <tr>
-                <td className='Buttons'>
-                    <b>Quick&nbsp;Picks:&nbsp;</b>{renderCreateNewQuickPickButton()}
-                </td>
-                <td>
-                    <div className='QuickPicker'>
-                        {
-                            props.quickPicks.map(p => {
-                                return <QuickPickButton key={p.key} quickPick={p} onClick={clicked}
-                                                        onDelete={props.onDeleteQuickPick}/>
-                            })
-                        }
-                    </div>
-                </td>
-            </tr>
-
-
-        {
-            showNewQuickPickForm ? <tr><td className='QuickPickForm'>
+    function renderForm() {
+        return <div className='Form'>
             <form id='quickPickSave'>
-                <label htmlFor='quickPickName'>Quick Pick Name:</label>
+                <label htmlFor='quickPickName'>Quick Pick Name: </label>
                 <input type='text' id="quickPickName" defaultValue="" autoFocus={true}
                        onKeyDown={e => {
 
@@ -82,13 +63,37 @@ export default function QuickPickButtonBar(props) {
                            e.preventDefault()
                            setCreateEnabled(e.currentTarget.value.length > 0)
                        }}/>
-                <span className={createButtonClassNames.join(' ')}  onClick={processForm}>Create</span>
-                <span className='Button'  onClick={()=>setShowNewQuickPickForm(false)}>Cancel</span>
+                <span className={createButtonClassNames.join(' ')} onClick={processForm}>Create</span>
+                <span className='Button' onClick={() => setShowNewQuickPickForm(false)}>Cancel</span>
             </form>
 
-            </td> </tr>: null}
-            </tbody>
-    </table>
+        </div>;
+    }
+
+    function renderFormIfOpen() {
+        return showNewQuickPickForm ? renderForm() : null;
+    }
+
+    return (
+        <div className='QuickPickBar'>
+            <div className='Table'>
+                <div className='Row'>
+                    <div className='Buttons'>
+                        <b>Quick&nbsp;Picks:&nbsp;</b>{renderCreateNewQuickPickButton()}
+                    </div>
+                    <div className='QuickPicker'>
+                        {
+                            props.quickPicks.map(p => {
+                                return <QuickPickButton key={p.key} quickPick={p} onClick={clicked}
+                                                        onDelete={props.onDeleteQuickPick}/>
+                            })
+                        }
+                    </div>
+                </div>
+            </div>
+            {renderFormIfOpen()}
+        </div>
+    )
 
 }
 

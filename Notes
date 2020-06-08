@@ -1,6 +1,9 @@
 Add UQP Delete
     Vertical alignment of X
-    Wrapping problem
+    Region name font size
+ESC to cancel
+Remove old QuickPicks
+Column count based on viewport sizes
 
 Breakup CSS and import fragments
 
