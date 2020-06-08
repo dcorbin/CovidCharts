@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import QuickPickButton from "./quick_pick_button";
 
 
 export default function QuickPickButtonBar(props) {
@@ -13,11 +14,12 @@ export default function QuickPickButtonBar(props) {
         }
         props.onClick(regions)
     }
+
     function saveAs() {
         setShowNewQuickPickForm(true)
     }
 
-    function addQuickPick() {
+    function renderCreateNewQuickPickButton() {
         if (props.onCreateNew) {
             let classNames=['quickPickAction', 'Button']
             if (showNewQuickPickForm)
@@ -40,32 +42,32 @@ export default function QuickPickButtonBar(props) {
         setShowNewQuickPickForm(false)
     }
 
-    function renderQuickPick(quickPick) {
-        return <span key={quickPick.key} className='quickPick' onClick={() => clicked(quickPick)}>
-                        {quickPick.name.replace(/ /g, '\u00a0')}
-                        {quickPick.userManaged ? <img className='menuTrigger' src='/whiteTriangleDown.svg'/> : null}
-                    </span>
-    }
     let createButtonClassNames = ['Button']
     if (!createEnabled) {
         createButtonClassNames.push('disabled')
     }
 
-    return <div className='QuickPickBar'>
-            <div className='Buttons'>
-                <b>Quick Picks: </b>
-                <span className='QuickPicker'>
-                    {addQuickPick()}
-                    {
-                        props.quickPicks.map(p => {
-                            return renderQuickPick(p)
-                        })
-                    }
+    return <table className='QuickPickBar'>
+            <tbody>
+            <tr>
+                <td className='Buttons'>
+                    <b>Quick&nbsp;Picks:&nbsp;</b>{renderCreateNewQuickPickButton()}
+                </td>
+                <td>
+                    <div className='QuickPicker'>
+                        {
+                            props.quickPicks.map(p => {
+                                return <QuickPickButton key={p.key} quickPick={p} onClick={clicked}
+                                                        onDelete={props.onDeleteQuickPick}/>
+                            })
+                        }
+                    </div>
+                </td>
+            </tr>
 
-                </span>
-            </div>
+
         {
-            showNewQuickPickForm ? <div className='QuickPickForm'>
+            showNewQuickPickForm ? <tr><td className='QuickPickForm'>
             <form id='quickPickSave'>
                 <label htmlFor='quickPickName'>Quick Pick Name:</label>
                 <input type='text' id="quickPickName" defaultValue="" autoFocus={true}
@@ -84,8 +86,9 @@ export default function QuickPickButtonBar(props) {
                 <span className='Button'  onClick={()=>setShowNewQuickPickForm(false)}>Cancel</span>
             </form>
 
-        </div> : null}
-    </div>
+            </td> </tr>: null}
+            </tbody>
+    </table>
 
 }
 
@@ -99,5 +102,6 @@ QuickPickButtonBar.propTypes = {
     })),
     onClick: PropTypes.func.isRequired,
     onCreateNew: PropTypes.func,
+    onDeleteQuickPick: PropTypes.func,
 
 }

@@ -1,7 +1,14 @@
-RISK: Make fetching more robust than just "the fourth JSON block"
-Create-your-own Quick Picks
+Add UQP Delete
+    Vertical alignment of X
+    Wrapping problem
+
 Breakup CSS and import fragments
+
+RISK: Make fetching more robust than just "the fourth JSON block"
 Map svg processing happening over and over
+Settings/_Store refactoring.
+Add QP Ordering
+
 
 HotSpot Quick Picks
 

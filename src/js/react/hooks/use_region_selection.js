@@ -47,6 +47,10 @@ export default function useRegionSelection(initialSelections,
     if (!regionMap)
         initiateMapFetch(regionSpec.mapURI)
 
+    function deleteQuickPick(quickPick) {
+        onUserQuickPicksChange(userQuickPicks.filter(pick => pick.name !== quickPick.name))
+    }
+
     function createNewQuickPick(name) {
         let picks = regionSpec.quickPicks.concat(userQuickPicks)
         console.log("createNewQuickPick: " + name)
@@ -125,6 +129,7 @@ export default function useRegionSelection(initialSelections,
                 <QuickPickButtonBar quickPicks={regionSpec.quickPicks.concat(userQuickPicks)}
                                     regions={allRegions}
                                     onCreateNew={(name) => createNewQuickPick(name)}
+                                    onDeleteQuickPick={(quickPick => deleteQuickPick(quickPick))}
                                     onClick={(regions) => {
                                      setSelectedRegions(regions)
                                      onSelectionChange(regions)
