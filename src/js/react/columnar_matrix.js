@@ -27,35 +27,33 @@ export default function ColumnarMatrix(props) {
     }
 
     let cellStyle = {width: String(100/columns)+"%"}
-    return <div className={props.className}><table>
-            <tbody>{
+    return <div className={"ColumnarMatrix Table"}>
+            {
                 rows.map((row, index) => {
-                    return <tr key={index}>
+                    return <div className='Row' key={index}>
                         {
                             row.map(value => {
-                                let className = props.hoverValue === value ? 'hover' : null
-                                return <td
-                                    className={className}
+                                let className = props.hoverValue === value ? 'hover' : ''
+                                return <div
+                                    className={'Region ' + className}
                                     data-id={value}
                                     onClick={valueClicked}
                                     onMouseEnter={(e) => props.onHover(value)}
                                     onMouseLeave={(e) => props.onHover(null)}
                                     style={cellStyle} key={value}>
                                     {props.valueRenderer(value)}
-                                </td>
+                                </div>
                             })
-                        }</tr>
+                        }</div>
                 })
 
             }
-            </tbody>
-        </table>
     </div>
 }
 
 ColumnarMatrix.defaultProps = {
     valueRenderer: (value) => value,
-    className: 'ColumnarMatrix',
+        className: 'ColumnarMatrix',
     hoverValue: null,
     onHover: (value) => {},
 }
