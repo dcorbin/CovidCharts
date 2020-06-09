@@ -52,8 +52,8 @@ body {
 
 div.ColumnarMatrix {
     width: 100%;
-    font-size: 11px;
-    line-height: 12px;
+    font-size: 14px;
+    line-height: 15px;
 }
 div.ColumnarMatrix.Table {
     display: table;
@@ -83,7 +83,7 @@ div.ColumnarMatrix.Table .Row .Region.hover {
     display: table;
     margin-top: 8px;
     max-width: 100vw;
-    line-height: 2em;
+    line-height: 2.4em;
 }
 .QuickPickBar .Table {
     display: table;
@@ -103,6 +103,9 @@ div.ColumnarMatrix.Table .Row .Region.hover {
 .QuickPickBar .Row .Buttons {
     display: table-cell;
 }
+.QuickPickBar .Row .QuickPicker .deleteAction {
+    vertical-align: middle;
+}
 .QuickPickBar .Row .QuickPicker {
     display: table-cell;
 }
@@ -118,7 +121,7 @@ div.ColumnarMatrix.Table .Row .Region.hover {
     color: white;
     padding: 4px 8px;
     border-radius: 8px;
-    font-size: 11px;
+    font-size: 14px;
 }
 
  .Button {
