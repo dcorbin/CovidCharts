@@ -103,8 +103,14 @@ div.ColumnarMatrix.Table .Row .Region.hover {
 .QuickPickBar .Row .Buttons {
     display: table-cell;
 }
+.QuickPickBar .Row .QuickPicker .actionSeparator {
+    margin: 0 6px;
+    cursor: default;
+}
 .QuickPickBar .Row .QuickPicker .deleteAction {
     vertical-align: middle;
+    width: 7px;
+    cursor: pointer;
 }
 .QuickPickBar .Row .QuickPicker {
     display: table-cell;
@@ -113,15 +119,16 @@ div.ColumnarMatrix.Table .Row .Region.hover {
 .QuickPickBar .Form {
     margin-top: 4px;
 }
-
-.QuickPicker .quickPick {
-    margin: 4px;
-    cursor: pointer;
+.QuickPickButton {
     background-color: #335fa6;
-    color: white;
+    margin: 4px;
     padding: 4px 8px;
     border-radius: 8px;
-    font-size: 14px;
+    color: white;
+    font-size: 12px;
+}
+.quickPick {
+    cursor: pointer;
 }
 
  .Button {

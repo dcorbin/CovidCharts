@@ -3,20 +3,33 @@ import PropTypes from "prop-types";
 
 export default function QuickPickButton(props) {
     let quickPick = props.quickPick
+
+    function renderDeleteAction() {
+        return <span>
+                                    <span className='actionSeparator'>|</span>
+                                    <img className='deleteAction'
+                                         alt='Delete'
+                                         src='/whiteX.svg'
+                                         onClick={(e) => {
+                                             e.preventDefault()
+                                             props.onDelete(quickPick)
+                                         }}/>
+                        </span>;
+    }
+
+    function renderDeleteActionIfNeeded() {
+        return quickPick.userManaged && props.onDelete
+            ? renderDeleteAction()
+            : null;
+    }
+
     return <span className='QuickPickButton' >
                 <span className='quickPick' onClick={()=>props.onClick(quickPick)}>
                     {quickPick.name.replace(/ /g, '\u00a0')}
-                    {quickPick.userManaged && props.onDelete
-                        ? <span>
-                                    <span className='actionSeparator'>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                                    <span className='deleteAction'
-                                          onClick={(e) => {
-                                              e.preventDefault()
-                                              props.onDelete(quickPick)
-                                          }}>X</span>
-                        </span>
-                        : null}
-                </span> </span>
+                </span>
+                {renderDeleteActionIfNeeded()}
+                <span> </span>
+    </span>
 
 }
 

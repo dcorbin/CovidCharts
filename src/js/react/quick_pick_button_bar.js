@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import QuickPickButton from "./quick_pick_button";
 
-
 export default function QuickPickButtonBar(props) {
     let [showNewQuickPickForm, setShowNewQuickPickForm] = useState(false)
     let [createEnabled, setCreateEnabled] = useState(false)
