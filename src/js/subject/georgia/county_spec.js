@@ -6,6 +6,9 @@ export class CountyRegionSpec {
     constructor() {
         this.singleNoun = 'county'
         this.pluralNoun = 'counties'
+        this.matrixMapRatio = [7, 3]
+        this.columns=7
+        this.minimumCellWidth = 107
         this.displayNameFor = function(region) {
             if (region === NON_RESIDENT_CODE) {
                 return <i>Non-resident</i>

@@ -90,6 +90,9 @@ export class StateRegionSpec {
         let stateTable = new StateTable()
         this.singleNoun = 'state'
         this.pluralNoun = 'states'
+        this.matrixMapRatio = [8, 3]
+        this.columns = 6
+        this.minimumCellWidth = 150;
         this.displayNameFor = function(state) {
             return stateTable.fullName(state)
         }

@@ -7,6 +7,7 @@ import QuickPickButtonBar from "../quick_pick_button_bar";
 import DataIcon from "../data_icon";
 import SvgMap from "../maps/svg_map";
 import QuickPick from "../../model/quick_pick";
+import useWindowDimensions from "./use_window_dimensions";
 
 class WarningRenderer {
     static footerFor(type) {
@@ -35,7 +36,7 @@ export default function useRegionSelection(initialSelections,
                                            recordSet,
                                            regionSpec,
                                            allRegions,
-                                           columns,
+
                                            userQuickPicks,
                                            onSelectionChange,
                                            onUserQuickPicksChange
@@ -44,6 +45,14 @@ export default function useRegionSelection(initialSelections,
     const [selectedRegions, setSelectedRegions] = useState(initialSelections)
     const [hoverRegion, setHoverRegion] = useState(null)
     const [regionMap, setRegionMap] = useState(regionSpec.map)
+    const {width, height} = useWindowDimensions()
+    const matrixWidth = width * regionSpec.matrixMapRatio[0] / (regionSpec.matrixMapRatio.reduce((a,b) => a + b)) - 20
+    let columns = Math.floor(matrixWidth / regionSpec.minimumCellWidth )
+    if (columns < 0) {
+        columns = 1
+    } else if (columns > regionSpec.columns) {
+        columns = regionSpec.columns
+    }
     if (!regionMap)
         initiateMapFetch(regionSpec.mapURI)
 
@@ -108,7 +117,7 @@ export default function useRegionSelection(initialSelections,
             if (!map) {
                 return null
             }
-            return <div>
+            return (
                 <SvgMap
                     map={map}
                     hoverLocation={hoverRegion}
@@ -120,44 +129,50 @@ export default function useRegionSelection(initialSelections,
                         }
                         return []
                     }}/>
-            </div>
+            )
+        }
+
+        function gridTemplate(regionSpec) {
+            return {
+                gridTemplateColumns: regionSpec.matrixMapRatio.map(value => `${value}fr`).join(' ')
+            }
         }
 
 
         return <div className='RegionSelection'>
-            <div>
-                <QuickPickButtonBar quickPicks={regionSpec.quickPicks.concat(userQuickPicks)}
-                                    regions={allRegions}
-                                    onCreateNew={(name) => createNewQuickPick(name)}
-                                    onDeleteQuickPick={(quickPick => deleteQuickPick(quickPick))}
-                                    onClick={(regions) => {
-                                     setSelectedRegions(regions)
-                                     onSelectionChange(regions)
-                                 }}
-                />
-            </div>
-            <div className='RegionSelectionMain'>
                 <div>
-                    <ColumnarMatrix values={allRegions}
-                                    columns={columns}
-                                    onValueClicked={matrixItemClicked}
-                                    onHover={onHover}
-                                    hoverValue={hoverRegion}
-                                    valueRenderer={value => {
-                                        let selected = selectedRegions.includes(value)
-                                        return <SelectableValue value={value}
-                                                                valueRenderer={region => {
-                                                                    return <span>{regionSpec.displayNameFor(region)}{recordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
-                                                                }}
-                                                                selected={selected}/>;
-                                    }}
+                    <QuickPickButtonBar quickPicks={regionSpec.quickPicks.concat(userQuickPicks)}
+                                        regions={allRegions}
+                                        onCreateNew={(name) => createNewQuickPick(name)}
+                                        onDeleteQuickPick={(quickPick => deleteQuickPick(quickPick))}
+                                        onClick={(regions) => {
+                                         setSelectedRegions(regions)
+                                         onSelectionChange(regions)
+                                     }}
                     />
                 </div>
-                <div style={{margin: '10px'}}>{mapSection(regionMap)}</div>
-            </div>
-            <div>&nbsp;</div>
-            <div className='footer'> {footers}</div>
-        </div>;
+                <div className='RegionSelectionMain' style={gridTemplate(regionSpec)}>
+                    <div>
+                        <ColumnarMatrix values={allRegions}
+                                        columns={columns}
+                                        onValueClicked={matrixItemClicked}
+                                        onHover={onHover}
+                                        hoverValue={hoverRegion}
+                                        valueRenderer={value => {
+                                            let selected = selectedRegions.includes(value)
+                                            return <SelectableValue value={value}
+                                                                    valueRenderer={region => {
+                                                                        return <span>{regionSpec.displayNameFor(region)}{recordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
+                                                                    }}
+                                                                    selected={selected}/>;
+                                        }}
+                        />
+                    </div>
+                    <div style={{margin: '10px'}}>{mapSection(regionMap)}</div>
+                </div>
+                <div>&nbsp;</div>
+                <div className='footer'> {footers}</div>
+            </div>;
     }
 
     let formattedRegionList = selectedRegions.map(region => regionSpec.displayNameFor(region)).join(", ")

@@ -51,13 +51,11 @@ body {
 }
 
 div.ColumnarMatrix {
-    width: 100%;
     font-size: 14px;
     line-height: 15px;
 }
 div.ColumnarMatrix.Table {
     display: table;
-    width: 100%;
     margin: 2px;
 
 }
@@ -69,15 +67,12 @@ div.ColumnarMatrix.Table .Row {
 div.ColumnarMatrix.Table .Row .Region {
     display: table-cell;
     cursor: pointer;
-    min-width: 140px
 }
 
 div.ColumnarMatrix.Table .Row .Region.hover {
     background-color: #335fa6;
     color: white;
 }
-
-
 
 .QuickPickBar {
     display: table;
@@ -148,7 +143,6 @@ div.ColumnarMatrix.Table .Row .Region.hover {
 
 .RegionSelectionMain {
     display:grid;
-    grid-template-columns: 3fr 2fr;
 }
 
 .RegionSelection{
@@ -170,6 +164,7 @@ div.ColumnarMatrix.Table .Row .Region.hover {
 }
 .RegionSelection .selectable img.indicator {
     visibility: hidden;
+    margin-right: 3px;
 }
 
 .expand-collapse-control {
@@ -179,7 +174,6 @@ div.ColumnarMatrix.Table .Row .Region.hover {
 }
 
 .map {
-    width: 100%;
     height: auto;
     stroke: #000;
     stroke-width: 1;

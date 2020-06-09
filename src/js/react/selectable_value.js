@@ -9,7 +9,8 @@ export default function SelectableValue(props) {
         outerSpanClassNames.push('selected')
         innerSpanClassNames.push('selected')
     }
-    return <span key={props.value} className={outerSpanClassNames.join(' ')}><SelectionIndicator/>&nbsp;<span className={innerSpanClassNames.join(' ')}>{props.valueRenderer(props.value)}</span></span>
+    return <span key={props.value} className={outerSpanClassNames.join(' ')}>
+        <SelectionIndicator/><span className={innerSpanClassNames.join(' ')}>{props.valueRenderer(props.value)}</span></span>
 }
 
 SelectableValue.propTypes = {

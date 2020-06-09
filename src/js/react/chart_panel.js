@@ -44,7 +44,6 @@ export default function ChartPanel(props) {
                                 normalizedRecordSet,
                                 props.regionSpec,
                                 allRegions,
-                                props.columns,
                                 props.settings.userQuickPicks,
                 newRegions => {
                                     props.settings.selectedRegions = newRegions
@@ -120,10 +119,11 @@ ChartPanel.propTypes = {
             regionsFilter: PropTypes.func
         })).isRequired
     }).isRequired,
-    columns: PropTypes.number.isRequired,
     regionSpec: PropTypes.shape({
             singleNoun: PropTypes.string.isRequired,
             pluralNoun: PropTypes.string.isRequired,
+            columns: PropTypes.number.isRequired,
+            matrixMapRatio: PropTypes.arrayOf(PropTypes.number).isRequired,
             displayNameFor: PropTypes.func.isRequired,
             mapURI: PropTypes.string.isRequired,
             quickPicks: PropTypes.arrayOf(

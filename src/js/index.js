@@ -56,7 +56,7 @@ function initialize() {
                     <ChartPanel dataProvider={covidTracking}
                                 regionSpec={new StateRegionSpec()}
                                 settings={settings.covidTracking}
-                                columns={4}
+                                columns={6}
                                 onSettingsChange={createSettingsChangeHandler('covidTracking')}/>
                      <Footer source={<a href="https://covidtracking.com">covidtracking.com</a>}/>
                 </TabPanel>
@@ -64,7 +64,7 @@ function initialize() {
                     <ChartPanel dataProvider={georgiaDataProvider}
                                 regionSpec={new CountyRegionSpec()}
                                 settings={settings.georgia}
-                                columns={6}
+                                columns={7}
                                 onSettingsChange={createSettingsChangeHandler('georgia')}/>
                     <Footer source={<a href="https://dph.georgia.gov/covid-19-daily-status-report">Georgia Department of Public Health</a>}/>
                 </TabPanel>
