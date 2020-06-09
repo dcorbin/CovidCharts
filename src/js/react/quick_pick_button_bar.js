@@ -54,9 +54,12 @@ export default function QuickPickButtonBar(props) {
                 <input type='text' id="quickPickName" defaultValue="" autoFocus={true}
                        onKeyDown={e => {
 
-                           if (e.keyCode === 13) {
+                           if (e.key === "Enter") {
                                e.preventDefault()
                                processForm()
+                           } else if (e.key === "Escape") {
+                               e.preventDefault()
+                               setShowNewQuickPickForm(false)
                            }
                        }}
                        onChange={(e) => {
