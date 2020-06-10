@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import './svg_map.css'
 
 export default function SvgMap(props) {
     return <svg className='map' viewBox={props.map.viewBox} xmlns="http://www.w3.org/2000/svg">

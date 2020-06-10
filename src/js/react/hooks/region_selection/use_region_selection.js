@@ -1,13 +1,14 @@
 import React, {useState} from "react";
-import ArraySummary from "../array_summary";
-import ColumnarMatrix from "../columnar_matrix";
-import SelectableValue from "../selectable_value";
-import useCollapsable from "./use_collapsable";
-import QuickPickButtonBar from "../quick_pick_button_bar";
-import DataIcon from "../data_icon";
-import SvgMap from "../maps/svg_map";
-import QuickPick from "../../model/quick_pick";
-import useWindowDimensions from "./use_window_dimensions";
+import ArraySummary from "../../array_summary";
+import ColumnarMatrix from "../../columnar_matrix/columnar_matrix";
+import SelectableValue from "../../selectable_value";
+import useCollapsable from "../collapsable/use_collapsable";
+import QuickPickButtonBar from "../../quickpick/quick_pick_button_bar";
+import DataIcon from "../../data_icon";
+import SvgMap from "../../maps/svg_map";
+import QuickPick from "../../../model/quick_pick";
+import useWindowDimensions from "../use_window_dimensions";
+import './region_selection.css'
 
 class WarningRenderer {
     static footerFor(type) {

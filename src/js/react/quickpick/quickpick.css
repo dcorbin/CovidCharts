@@ -1,0 +1,52 @@
+
+.QuickPickBar {
+    display: table;
+    margin-top: 8px;
+    max-width: 100vw;
+    line-height: 2.4em;
+}
+.QuickPickBar .Table {
+    display: table;
+}
+.QuickPickBar .Row {
+    display:table-row;
+}
+.QuickPickBar .QuickPickForm {
+    margin: 8px;
+}
+.QuickPickBar .QuickPickForm #quickPickName {
+    margin: 4px;
+}
+.QuickPickBar .actionSeparator {
+    color: #ccc;
+}
+.QuickPickBar .Row .Buttons {
+    display: table-cell;
+}
+.QuickPickBar .Row .QuickPicker .actionSeparator {
+    margin: 0 6px;
+    cursor: default;
+}
+.QuickPickBar .Row .QuickPicker .deleteAction {
+    vertical-align: middle;
+    width: 7px;
+    cursor: pointer;
+}
+.QuickPickBar .Row .QuickPicker {
+    display: table-cell;
+}
+
+.QuickPickBar .Form {
+    margin-top: 4px;
+}
+.QuickPickButton {
+    background-color: #335fa6;
+    margin: 4px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+}
+.quickPick {
+    cursor: pointer;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
+import './columnar_matrix.css'
 
 export default function ColumnarMatrix(props) {
     function valueClicked(e) {

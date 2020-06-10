@@ -1,0 +1,24 @@
+
+div.ColumnarMatrix {
+    font-size: 14px;
+    line-height: 15px;
+}
+div.ColumnarMatrix.Table {
+    display: table;
+    margin: 2px;
+
+}
+
+div.ColumnarMatrix.Table .Row {
+    display: table-row;
+}
+
+div.ColumnarMatrix.Table .Row .Region {
+    display: table-cell;
+    cursor: pointer;
+}
+
+div.ColumnarMatrix.Table .Row .Region.hover {
+    background-color: #335fa6;
+    color: white;
+}

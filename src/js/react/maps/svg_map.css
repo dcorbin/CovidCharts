@@ -1,0 +1,33 @@
+
+.map {
+    height: auto;
+    stroke: #000;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.map .region {
+    fill: #d7c086;
+    stroke-width: 0.5;
+}
+
+.map .region:hover {
+    cursor: pointer;
+    fill: #f7e0a6;
+}
+
+.map .region.hover {
+    cursor: pointer;
+    fill: #f7e0a6;
+}
+.map path.selected {
+    fill: #8dcb8d;
+}
+
+.map path.selected:hover {
+    fill: #adebad;
+}
+.map path.selected.hover {
+    fill: #adebad;
+}

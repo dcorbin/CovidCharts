@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import SevenDayAverageChart from "./seven _day_average_chart";
-import useRegionSelection from "./hooks/use_region_selection";
+import useRegionSelection from "./hooks/region_selection/use_region_selection";
 import DataLine from "../charting/data_line";
 import NormalizedRecordSet from "../covid_tracking_com/normalized_record_set";
 import PropTypes from 'prop-types'

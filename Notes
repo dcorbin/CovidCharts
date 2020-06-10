@@ -1,8 +1,5 @@
 PRODUCTION: Mail not arriving [done?]
-
-SECURITY: websockets-extensions update
 Experiment with inline SVG component (so color and other styles can be consistently controlled)
-ENCAPSULATE: Breakup CSS and import fragments
 
 RISK: Make fetching more robust than just "the fourth JSON block"
 BUILD: Map svg processing happening over and over

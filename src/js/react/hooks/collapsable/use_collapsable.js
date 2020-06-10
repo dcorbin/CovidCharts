@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-
+import './collapsable.css'
 export default function useCollapsable(renderExpandedFunction, renderCollapsedFunction, className) {
     const [collapsed, setCollapsed] = useState(false)
     function expansionControl () {
