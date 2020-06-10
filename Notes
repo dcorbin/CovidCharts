@@ -1,6 +1,6 @@
 PRODUCTION: Mail not arriving [done?]
 
-SECURITY: websockets update
+SECURITY: websockets-extensions update
 Experiment with inline SVG component (so color and other styles can be consistently controlled)
 ENCAPSULATE: Breakup CSS and import fragments
 
