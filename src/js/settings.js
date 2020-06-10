@@ -20,7 +20,7 @@ class SettingsStore {
 
     store(settings) {
         let json = JSON.stringify(settings, null, 2);
-        this.storage.setItem('settings.v3', json)
+        this.storage.setItem('initialSettings.v3', json)
     }
 
     load() {
@@ -55,7 +55,7 @@ class SettingsStore {
         }
 
         function handleOldSettings(json) {
-            console.log("Migrating old settings: " + json)
+            console.log("Migrating old initialSettings: " + json)
             let oldSettings = JSON.parse(json)
             this.storage.removeItem('settings')
             return {
@@ -63,7 +63,7 @@ class SettingsStore {
             }
         }
 
-        let item = this.storage.getItem('settings.v3')
+        let item = this.storage.getItem('initialSettings.v3')
         if (item === null) {
             let item = this.storage.getItem('settings')
             if (item === null) {

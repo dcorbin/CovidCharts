@@ -62,7 +62,6 @@ export default function useRegionSelection(initialSelections,
 
     function createNewQuickPick(name) {
         let picks = regionSpec.quickPicks.concat(userQuickPicks)
-        console.log("createNewQuickPick: " + name)
         if (picks.some(qpb => qpb.name === name)) {
             return `Quick Pick named '${name}' already exists.`
         }

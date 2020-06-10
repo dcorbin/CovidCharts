@@ -1,21 +1,22 @@
 
-Remove old QuickPicks
-Column count based on viewport sizes
 Experiment with inline SVG component (so color and other styles can be consistently controlled)
-Breakup CSS and import fragments
+ENCAPSULATE: Breakup CSS and import fragments
+
 RISK: Make fetching more robust than just "the fourth JSON block"
-Map svg processing happening over and over
-Settings/_Store refactoring.
-Add QP Ordering
+BUILD: Map svg processing happening over and over
+CLARITY: Settings/_Store refactoring.
+
+FEATURE: Add QP Ordering
 
 
-HotSpot Quick Picks
+FEATURE: Control 7DayAvg/or not
+FEATURE: Logarithmic Y-axis support
+FEATURE: HotSpot Quick Picks
 
-Control 7DayAvg/or not
-Logarithmic Y-axis support
-
-Other CT data charts
-Image (download) Link
+FEATURE: Other CT data charts
+FEATURE: Image (download) Link
+FEATURE: Chart region vs region
+FEATURE: Dashboard building?
 
 Add Bootstrap?
 
@@ -26,5 +27,3 @@ Other calculated charts
     Trend detection?
     Ratios?
     State vs State (one property)
-Chart region vs region
-Dashboard building?

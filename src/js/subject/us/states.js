@@ -107,12 +107,7 @@ function createUSQuickPicks(stateTable) {
 
     return  [
         QuickPick.NONE,
-        QuickPick.createStatic('southeast', "Southeast", ['FL', 'GA', 'SC', 'NC', 'AL', 'TN', 'KY', 'AR', 'MS', 'LA']),
-        QuickPick.createStatic('tri-state', "Tri-state", ['NY', 'NJ', 'CT']),
         QuickPick.createStatic('usa', "United States",  allStates.map(s => s.abbreviation)),
-        QuickPick.createStatic('continentalUs', "Continental US",  continentalStates),
-        QuickPick.createStatic('continental-ny', "Continental US w/o NY",
-                continentalStates.filter(s => s !== 'NY'))
     ]
 }
 

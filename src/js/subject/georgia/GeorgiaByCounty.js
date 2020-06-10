@@ -92,31 +92,5 @@ export function createQuickPicks() {
     return [
         QuickPick.NONE,
         QuickPick.createDynamic("georgia", "Georgia",  r => r !== NON_RESIDENT_CODE),
-        QuickPick.createStatic("atlanta", "Atlanta", ['Fulton', 'DeKalb']),
-        QuickPick.createStatic("atlanta5", "Metro Atlanta (5)", ['Fulton', 'DeKalb', 'Gwinnett', 'Clayton', 'Cobb']),
-        QuickPick.createStatic("atlanta-masa", "Metro Atlanta Statistical Area", METRO_ATLANTA_STATISTICAL_AREA),
-        QuickPick.createDynamic("georgia-minus-atlanta-masa", "Georgia - Metro Atlanta Statistical Area",
-            r => !METRO_ATLANTA_STATISTICAL_AREA.includes((r))
-            ),
-        QuickPick.createStatic("athens-clark-metro", "Athens/Clarke County Area", [
-            "Clarke",
-            "Madison",
-            "Oconee",
-            "Oglethorpe",
-        ]),
-        QuickPick.createStatic("dougherty", "Dougherty 'metro'", [
-            "Dougherty",
-            "Lee",
-            "Terrell",
-            "Baker",
-            "Mitchell",
-            "Worth",
-            "Calhoun",
-        ]),
-        QuickPick.createStatic("hall+", "Hall county plus", [
-            "Hall",
-            "White",
-            "Habersham",
-        ]),
     ]
 }
