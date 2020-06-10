@@ -167,10 +167,12 @@ div.ColumnarMatrix.Table .Row .Region.hover {
 }
 .RegionSelection .Row .selected img.indicator {
     visibility: visible;
+    vertical-align: middle;
 }
 .RegionSelection .selectable img.indicator {
     visibility: hidden;
     margin-right: 3px;
+    vertical-align: middle;
 }
 
 .expand-collapse-control {
