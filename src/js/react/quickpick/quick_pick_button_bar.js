@@ -48,7 +48,7 @@ export default function QuickPickButtonBar(props) {
     }
 
     function renderForm() {
-        return <div className='Form'>
+        return <div className='form'>
             <form id='quickPickSave'>
                 <label htmlFor='quickPickName'>Quick Pick Name: </label>
                 <input type='text' id="quickPickName" defaultValue="" autoFocus={true}
@@ -79,12 +79,11 @@ export default function QuickPickButtonBar(props) {
 
     return (
         <div className='QuickPickBar'>
-            <div className='Table'>
-                <div className='Row'>
-                    <div className='Buttons'>
+            <div className="main">
+                    <div className='actions'>
                         <b>Quick&nbsp;Picks:&nbsp;</b>{renderCreateNewQuickPickButton()}
                     </div>
-                    <div className='QuickPicker'>
+                    <div className='buttonSet'>
                         {
                             props.quickPicks.map(p => {
                                 return <QuickPickButton key={p.key} quickPick={p} onClick={clicked}
@@ -92,7 +91,6 @@ export default function QuickPickButtonBar(props) {
                             })
                         }
                     </div>
-                </div>
             </div>
             {renderFormIfOpen()}
         </div>
