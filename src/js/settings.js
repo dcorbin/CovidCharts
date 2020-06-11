@@ -3,8 +3,8 @@ import QuickPick from "./model/quick_pick";
 class Settings {
     static defaultSettings() {
         return new Settings(
-            {selectedRegions: ['GA'], nullStrategy: 'none', userQuickPicks: []},
-            {selectedRegions: [], nullStrategy: 'none', userQuickPicks: []})
+            {selectedRegions: ['GA'], nullStrategy: 'none', userQuickPicks: [], movingAvgStrategy: 7, dataLinesId: 'ALL'},
+            {selectedRegions: [], nullStrategy: 'none', userQuickPicks: [], movingAvgStrategy: 7, dataLinesId: 'ALL'})
     }
 
     constructor(covidTracking, georgia) {
@@ -46,6 +46,12 @@ class SettingsStore {
                 if (!tabSettings.nullStrategy) {
                     tabSettings.nullStrategy = 'none'
                 }
+                if (!tabSettings.movingAvgStrategy) {
+                    tabSettings.movingAvgStrategy = 7
+                }
+                if (!tabSettings.dataLinesId) {
+                    tabSettings.dataLinesId = 'ALL'
+                }
                 tabSettings.selectedRegions = tabSettings.selectedRegions.filter(e => e !== null)
             }
             delete settings.georgia.states
@@ -72,8 +78,7 @@ class SettingsStore {
                 return ensureSettingsCurrent(handleOldSettings.bind(this)(item))
             }
         }
-        let result = ensureSettingsCurrent(JSON.parse(item));
-        return result
+        return ensureSettingsCurrent(JSON.parse(item))
     }
 
 }
