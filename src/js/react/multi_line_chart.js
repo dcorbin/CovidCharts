@@ -13,6 +13,13 @@ export default class MultiLineChart extends React.Component {
         let optionMaker = new GoogleChartOptionMaker()
         let chartRows = dataFormattedForGoogleCharts(records, linesWithData)
         let yAxisLabels = optionMaker.createYAxisLables(linesWithData);
+        if (linesWithData.length === 0) {
+            let lineDescription = this.props.lines.map(l => l.label).join(", ")
+            return (
+                <div>{lineDescription} data not available for {this.props.subject}</div>
+            )
+        }
+
         return <Chart
             width = {this.props.width || 700}
             height = {this.props.height || 500}
@@ -21,11 +28,13 @@ export default class MultiLineChart extends React.Component {
             loader={<div>Loading Chart...</div>}
             rows = {chartRows}
             options = {{
-                title: this.props.subject + " (7-day avg)",
+                title: this.props.subject,
                 curveType: 'function',
                 colors: linesWithData.map(l => l.color),
                 legend: {
                     maxLines: 3,
+                    position: 'bottom',
+                    alignment: 'start'
                 },
                 hAxis: {
                     slantedText: true,
@@ -112,7 +121,7 @@ class GoogleChartOptionMaker {
         let series = {}
         lines.forEach((line, index) => {
             series[index] = {
-                targetAxisIndex: this.axisIndex(line.vAxis)
+                targetAxisIndex: this.axisIndex(lines.length === 1 ? 'left' : line.vAxis)
             }
         })
         return series;

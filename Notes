@@ -1,14 +1,11 @@
 PRODUCTION: Mail not arriving [done?]
 Experiment with inline SVG component (so color and other styles can be consistently controlled)
-
 RISK: Make fetching more robust than just "the fourth JSON block"
 BUILD: Map svg processing happening over and over
 CLARITY: Settings/_Store refactoring.
+FiX: Dark Green selector hard to see with dark Blue Hover
 
 FEATURE: Add QP Ordering
-
-
-FEATURE: Control 7DayAvg/or not
 FEATURE: Logarithmic Y-axis support
 FEATURE: HotSpot Quick Picks
 

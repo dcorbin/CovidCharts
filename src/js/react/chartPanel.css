@@ -1,0 +1,8 @@
+.ControlPanel {
+    background-color: #e0e0e0;
+    padding: 4px;
+}
+
+.ControlPanel .Spacer {
+    margin-right: 10px;
+}
