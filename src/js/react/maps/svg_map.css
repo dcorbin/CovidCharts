@@ -14,13 +14,13 @@
 
 .SvgMap .region.hover {
     cursor: pointer;
-    fill: #a78d41;
+    fill: #e0ca8e;
 }
 
 .SvgMap path.selected {
     fill: #008e00;
 }
 
-.SvgMap path.selected:hover {
+.SvgMap path.selected.hover {
     fill: #67e567;
 }
