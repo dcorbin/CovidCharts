@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import AggregatedDataChart from "./aggregated_data_chart";
 import useRegionSelection from "./hooks/region_selection/use_region_selection";
 import DataLine from "../charting/data_line";
 import NormalizedRecordSet from "../covid_tracking_com/normalized_record_set";
 import PropTypes from 'prop-types'
 import './chartPanel.css'
 import LabeledCombo from "./labeled_combo";
+import DataPreparer from "../model/data_preparer";
+import MultiLineChart from "./multi_line_chart";
 
 const LINES = [
     new DataLine('New Positives', 'left', 'blue', 'positive', r => {
@@ -148,6 +149,23 @@ export default function ChartPanel(props) {
     }
 
     let lines = dataLinesId === 'ALL' ? LINES :  LINES.filter(line => dataLinesId.includes(line.sourceProperty))
+    let dataToChart = DataPreparer.prepareDataToChart(normalizedRecordSet,
+        selectedRegions,
+        lines,
+        movingAvgStrategy,
+        nullStrategy === 'leadingNullAsZero')
+
+    function renderChart() {
+        console.log("dataToChart: " + dataToChart.length)
+        if (selectedRegions.length === 0) {
+            return <h3>No {props.pluralRegion} Selected</h3>
+        }
+
+        return <MultiLineChart records={dataToChart}
+                               subject={movingAvgSummaryDescription() + ' ' + formattedRegionList}
+                               lines={lines}
+                               verticalScaleType={verticalScaleType}/>;
+    }
 
     return  <div>
         <div className='ControlPanel'>
@@ -163,16 +181,7 @@ export default function ChartPanel(props) {
             {regionSelectionDisplay}
         </div>
         <div>
-            <AggregatedDataChart
-                lines={lines}
-                selectedRegions={selectedRegions}
-                normalizedRecordSet={normalizedRecordSet}
-                nullStrategy={nullStrategy}
-                pluralRegion={props.regionSpec.pluralNoun}
-                subject={movingAvgSummaryDescription() + ' ' + formattedRegionList }
-                nDayAverage={movingAvgStrategy}
-                verticalScaleType={verticalScaleType}
-            />
+            {renderChart()}
         </div>
     </div>
 
