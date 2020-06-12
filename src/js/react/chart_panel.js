@@ -33,6 +33,7 @@ export default function ChartPanel(props) {
     const [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
     const [nullStrategy, setNullStrategy] = useState(props.settings.nullStrategy)
     const [movingAvgStrategy, setMovingAvgStrategy] = useState(props.settings.movingAvgStrategy)
+    const [verticalScaleType, setVerticalScaleType] = useState(props.settings.verticalScaleType)
     const [allRegions, setRegions] = useState([])
     const [dataLinesId, setDataLinesId] = useState(props.settings.dataLinesId)
 
@@ -82,6 +83,12 @@ export default function ChartPanel(props) {
         props.onSettingsChange(props.settings)
     }
 
+    function verticalScaleTypeChanged(newScaleType) {
+        setVerticalScaleType(newScaleType)
+        props.settings.verticalScaleType = newScaleType
+        props.onSettingsChange(props.settings)
+    }
+
     function updateQuickPicks(newQuickPicks) {
         props.settings.userQuickPicks = newQuickPicks
         props.onSettingsChange(props.settings)
@@ -112,6 +119,17 @@ export default function ChartPanel(props) {
                          ]} />
                 )
     }
+    function renderVerticalScaleType() {
+        return (
+            <LabeledCombo label='Vertical Scale Type'
+                          initialValue={verticalScaleType}
+                          onChange={verticalScaleTypeChanged}
+                          options={[
+                              {value: 'linear', text: 'Linear'},
+                              {value: 'log', text: 'Logarithmic'},
+                         ]} />
+                )
+    }
 
     function renderDataLineOptions() {
         let options = [
@@ -139,6 +157,8 @@ export default function ChartPanel(props) {
                 {renderDataLineOptions()}
                 <span className='Spacer'> </span>
                 {renderNullStrategyControl()}
+                <span className='Spacer'> </span>
+                {renderVerticalScaleType()}
             </form>
             {regionSelectionDisplay}
         </div>
@@ -151,6 +171,7 @@ export default function ChartPanel(props) {
                 pluralRegion={props.regionSpec.pluralNoun}
                 subject={formattedRegionList + ' ' + movingAvgSummaryDescription()}
                 nDayAverage={movingAvgStrategy}
+                verticalScaleType={verticalScaleType}
             />
         </div>
     </div>

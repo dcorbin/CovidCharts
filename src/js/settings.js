@@ -1,10 +1,21 @@
 import QuickPick from "./model/quick_pick";
 
 class Settings {
+    static defaultTabSettings(regions) {
+        return {
+            selectedRegions: regions,
+            nullStrategy: 'none',
+            userQuickPicks: [],
+            movingAvgStrategy: 7,
+            dataLinesId: 'ALL',
+            verticalScaleType: 'linear'
+        }
+    }
     static defaultSettings() {
         return new Settings(
-            {selectedRegions: ['GA'], nullStrategy: 'none', userQuickPicks: [], movingAvgStrategy: 7, dataLinesId: 'ALL'},
-            {selectedRegions: [], nullStrategy: 'none', userQuickPicks: [], movingAvgStrategy: 7, dataLinesId: 'ALL'})
+                Settings.defaultTabSettings(['GA']),
+                Settings.defaultTabSettings([])
+        )
     }
 
     constructor(covidTracking, georgia) {
@@ -51,6 +62,9 @@ class SettingsStore {
                 }
                 if (!tabSettings.dataLinesId) {
                     tabSettings.dataLinesId = 'ALL'
+                }
+                if (!tabSettings.verticalScaleType) {
+                    tabSettings.verticalScaleType = 'linear'
                 }
                 tabSettings.selectedRegions = tabSettings.selectedRegions.filter(e => e !== null)
             }

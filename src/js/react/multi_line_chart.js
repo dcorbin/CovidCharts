@@ -54,8 +54,10 @@ export default class MultiLineChart extends React.Component {
                             min: 0
                         },
                         minValue: 0,
+                        scaleType: this.props.verticalScaleType,
                     },
                     1: {
+                        scaleType: this.props.verticalScaleType,
                         title: yAxisLabels[1].join(" / "),
                         viewWindow: {
                             min: 0
@@ -74,6 +76,8 @@ export default class MultiLineChart extends React.Component {
 
 MultiLineChart.propTypes = {
     records: PropTypes.array.isRequired,
+    verticalScaleType: PropTypes.string.isRequired,
+    lines:PropTypes.array.isRequired,
     subject: PropTypes.string.isRequired
 }
 function dataFormattedForGoogleCharts(records, lines) {

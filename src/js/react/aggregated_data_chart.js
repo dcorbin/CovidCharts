@@ -33,7 +33,9 @@ export default function AggregatedDataChart(props) {
     dataDebugLog("Data with 7-day Avg.:\n", dataToChart)
     return <MultiLineChart records={dataToChart}
                            subject={props.subject}
-                           lines = {props.lines} />
+                           lines = {props.lines}
+                           verticalScaleType = {props.verticalScaleType}
+    />
 }
 AggregatedDataChart.defaultProps = {
     nDayAverage: 7
@@ -44,6 +46,7 @@ AggregatedDataChart.propTypes = {
     selectedRegions: PropTypes.array.isRequired,
     normalizedRecordSet: PropTypes.object.isRequired,
     subject: PropTypes.string.isRequired,
-    pluralRegion: PropTypes.string.isRequired
+    pluralRegion: PropTypes.string.isRequired,
+    verticalScaleType: PropTypes.string.isRequired,
 }
 

@@ -1,11 +1,9 @@
-EXPLORE: Experiment with inline SVG component (so color and other styles can be consistently controlled)
 RISK: Make fetching more robust than just "the fourth JSON block"
 CLARITY: Settings/_Store refactoring.
-FIX: Dark Green selector hard to see with dark Blue Hover
-BUILD: Map svg processing happening over and over
+
+BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 
 FEATURE: Add QP Ordering
-FEATURE: Logarithmic Y-axis support
 FEATURE: HotSpot Quick Picks
 
 FEATURE: Other CT data charts

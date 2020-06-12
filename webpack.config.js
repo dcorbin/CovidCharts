@@ -90,6 +90,6 @@ module.exports = function(env, argv) {
             hints: false
         }
     }
-    config.plugins.push(new CopyPlugin(copyPatterns))
+    config.plugins.push(new CopyPlugin({patterns: copyPatterns}))
     return config
 }
