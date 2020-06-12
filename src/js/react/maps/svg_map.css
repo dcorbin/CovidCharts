@@ -1,5 +1,5 @@
 
-.map {
+.SvgMap {
     height: auto;
     stroke: #000;
     stroke-width: 1;
@@ -7,19 +7,20 @@
     stroke-linejoin: round;
 }
 
-.map .region {
-    fill:  #a49875;
+.SvgMap .region {
+    fill: #a49875;
     stroke-width: 0.5;
 }
 
-.map .region.hover {
+.SvgMap .region.hover {
     cursor: pointer;
     fill: #a78d41;
 }
-.map path.selected {
+
+.SvgMap path.selected {
     fill: #008e00;
 }
 
-.map path.selected:hover {
+.SvgMap path.selected:hover {
     fill: #67e567;
 }
