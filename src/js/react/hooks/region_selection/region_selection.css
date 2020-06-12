@@ -16,12 +16,3 @@
 .RegionSelection div.footer {
     clear:both;
 }
-.RegionSelection .Row .selected img.indicator {
-    visibility: visible;
-    vertical-align: middle;
-}
-.RegionSelection .selectable img.indicator {
-    visibility: hidden;
-    margin-right: 3px;
-    vertical-align: middle;
-}

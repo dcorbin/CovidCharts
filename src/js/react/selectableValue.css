@@ -1,0 +1,27 @@
+.SelectableValue {
+    display : flex;
+    align-items : center;
+}
+.SelectableValue.selected  .indicator {
+    visibility: visible;
+}
+
+.SelectableValue .indicator {
+    visibility: hidden;
+    margin-right: 3px;
+    margin-left: 3px;
+    vertical-align: middle;
+    width: 8px;
+    height: 8px;
+    fill: #008e00;
+}
+
+.SelectableValue.hover {
+    background-color:  #a78d41;
+    color: white;
+}
+
+.SelectableValue.selected.hover {
+    background-color: #67e567;
+    color: black;
+}

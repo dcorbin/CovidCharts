@@ -34,9 +34,8 @@ export default function ColumnarMatrix(props) {
                     return <div className='Row' key={index}>
                         {
                             row.map(value => {
-                                let className = props.hoverValue === value ? 'hover' : ''
                                 return <div
-                                    className={'Region ' + className}
+                                    className={'Region'}
                                     data-id={value}
                                     onClick={valueClicked}
                                     onMouseEnter={(e) => props.onHover(value)}

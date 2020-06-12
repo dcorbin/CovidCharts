@@ -157,13 +157,14 @@ export default function useRegionSelection(initialSelections,
                                         columns={columns}
                                         onValueClicked={matrixItemClicked}
                                         onHover={onHover}
-                                        hoverValue={hoverRegion}
                                         valueRenderer={value => {
                                             let selected = selectedRegions.includes(value)
+                                            let hover = hoverRegion === value
                                             return <SelectableValue value={value}
                                                                     valueRenderer={region => {
                                                                         return <span>{regionSpec.displayNameFor(region)}{recordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
                                                                     }}
+                                                                    hover={hover}
                                                                     selected={selected}/>;
                                         }}
                         />

@@ -18,7 +18,4 @@ div.ColumnarMatrix.Table .Row .Region {
     cursor: pointer;
 }
 
-div.ColumnarMatrix.Table .Row .Region.hover {
-    background-color: #335fa6;
-    color: white;
-}
+

@@ -1,20 +1,24 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import SelectionIndicator from "./selection_indicator";
-
+import './selectableValue.css'
+import Circle from "./basic/circle";
 export default function SelectableValue(props) {
-    let outerSpanClassNames = ['indicator', 'selectable'];
-    let innerSpanClassNames = []
+    let outerSpanClassNames = ['SelectableValue'];
     if (props.selected) {
         outerSpanClassNames.push('selected')
-        innerSpanClassNames.push('selected')
     }
+
+    if (props.hover) {
+        outerSpanClassNames.push('hover')
+    }
+
     return <span key={props.value} className={outerSpanClassNames.join(' ')}>
-        <SelectionIndicator/><span className={innerSpanClassNames.join(' ')}>{props.valueRenderer(props.value)}</span></span>
+        <Circle className='indicator' size={8}/><span>{props.valueRenderer(props.value)}</span></span>
 }
 
 SelectableValue.propTypes = {
     selected: PropTypes.bool.isRequired,
+    hover: PropTypes.bool.isRequired,
     value: PropTypes.any.isRequired,
     valueRenderer: PropTypes.func.isRequired,
 }
