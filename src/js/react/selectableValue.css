@@ -17,11 +17,6 @@
 }
 
 .SelectableValue.hover {
-    background-color:  #a78d41;
-    color: white;
-}
-
-.SelectableValue.selected.hover {
-    background-color: #67e567;
+    background-color:  #bbbbbb;
     color: black;
 }

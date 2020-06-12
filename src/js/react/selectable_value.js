@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import './selectableValue.css'
-import Circle from "./basic/circle";
+import Circle from "./basic/circle/circle";
 export default function SelectableValue(props) {
     let outerSpanClassNames = ['SelectableValue'];
     if (props.selected) {
