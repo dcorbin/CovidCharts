@@ -3,12 +3,11 @@ CLARITY: Settings/_Store refactoring.
 
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 
-FEATURE: Add QP Ordering
 FEATURE: HotSpot Quick Picks
+FEATURE: Chart region vs region
 
 FEATURE: Other CT data charts
 FEATURE: Image (download) Link
-FEATURE: Chart region vs region
 FEATURE: Dashboard building?
 
 Add Bootstrap?
@@ -19,4 +18,4 @@ Other calculated charts
     Estimated Active cases
     Trend detection?
     Ratios?
-    State vs State (one property)
+FEATURE: Add QP Ordering

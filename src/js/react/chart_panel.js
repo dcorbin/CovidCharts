@@ -169,7 +169,7 @@ export default function ChartPanel(props) {
                 normalizedRecordSet={normalizedRecordSet}
                 nullStrategy={nullStrategy}
                 pluralRegion={props.regionSpec.pluralNoun}
-                subject={formattedRegionList + ' ' + movingAvgSummaryDescription()}
+                subject={movingAvgSummaryDescription() + ' ' + formattedRegionList }
                 nDayAverage={movingAvgStrategy}
                 verticalScaleType={verticalScaleType}
             />
