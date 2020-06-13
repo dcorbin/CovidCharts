@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
+import {QUICK_PICK_PROP_TYPES} from "../model/prop_types";
 
 export default function QuickPickButton(props) {
     let quickPick = props.quickPick
@@ -30,16 +31,10 @@ export default function QuickPickButton(props) {
                 {renderDeleteActionIfNeeded()}
                 <span> </span>
     </span>
-
 }
 
 QuickPickButton.propTypes = {
-    quickPick: PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        regions: PropTypes.arrayOf(PropTypes.string),
-        regionsFilter: PropTypes.func
-    }).isRequired,
+    quickPick: QUICK_PICK_PROP_TYPES.isRequired,
     onClick: PropTypes.func.isRequired,
     onDelete: PropTypes.func
 }

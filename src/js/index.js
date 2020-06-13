@@ -5,7 +5,6 @@ import React  from 'react'
 import ReactDom from 'react-dom'
 import App from "./app";
 
-
 function initialize() {
     let settings_store = new SettingsStore(window.localStorage)
     function loadOrCreateSettings() {
