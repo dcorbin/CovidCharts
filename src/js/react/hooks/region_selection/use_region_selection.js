@@ -32,17 +32,16 @@ class WarningRenderer {
         return null
     }
 }
-export default function useRegionSelection(initialSelections,
-                                           selectionStrategy,
-                                           recordSet,
-                                           regionSpec,
-                                           allRegions,
 
+
+export default function useRegionSelection(normalizedRecordSet,
+                                           regionSpec,
+                                           initialSelections,
                                            userQuickPicks,
                                            onSelectionChange,
                                            onUserQuickPicksChange
-                                           ) {
-
+) {
+    const allRegions = normalizedRecordSet.regions
     const [selectedRegions, setSelectedRegions] = useState(initialSelections)
     const [hoverRegion, setHoverRegion] = useState(null)
     const [regionMap, setRegionMap] = useState(regionSpec.map)
@@ -90,7 +89,15 @@ export default function useRegionSelection(initialSelections,
     }
 
     function matrixItemClicked(clickedValue) {
-        let newSelections = selectionStrategy(clickedValue, [...selectedRegions]);
+        function adjustedSelections(clickedValue, selections) {
+            if (selections.some(p => p === clickedValue)) {
+                selections.splice (selections.indexOf(clickedValue), 1);
+            } else {
+                selections.push(clickedValue)
+            }
+            return selections
+        }
+        let newSelections = adjustedSelections(clickedValue, [...selectedRegions]);
         setSelectedRegions(newSelections)
         onSelectionChange(newSelections)
     }
@@ -103,7 +110,7 @@ export default function useRegionSelection(initialSelections,
     }
 
     function renderWarningFooters() {
-        let uniqueTypes = recordSet.warningTypes();
+        let uniqueTypes = normalizedRecordSet.warningTypes();
         return uniqueTypes.map(type => WarningRenderer.footerFor(type))
     }
 
@@ -162,7 +169,7 @@ export default function useRegionSelection(initialSelections,
                                             let hover = hoverRegion === value
                                             return <SelectableValue value={value}
                                                                     valueRenderer={region => {
-                                                                        return <span>{regionSpec.displayNameFor(region)}{recordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
+                                                                        return <span>{regionSpec.displayNameFor(region)}{normalizedRecordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
                                                                     }}
                                                                     hover={hover}
                                                                     selected={selected}/>;
@@ -176,7 +183,6 @@ export default function useRegionSelection(initialSelections,
             </div>;
     }
 
-    let formattedRegionList = selectedRegions.map(region => regionSpec.displayNameFor(region)).join(", ")
     const displayContent = useCollapsable(regionSelectionPanel, collapsedRegionSelectionPanel, 'RegionSelection')
-    return [displayContent, selectedRegions, formattedRegionList]
+    return displayContent
 }

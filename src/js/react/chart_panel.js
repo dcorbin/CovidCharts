@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
-import useRegionSelection from "./hooks/region_selection/use_region_selection";
 import DataLine from "../charting/data_line";
 import NormalizedRecordSet from "../covid_tracking_com/normalized_record_set";
 import PropTypes from 'prop-types'
 import './chartPanel.css'
-import LabeledCombo from "./labeled_combo";
 import DataPreparer from "../model/data_preparer";
 import MultiLineChart from "./multi_line_chart";
+import ControlPanel from "./control_panel";
 
-const LINES = [
+export const LINES = [
     new DataLine('New Positives', 'left', 'blue', 'positive', r => {
         return r.seven_day_averages.new_positives
     }),
@@ -20,170 +19,63 @@ const LINES = [
     }),
 ];
 
-function multipleSelections(clickedValue, selections) {
-    if (selections.some(p => p === clickedValue)) {
-        selections.splice (selections.indexOf(clickedValue), 1);
-    } else {
-        selections.push(clickedValue)
+function createChartSubject(settings, formattedRegionList) {
+    function movingAvgSummaryDescription(movingAvgStrategy) {
+        if (movingAvgStrategy === 1) {
+            return "Raw data"
+        }
+        return `${movingAvgStrategy}-day Average`
     }
-    return selections
+    return movingAvgSummaryDescription(settings.movingAvgStrategy) + ' for ' + formattedRegionList;
 }
 
 
 export default function ChartPanel(props) {
     const [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
-    const [nullStrategy, setNullStrategy] = useState(props.settings.nullStrategy)
-    const [movingAvgStrategy, setMovingAvgStrategy] = useState(props.settings.movingAvgStrategy)
-    const [verticalScaleType, setVerticalScaleType] = useState(props.settings.verticalScaleType)
-    const [allRegions, setRegions] = useState([])
-    const [dataLinesId, setDataLinesId] = useState(props.settings.dataLinesId)
 
     useEffect(() => {
         props.dataProvider.getData().then(recordSet => {
                 setNormalizedRecordSet(recordSet)
-                setRegions(recordSet.regions)
             }
         )
     },[])
-    let [regionSelectionDisplay, selectedRegions, formattedRegionList ] =
-        useRegionSelection(props.settings.selectedRegions,
-                                multipleSelections,
-                                normalizedRecordSet,
-                                props.regionSpec,
-                                allRegions,
-                                props.settings.userQuickPicks,
-                newRegions => {
-                                    props.settings.selectedRegions = newRegions
-                                    props.onSettingsChange(props.settings)
-                                },
-                                updateQuickPicks
-                                )
 
     if (normalizedRecordSet.error) {
         return normalizedRecordSet.error
     }
+
     if (normalizedRecordSet.isEmpty()) {
         return "Waiting for data fetch to complete..."
     }
 
-    function dataLinesChanged(newStrategy) {
-        setDataLinesId(newStrategy)
-        props.settings.dataLinesId = newStrategy
-        props.onSettingsChange(props.settings)
-    }
-    function nullStrategyChanged(newStrategy) {
-        setNullStrategy(newStrategy)
-        props.settings.nullStrategy = newStrategy
-        props.onSettingsChange(props.settings)
-    }
+    let dataLines = props.settings.dataLinesId === 'ALL' ?
+        LINES :  LINES.filter(line => props.settings.dataLinesId.includes(line.sourceProperty))
 
-    function movingAvgStrategyChanged(newStrategy) {
-        newStrategy = Number.parseInt(newStrategy);
-        setMovingAvgStrategy(newStrategy)
-        props.settings.movingAvgStrategy = newStrategy
-        props.onSettingsChange(props.settings)
-    }
-
-    function verticalScaleTypeChanged(newScaleType) {
-        setVerticalScaleType(newScaleType)
-        props.settings.verticalScaleType = newScaleType
-        props.onSettingsChange(props.settings)
-    }
-
-    function updateQuickPicks(newQuickPicks) {
-        props.settings.userQuickPicks = newQuickPicks
-        props.onSettingsChange(props.settings)
-    }
-
-
-    function renderNullStrategyControl() {
-        if (normalizedRecordSet.hasWarning('broken')) {
-            return <LabeledCombo label ='Missing Data Handling'
-                        initialValue={props.settings.nullStrategy}
-                        onChange={nullStrategyChanged}
-                        options={[
-                            {value: 'none', text: 'Do not plot'},
-                            {value: 'leadingNullAsZero', text: 'Treat leading gaps as zeros'}
-                        ]}
-            />
-        }
-    }
-
-    function renderMovingAverageStrategy() {
-        return (
-            <LabeledCombo label='Moving Average' initialValue={movingAvgStrategy} onChange={movingAvgStrategyChanged}
-                          options={[
-                              {value: '1', text: 'None'},
-                              {value: '3', text: '3-days'},
-                              {value: '7', text: '7-days'},
-                              {value: '14', text: '14-days'},
-                         ]} />
-                )
-    }
-    function renderVerticalScaleType() {
-        return (
-            <LabeledCombo label='Vertical Scale Type'
-                          initialValue={verticalScaleType}
-                          onChange={verticalScaleTypeChanged}
-                          options={[
-                              {value: 'linear', text: 'Linear'},
-                              {value: 'log', text: 'Logarithmic'},
-                         ]} />
-                )
-    }
-
-    function renderDataLineOptions() {
-        let options = [
-            {value: 'ALL', text: 'All Lines'},
-        ].concat(LINES.map(l => {return {value: l.sourceProperty, text: `Only ${l.label}` }}))
-        return (
-            <LabeledCombo options={options} label='Data Sets' initialValue={dataLinesId} onChange={dataLinesChanged}/>
-        )
-    }
-
-    function movingAvgSummaryDescription() {
-        if (movingAvgStrategy === 1) {
-            return "(Raw data)"
-        }
-        return `(${movingAvgStrategy}-day Average)`
-    }
-
-    let lines = dataLinesId === 'ALL' ? LINES :  LINES.filter(line => dataLinesId.includes(line.sourceProperty))
     let dataToChart = DataPreparer.prepareDataToChart(normalizedRecordSet,
-        selectedRegions,
-        lines,
-        movingAvgStrategy,
-        nullStrategy === 'leadingNullAsZero')
+        props.settings.selectedRegions,
+        dataLines,
+        props.settings.movingAvgStrategy,
+        props.settings.nullStrategy === 'leadingNullAsZero')
 
-    function renderChart() {
-        console.log("dataToChart: " + dataToChart.length)
-        if (selectedRegions.length === 0) {
-            return <h3>No {props.pluralRegion} Selected</h3>
-        }
+    let formattedRegionList = props.settings.selectedRegions.map(region => props.regionSpec.displayNameFor(region)).join(", ")
 
-        return <MultiLineChart records={dataToChart}
-                               subject={movingAvgSummaryDescription() + ' ' + formattedRegionList}
-                               lines={lines}
-                               verticalScaleType={verticalScaleType}/>;
-    }
-
-    return  <div>
-        <div className='ControlPanel'>
-            <form>
-                {renderMovingAverageStrategy()}
-                <span className='Spacer'> </span>
-                {renderDataLineOptions()}
-                <span className='Spacer'> </span>
-                {renderNullStrategyControl()}
-                <span className='Spacer'> </span>
-                {renderVerticalScaleType()}
-            </form>
-            {regionSelectionDisplay}
-        </div>
+    return (
         <div>
-            {renderChart()}
+            <ControlPanel settings={props.settings}
+                          onSettingsChange={props.onSettingsChange}
+                          regionSpec={props.regionSpec}
+                          normalizedRecordSet={normalizedRecordSet}
+                          showNullStrategy={normalizedRecordSet.hasWarning('broken')}/>
+            <div>
+                {(props.settings.selectedRegions.length === 0) ?
+                    <h3>No {props.pluralRegion} Selected</h3> :
+                    <MultiLineChart records={dataToChart}
+                                    subject={createChartSubject(props.settings, formattedRegionList)}
+                                    lines={dataLines}
+                                    verticalScaleType={props.settings.verticalScaleType}/>}
+            </div>
         </div>
-    </div>
+        )
 
 }
 
