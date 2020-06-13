@@ -1,8 +1,8 @@
-import useRegionSelection from "./hooks/region_selection/use_region_selection";
 import ControlPanelDropDown from "./control_panel_drop_down";
 import PropTypes from "prop-types";
 import React from "react";
 import {LINES} from "./chart_panel";
+import RegionSelector from "./region_selector";
 
 export default function ControlPanel(props) {
     function createSettingsChangeHandler(property) {
@@ -11,14 +11,6 @@ export default function ControlPanel(props) {
             props.onSettingsChange(props.settings)
         }
     }
-
-    let regionSelectionDisplay = useRegionSelection(
-        props.normalizedRecordSet,
-        props.regionSpec,
-        props.settings.selectedRegions,
-        props.settings.userQuickPicks,
-        createSettingsChangeHandler('selectedRegions'),
-        createSettingsChangeHandler('userQuickPicks'))
 
     return(
         <div className='ControlPanel'>
@@ -62,7 +54,14 @@ export default function ControlPanel(props) {
                                           ]}/> : null
                 }
             </form>
-            {regionSelectionDisplay}
+            <RegionSelector
+                warningsByRegion={props.normalizedRecordSet.warningsByRegion}
+                regionSpec={props.regionSpec}
+                initialSelections={props.settings.selectedRegions}
+                userQuickPicks={props.settings.userQuickPicks}
+                onSelectionChange={createSettingsChangeHandler('selectedRegions')}
+                onUserQuickPicksChange={createSettingsChangeHandler('userQuickPicks')}
+            />
         </div>)
 
 }
@@ -72,5 +71,5 @@ ControlPanel.propTypes = {
     onSettingsChange: PropTypes.func.isRequired,
     showNullStrategy: PropTypes.bool.isRequired,
     regionSpec: PropTypes.object.isRequired,
-    normalizedRecordSet: PropTypes.arrayOf.isRequired
+    normalizedRecordSet: PropTypes.object.isRequired
 }

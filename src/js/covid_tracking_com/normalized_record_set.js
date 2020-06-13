@@ -39,9 +39,24 @@ function buildWarningsByRegion(recordSet) {
     recordSet.regions.forEach(region => {
         return warningsByRegion.set(region, calculateDataSeriesWarningsFor(region));
     })
-    return warningsByRegion;
+    return new WarningsByRegion(warningsByRegion)
 }
+class WarningsByRegion {
+    constructor(warningsByRegion) {
+        this.warningsByRegion = warningsByRegion
+        this.regions = [...warningsByRegion.keys()]
+    }
 
+    warningsFor(region) {
+        return  this.warningsByRegion.get(region)
+    }
+
+    warningTypes () {
+        let warnings = Array.from(this.warningsByRegion.values());
+        return unique(warnings.flat().map(w => w.type));
+    };
+
+}
 export default class NormalizedRecordSet {
     static forError(message) {
         return new NormalizedRecordSet([], message)
@@ -71,17 +86,8 @@ export default class NormalizedRecordSet {
     }
 
     hasWarning(type) {
-        return this.warningTypes().includes(type)
+        return this.warningsByRegion.warningTypes().includes(type)
     }
-    warningsFor(region) {
-        return  this.warningsByRegion.get(region)
-    }
-
-    warningTypes () {
-        let warnings = Array.from(this.warningsByRegion.values());
-        return unique(warnings.flat().map(w => w.type));
-    };
-
 }
 
 export var STANDARD_DATA_PROPERTIES = ['death', 'hospitalized', 'positive']

@@ -1,14 +1,15 @@
 import React, {useState} from "react";
-import ArraySummary from "../../array_summary";
-import ColumnarMatrix from "../../columnar_matrix/columnar_matrix";
-import SelectableValue from "../../selectable_value";
-import useCollapsable from "../collapsable/use_collapsable";
-import QuickPickButtonBar from "../../quickpick/quick_pick_button_bar";
-import DataIcon from "../../data_icon";
-import SvgMap from "../../maps/svg_map";
-import QuickPick from "../../../model/quick_pick";
-import useWindowDimensions from "../use_window_dimensions";
-import './region_selection.css'
+import ArraySummary from "./array_summary";
+import ColumnarMatrix from "./columnar_matrix/columnar_matrix";
+import SelectableValue from "./selectable_value";
+import useCollapsable from "./hooks/collapsable/use_collapsable";
+import QuickPickButtonBar from "./quickpick/quick_pick_button_bar";
+import DataIcon from "./data_icon";
+import SvgMap from "./maps/svg_map";
+import QuickPick from "../model/quick_pick";
+import useWindowDimensions from "./hooks/use_window_dimensions";
+import './hooks/region_selection/region_selection.css'
+import PropTypes from "prop-types";
 
 class WarningRenderer {
     static footerFor(type) {
@@ -33,19 +34,26 @@ class WarningRenderer {
     }
 }
 
+RegionSelector.propTypes = {
+    warningsByRegion: PropTypes.object.isRequired,
+    regionSpec: PropTypes.object.isRequired,
+    initialSelections: PropTypes.array.isRequired,
+    userQuickPicks: PropTypes.array.isRequired,
+    onSelectionChange: PropTypes.func.isRequired,
+    onUserQuickPicksChange: PropTypes.func.isRequired
+}
 
-export default function useRegionSelection(normalizedRecordSet,
-                                           regionSpec,
-                                           initialSelections,
-                                           userQuickPicks,
-                                           onSelectionChange,
-                                           onUserQuickPicksChange
-) {
-    const allRegions = normalizedRecordSet.regions
-    const [selectedRegions, setSelectedRegions] = useState(initialSelections)
+export default function RegionSelector(props) {
+    const warningsByRegions = props.warningsByRegion
+    const regionSpec = props.regionSpec
+    const userQuickPicks = props.userQuickPicks
+    const allRegions = warningsByRegions.regions
+
+    const [selectedRegions, setSelectedRegions] = useState(props.initialSelections)
     const [hoverRegion, setHoverRegion] = useState(null)
     const [regionMap, setRegionMap] = useState(regionSpec.map)
     const {width, height} = useWindowDimensions()
+
     const matrixWidth = width * regionSpec.matrixMapRatio[0] / (regionSpec.matrixMapRatio.reduce((a,b) => a + b)) - 20
     let columns = Math.floor(matrixWidth / regionSpec.minimumCellWidth )
     if (columns < 0) {
@@ -57,7 +65,7 @@ export default function useRegionSelection(normalizedRecordSet,
         initiateMapFetch(regionSpec.mapURI)
 
     function deleteQuickPick(quickPick) {
-        onUserQuickPicksChange(userQuickPicks.filter(pick => pick.name !== quickPick.name))
+        props.onUserQuickPicksChange(userQuickPicks.filter(pick => pick.name !== quickPick.name))
     }
 
     function createNewQuickPick(name) {
@@ -68,7 +76,7 @@ export default function useRegionSelection(normalizedRecordSet,
         let key = "_" + name
         let copiedQuickPicks = [...userQuickPicks]
         copiedQuickPicks.push(QuickPick.createUserManaged(key, name, selectedRegions))
-        onUserQuickPicksChange(copiedQuickPicks)
+        props.onUserQuickPicksChange(copiedQuickPicks)
         return null
     }
 
@@ -99,7 +107,7 @@ export default function useRegionSelection(normalizedRecordSet,
         }
         let newSelections = adjustedSelections(clickedValue, [...selectedRegions]);
         setSelectedRegions(newSelections)
-        onSelectionChange(newSelections)
+        props.onSelectionChange(newSelections)
     }
 
 
@@ -110,7 +118,7 @@ export default function useRegionSelection(normalizedRecordSet,
     }
 
     function renderWarningFooters() {
-        let uniqueTypes = normalizedRecordSet.warningTypes();
+        let uniqueTypes = warningsByRegions.warningTypes();
         return uniqueTypes.map(type => WarningRenderer.footerFor(type))
     }
 
@@ -154,7 +162,7 @@ export default function useRegionSelection(normalizedRecordSet,
                                         onDeleteQuickPick={(quickPick => deleteQuickPick(quickPick))}
                                         onClick={(regions) => {
                                          setSelectedRegions(regions)
-                                         onSelectionChange(regions)
+                                         props.onSelectionChange(regions)
                                      }}
                     />
                 </div>
@@ -169,7 +177,7 @@ export default function useRegionSelection(normalizedRecordSet,
                                             let hover = hoverRegion === value
                                             return <SelectableValue value={value}
                                                                     valueRenderer={region => {
-                                                                        return <span>{regionSpec.displayNameFor(region)}{normalizedRecordSet.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
+                                                                        return <span>{regionSpec.displayNameFor(region)}{warningsByRegions.warningsFor(region).map(w => WarningRenderer.renderIcon(w))}</span>
                                                                     }}
                                                                     hover={hover}
                                                                     selected={selected}/>;
@@ -183,6 +191,5 @@ export default function useRegionSelection(normalizedRecordSet,
             </div>;
     }
 
-    const displayContent = useCollapsable(regionSelectionPanel, collapsedRegionSelectionPanel, 'RegionSelection')
-    return displayContent
+    return useCollapsable(regionSelectionPanel, collapsedRegionSelectionPanel, 'RegionSelector')
 }
