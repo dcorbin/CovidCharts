@@ -71,3 +71,17 @@ body {
     color: #ccc;
 }
 
+.Header {
+    display: flex;
+    align-items: baseline;
+}
+.Header h1 {
+    flex-grow: 1;
+}
+.DataFocus {
+    flex-grow: 0;
+    padding-right: 30px;
+}
+.DataFocus span {
+    vertical-align: bottom;
+}
