@@ -29,6 +29,7 @@ function normalizeTabSettings(tabSettings, outdatedSelectionPropertyName = null)
         tabSettings.verticalScaleType = 'linear'
     }
     tabSettings.selectedRegions = tabSettings.selectedRegions.filter(e => e !== null)
+    return tabSettings
 }
 
 export class Settings {
@@ -50,7 +51,7 @@ export class Settings {
     }
 }
 
-const SETTINGS_KEY = 'initialSettings.v3';
+const SETTINGS_KEY = 'settings.v3';
 export class SettingsStore {
     constructor(storage) {
         this.storage = storage
