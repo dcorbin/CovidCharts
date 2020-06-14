@@ -1,20 +1,35 @@
-import ReadThroughCache from "./util/read_thru_cache";
-import Clock from "./util/clock";
-import CovidTrackingCom from "./covid_tracking_com/covid_tracking_com";
-import GeorgiaByCounty from "./subject/georgia/GeorgiaByCounty";
-import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
+import DATA_SOURCES, {dataSourceFromKey} from "./react/model/data_source";
+import LabeledCombo from "./react/basic/labeled_combo";
+import React, {useEffect} from "react";
 import ChartPanel from "./react/chart_panel";
-import {StateRegionSpec} from "./subject/us/states";
 import Footer from "./react/footer";
-import {CountyRegionSpec} from "./subject/georgia/county_spec";
-import 'react-tabs/style/react-tabs.css';
-import React, {useState} from "react";
 import PropTypes from 'prop-types'
+import NormalizedRecordSet from "./covid_tracking_com/normalized_record_set";
+
+const {useState} = require("react");
+
+App.propTypes = {
+    initialSettings: PropTypes.object.isRequired,
+    saveSettings: PropTypes.func.isRequired,
+    initialDataSource: PropTypes.object.isRequired
+}
 
 export default function App(props) {
     let [settings, setSettings]  = useState(props.initialSettings);
-    let covidTracking = new ReadThroughCache(1000 * 60 * 60, new Clock(), new CovidTrackingCom())
-    let georgiaDataProvider = new ReadThroughCache(1000 * 60 * 60, new Clock(), new GeorgiaByCounty())
+    let [dataSource, setDataSource] = useState(props.initialDataSource)
+    let [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
+
+    function fetchData() {
+        let isSubscribed = true
+        dataSource.dataProvider.getData().then(recordSet => {
+            if (isSubscribed)
+                setNormalizedRecordSet(recordSet)
+        })
+        return () => isSubscribed = false
+    }
+
+    useEffect(fetchData,[dataSource])
+
 
     function createSettingsChangeHandler(panel) {
         return newTabSettings => {
@@ -25,41 +40,39 @@ export default function App(props) {
         };
     }
 
-    return <div>
-        <h1>{document.title}</h1>
-        <Tabs defaultIndex={props.initialTab}
-              onSelect={index => {
-                  window.localStorage.setItem("activeTab", JSON.stringify(index));
-                  return true
-              }}>
-            <TabList>
-                <Tab>United States</Tab>
-                <Tab>Georgia</Tab>
-            </TabList>
+    function renderBody() {
+        if (dataSource)
+            return <div className='body'>
+                <ChartPanel
+                            recordSet={normalizedRecordSet}
+                            dataProvider={dataSource.dataProvider}
+                            regionSpec={dataSource.regionSpec}
+                            settings={settings[dataSource.settingsKey]}
+                            onSettingsChange={createSettingsChangeHandler(dataSource.settingsKey)}/>
+                <Footer source={<a href={dataSource.footerLink}>{dataSource.footerText}</a>}/>
+            </div>;
+        return <p>Please select a dataSource.</p>
+    }
 
-            <TabPanel>
-                <ChartPanel dataProvider={covidTracking}
-                            regionSpec={new StateRegionSpec()}
-                            settings={settings.covidTracking}
-                            columns={6}
-                            onSettingsChange={createSettingsChangeHandler('covidTracking')}/>
-                <Footer source={<a href="https://covidtracking.com">covidtracking.com</a>}/>
-            </TabPanel>
-            <TabPanel>
-                <ChartPanel dataProvider={georgiaDataProvider}
-                            regionSpec={new CountyRegionSpec()}
-                            settings={settings.georgia}
-                            columns={7}
-                            onSettingsChange={createSettingsChangeHandler('georgia')}/>
-                <Footer source={<a href="https://dph.georgia.gov/covid-19-daily-status-report">Georgia Department of Public Health</a>}/>
-            </TabPanel>
-        </Tabs>
-    </div>
-}
-
-App.propTypes = {
-    initialSettings: PropTypes.object.isRequired,
-    saveSettings: PropTypes.func.isRequired,
-    initialTab: PropTypes.number.isRequired
-
+    return (
+        <div className='App'>
+            <div className='Header'>
+                <h1>{document.title}</h1>
+                <div className='DataFocus'>
+                    <LabeledCombo label='Data Focus'
+                                  initialValue={dataSource.key}
+                                  onChange={key => {
+                                      setNormalizedRecordSet(NormalizedRecordSet.empty())
+                                      setDataSource(dataSourceFromKey(key))
+                                      window.localStorage.setItem("dataSourceKey", key);
+                                  }}
+                                  options={DATA_SOURCES.map(s => {
+                                      return {value: s.key, text: s.name}
+                                  })}
+                    />
+                </div>
+            </div>
+            {renderBody()}
+        </div>
+    )
 }

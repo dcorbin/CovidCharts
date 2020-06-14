@@ -4,6 +4,7 @@ import {Settings, SettingsStore} from './settings';
 import React  from 'react'
 import ReactDom from 'react-dom'
 import App from "./app";
+import DATA_SOURCES, {dataSourceFromKey} from "./react/model/data_source";
 
 function initialize() {
     let settings_store = new SettingsStore(window.localStorage)
@@ -16,11 +17,9 @@ function initialize() {
         return settings
     }
 
-    let activeTab = 0
-    let json = window.localStorage.getItem("activeTab")
-    if (json) { activeTab = JSON.parse(json)}
+    let dataSourceKey = window.localStorage.getItem("dataSourceKey") || DATA_SOURCES[0].key
     ReactDom.render(<App
-        initialTab={activeTab}
+            initialDataSource={dataSourceFromKey(dataSourceKey)}
         initialSettings={loadOrCreateSettings()}
         saveSettings={(s) => settings_store.store(s)} />,
         document.getElementById("app"))

@@ -29,17 +29,42 @@ function createChartSubject(settings, formattedRegionList) {
     return movingAvgSummaryDescription(settings.movingAvgStrategy) + ' for ' + formattedRegionList;
 }
 
+ChartPanel.propTypes = {
+    recordSet: PropTypes.object.isRequired,
+    settings: PropTypes.shape({
+        nullStrategy: PropTypes.string.isRequired,
+        selectedRegions: PropTypes.arrayOf(PropTypes.string).isRequired,
+        userQuickPicks: PropTypes.arrayOf(PropTypes.shape({
+            key: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            regions: PropTypes.arrayOf(PropTypes.string),
+            regionsFilter: PropTypes.func
+        })).isRequired
+    }).isRequired,
+    regionSpec: PropTypes.shape({
+            singleNoun: PropTypes.string.isRequired,
+            pluralNoun: PropTypes.string.isRequired,
+            matrixMapRatio: PropTypes.arrayOf(PropTypes.number).isRequired,
+            displayNameFor: PropTypes.func.isRequired,
+            mapURI: PropTypes.string.isRequired,
+            quickPicks: PropTypes.arrayOf(
+                PropTypes.shape(
+                    {
+                        key: PropTypes.string.isRequired,
+                        name: PropTypes.string.isRequired,
+                        regions: PropTypes.arrayOf(PropTypes.string),
+                        regionsFilter: PropTypes.func
+                    }
+                )
+            ).isRequired
+        }
+    ),
+    onSettingsChange: PropTypes.func
+}
+
 
 export default function ChartPanel(props) {
-    const [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
-
-    useEffect(() => {
-        props.dataProvider.getData().then(recordSet => {
-                setNormalizedRecordSet(recordSet)
-            }
-        )
-    },[])
-
+    const normalizedRecordSet = props.recordSet
     if (normalizedRecordSet.error) {
         return normalizedRecordSet.error
     }
@@ -79,38 +104,3 @@ export default function ChartPanel(props) {
 
 }
 
-ChartPanel.propTypes = {
-    settings: PropTypes.shape({
-        nullStrategy: PropTypes.string.isRequired,
-        selectedRegions: PropTypes.arrayOf(PropTypes.string).isRequired,
-        userQuickPicks: PropTypes.arrayOf(PropTypes.shape({
-            key: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            regions: PropTypes.arrayOf(PropTypes.string),
-            regionsFilter: PropTypes.func
-        })).isRequired
-    }).isRequired,
-    regionSpec: PropTypes.shape({
-            singleNoun: PropTypes.string.isRequired,
-            pluralNoun: PropTypes.string.isRequired,
-            columns: PropTypes.number.isRequired,
-            matrixMapRatio: PropTypes.arrayOf(PropTypes.number).isRequired,
-            displayNameFor: PropTypes.func.isRequired,
-            mapURI: PropTypes.string.isRequired,
-            quickPicks: PropTypes.arrayOf(
-                PropTypes.shape(
-                    {
-                        key: PropTypes.string.isRequired,
-                        name: PropTypes.string.isRequired,
-                        regions: PropTypes.arrayOf(PropTypes.string),
-                        regionsFilter: PropTypes.func
-                    }
-                )
-            ).isRequired
-        }
-    ),
-    dataProvider: PropTypes.shape({
-        getData: PropTypes.func.isRequired
-    }).isRequired,
-    onSettingsChange: PropTypes.func
-}
