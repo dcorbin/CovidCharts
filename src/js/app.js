@@ -26,7 +26,7 @@ export default function App(props) {
     }
 
     return <div>
-        <h1>Corbin's Covid Charting</h1>
+        <h1>{document.title}</h1>
         <Tabs defaultIndex={props.initialTab}
               onSelect={index => {
                   window.localStorage.setItem("activeTab", JSON.stringify(index));
