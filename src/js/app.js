@@ -67,7 +67,7 @@ export default function App(props) {
                                       window.localStorage.setItem("dataSourceKey", key);
                                   }}
                                   options={DATA_SOURCES.map(s => {
-                                      return {value: s.key, text: s.name}
+                                      return {value: s.key, label: s.name}
                                   })}
                     />
                 </div>

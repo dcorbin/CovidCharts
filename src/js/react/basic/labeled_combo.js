@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
+import Select from 'react-select';
+import './labeled_combo.css'
 
 export default function LabeledCombo(props) {
     function renderLabel() {
@@ -8,24 +10,51 @@ export default function LabeledCombo(props) {
         return <label>{props.label}: </label>
     }
 
-    function handleOnChange() {
-        return (e) => {
-            e.preventDefault()
-            if (props.onChange)
-                props.onChange(e.currentTarget.options[e.currentTarget.selectedIndex].value)
-        };
+    function handleChange(value, {action, removedValue}) {
+        if (action === 'select-option') {
+            if (props.onChange) {
+                props.onChange(value.value)
+                return
+            }
+        }
+         console.log(`CHANGE: ${action} ${JSON.stringify(value)}`);
     }
 
+    let longestLabelLength = Math.max(...props.options.map(o => o.label.length));
+    let indicatorWidth = 36;
+    let pixelsPerCharacter = 7
     return (
-        <span>
-            {renderLabel()}
-            <select onChange={handleOnChange()} value={props.initialValue}>
-                {
-                    props.options.map(o => <option value={o.value} key={o.value}>{o.text}</option>)
-                }
-            </select>
-        </span>
+        <div  className="LabeledCombo">
+            <span className="LabeledCombo-container">
+            {renderLabel()}<Select
+                    className='react-select'
+                    classNamePrefix='react-select'
+                    styles={{
+                        valueContainer: (provided, state) => {
+                            return { ...provided, width: `${longestLabelLength * pixelsPerCharacter}}px`}
+                        },
+                    }}
+                    options={props.options}
+                    onChange={handleChange}
+                    value={props.options.find(o => o.value === props.initialValue)}
+                    backspaceRemovesValue={false}
+                    getOptionLabel={
+                        (arg) => {
+                            return arg.label
+                        }
+                    }
+                    getOptionValue={
+                        (arg) => {
+                            return String(arg.value)
+                        }
+                    }
+                    isMulti={false}
+                    isCreatable={false}
+                    isSearchable={false}/>
+            </span>
+        </div>
     )
+
 }
 
 LabeledCombo.propTypes = {
@@ -33,8 +62,8 @@ LabeledCombo.propTypes = {
     onChange: PropTypes.func,
     initialValue: PropTypes.any,
     options: PropTypes.arrayOf(PropTypes.shape({
-            value: PropTypes.string.isRequired,
-            text: PropTypes.string.isRequired
+            value: PropTypes.any.isRequired,
+            label: PropTypes.string.isRequired
         }
     )).isRequired
 }

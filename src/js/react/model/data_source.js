@@ -24,7 +24,7 @@ export function dataSourceFromKey(key) {
 
 
 const DATA_SOURCES = [
-    new DataSource('United States',
+    new DataSource('United\u00a0States',
         'covidTracking.com',
         new StateRegionSpec(),
         new ReadThroughCache(1000 * 60 * 60, new Clock(), new CovidTrackingCom()),

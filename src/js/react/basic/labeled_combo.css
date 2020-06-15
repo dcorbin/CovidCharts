@@ -1,0 +1,35 @@
+.LabeledCombo {
+    display: inline-block;
+}
+.LabeledCombo-container{
+    display: flex;
+    align-items: center;
+}
+.LabeledCombo label {
+    padding-right: 3px;
+}
+.react-select{
+    display:inline-block;
+}
+.react-select__container {
+}
+div.react-select__control {
+    min-height:24px;
+}
+.react-select__value-container {
+}
+
+.react-select__indicators {
+    height: 24px;
+    width: 24px;
+    margin-right: 7px;
+}
+.react-select__menu {
+
+}
+.react-select__menu-list{
+
+}
+.react-select__option {
+
+}
