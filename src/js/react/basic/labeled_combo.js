@@ -21,8 +21,7 @@ export default function LabeledCombo(props) {
     }
 
     let longestLabelLength = Math.max(...props.options.map(o => o.label.length));
-    let indicatorWidth = 36;
-    let pixelsPerCharacter = 7
+    let pixelsPerCharacter = 8
     return (
         <div  className="LabeledCombo">
             <span className="LabeledCombo-container">
