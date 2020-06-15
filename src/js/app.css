@@ -1,0 +1,12 @@
+
+.Header {
+    display: flex;
+    align-items: center;
+}
+.Header h1 {
+    flex-grow: 4;
+}
+.DataFocus {
+    flex-grow: 0;
+    padding-right: 30px;
+}

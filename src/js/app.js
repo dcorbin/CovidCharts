@@ -5,7 +5,7 @@ import ChartPanel from "./react/chart_panel";
 import Footer from "./react/footer";
 import PropTypes from 'prop-types'
 import NormalizedRecordSet from "./covid_tracking_com/normalized_record_set";
-
+import './app.css'
 const {useState} = require("react");
 
 App.propTypes = {
