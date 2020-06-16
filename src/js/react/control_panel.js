@@ -3,6 +3,15 @@ import PropTypes from "prop-types";
 import React from "react";
 import {LINES} from "./chart_panel";
 import RegionSelector from "./region_selector";
+import PROP_TYPES from "./model/prop_types";
+
+
+ControlPanel.propTypes = {
+    settings: PROP_TYPES.DataSourceSettings.isRequired,
+    onSettingsChange: PropTypes.func.isRequired,
+    regionSpec: PROP_TYPES.RegionSpec.isRequired,
+    normalizedRecordSet: PROP_TYPES.NormalizedRecordSet.isRequired
+}
 
 export default function ControlPanel(props) {
     function createSettingsChangeHandler(property) {
@@ -43,7 +52,7 @@ export default function ControlPanel(props) {
                                           {value: 'linear', label: 'Linear'},
                                           {value: 'log', label: 'Logarithmic'},
                                       ]}/>
-                {props.showNullStrategy ?
+                {props.normalizedRecordSet.hasWarning('broken') ?
                     <ControlPanelDropDown label='Missing Data Handling'
                                           settings={props.settings}
                                           onSettingsChange={props.onSettingsChange}
@@ -64,12 +73,4 @@ export default function ControlPanel(props) {
             />
         </div>)
 
-}
-
-ControlPanel.propTypes = {
-    settings: PropTypes.object.isRequired,
-    onSettingsChange: PropTypes.func.isRequired,
-    showNullStrategy: PropTypes.bool.isRequired,
-    regionSpec: PropTypes.object.isRequired,
-    normalizedRecordSet: PropTypes.object.isRequired
 }

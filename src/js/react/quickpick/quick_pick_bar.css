@@ -7,8 +7,10 @@
 .QuickPickBar .main {
     width: 100%;
     display: flex;
+    align-items: flex-start;
 }
 .QuickPickBar .main .actions {
+    margin-top: 4px;
     flex-grow: 0;
 }
 .QuickPickBar .main .buttonSet {

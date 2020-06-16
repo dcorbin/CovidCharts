@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import DataLine from "../charting/data_line";
-import NormalizedRecordSet from "../covid_tracking_com/normalized_record_set";
 import PropTypes from 'prop-types'
-import './chartPanel.css'
+import './chart_panel.css'
 import DataPreparer from "../model/data_preparer";
 import MultiLineChart from "./multi_line_chart";
 import ControlPanel from "./control_panel";
+import PROP_TYPES from "./model/prop_types";
 
 export const LINES = [
     new DataLine('New Positives', 'left', 'blue', 'positive', r => {
@@ -31,34 +31,8 @@ function createChartSubject(settings, formattedRegionList) {
 
 ChartPanel.propTypes = {
     recordSet: PropTypes.object.isRequired,
-    settings: PropTypes.shape({
-        nullStrategy: PropTypes.string.isRequired,
-        selectedRegions: PropTypes.arrayOf(PropTypes.string).isRequired,
-        userQuickPicks: PropTypes.arrayOf(PropTypes.shape({
-            key: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            regions: PropTypes.arrayOf(PropTypes.string),
-            regionsFilter: PropTypes.func
-        })).isRequired
-    }).isRequired,
-    regionSpec: PropTypes.shape({
-            singleNoun: PropTypes.string.isRequired,
-            pluralNoun: PropTypes.string.isRequired,
-            matrixMapRatio: PropTypes.arrayOf(PropTypes.number).isRequired,
-            displayNameFor: PropTypes.func.isRequired,
-            mapURI: PropTypes.string.isRequired,
-            quickPicks: PropTypes.arrayOf(
-                PropTypes.shape(
-                    {
-                        key: PropTypes.string.isRequired,
-                        name: PropTypes.string.isRequired,
-                        regions: PropTypes.arrayOf(PropTypes.string),
-                        regionsFilter: PropTypes.func
-                    }
-                )
-            ).isRequired
-        }
-    ),
+    settings: PROP_TYPES.DataSourceSettings.isRequired,
+    regionSpec: PROP_TYPES.RegionSpec.isRequired,
     onSettingsChange: PropTypes.func
 }
 
@@ -89,11 +63,10 @@ export default function ChartPanel(props) {
             <ControlPanel settings={props.settings}
                           onSettingsChange={props.onSettingsChange}
                           regionSpec={props.regionSpec}
-                          normalizedRecordSet={normalizedRecordSet}
-                          showNullStrategy={normalizedRecordSet.hasWarning('broken')}/>
+                          normalizedRecordSet={normalizedRecordSet}/>
             <div>
                 {(props.settings.selectedRegions.length === 0) ?
-                    <h3>No {props.pluralRegion} Selected</h3> :
+                    <h3>No {props.regionSpec.pluralNoun} selected</h3> :
                     <MultiLineChart records={dataToChart}
                                     subject={createChartSubject(props.settings, formattedRegionList)}
                                     lines={dataLines}
