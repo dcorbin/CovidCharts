@@ -20,9 +20,9 @@ function initialize() {
     let dataSourceKey = window.localStorage.getItem("dataSourceKey") || DATA_SOURCES[0].key
     ReactDom.render(<App
             initialDataSource={dataSourceFromKey(dataSourceKey)}
-        initialSettings={loadOrCreateSettings()}
-        saveSettings={(s) => settings_store.store(s)} />,
-        document.getElementById("app"))
+            initialSettings={loadOrCreateSettings()}
+            saveSettings={(s) => settings_store.store(s)} />,
+            document.getElementById("app"))
 }
 
 
