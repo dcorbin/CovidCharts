@@ -18,11 +18,15 @@ export class GrowthRanker {
             let result = {}
             propertyNames.forEach(name => {
                 if (past === null) {
-                    result[name] = {delta: null, percentage: null}
+                    result[name] = {currentValue: current[name], delta: null, percentage: null}
                 }
                 let delta = current.nDayAverages[name] - past.nDayAverages[name];
                 let deltaPercentage = delta/past.nDayAverages[name]*100;
-                result[name] = {delta: delta, percentage: deltaPercentage}
+                result[name] = {
+                        currentValue: current[name],
+                        delta: delta,
+                        percentage: deltaPercentage
+                }
             })
             if (current.region === 'GA') {
                 console.log(`CURRENT: ${JSON.stringify(current)}`)

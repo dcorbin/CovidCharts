@@ -3,7 +3,22 @@ CLARITY: Settings/_Store refactoring.
 
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 
-FEATURE: HotSpot Quick Picks
+FEATURE: HotSpot
+    - How do you get -Infinity?
+    - -NaN?
+    - How do you get NaN?
+    - Infinity Appearance
+    - Add Maps
+    - Deaths
+    - Hospitalizations
+    - DangerScore
+    - Special color for N/A types
+    - More Red shades?
+    - Better Yellow shade
+    -- Release
+    - input arguments
+    - Hover over row to show State in Map
+    - Link Back to chart-tab
 FEATURE: Chart region vs region
 
 FEATURE: Other CT data charts

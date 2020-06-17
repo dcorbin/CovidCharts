@@ -9,7 +9,8 @@
     padding-right: 3px;
 }
 .react-select{
-    display:inline-block;
+    flex-basis: auto;
+    flex-grow: 1;
 }
 .react-select__container {
 }

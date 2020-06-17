@@ -8,6 +8,27 @@ GrowthRanking.propTypes = {
     recordSet: PropTypes.object.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
 }
+Percent.defaultProps = {
+    value: null,
+    precision: 0
+}
+Percent.propTypes = {
+    value: PropTypes.number,
+    precision: PropTypes.number
+}
+function Percent(props) {
+    if (isNaN(props.value)) {
+        return <span className='infinity'>-</span>
+    }
+    if (props.value === Infinity) {
+        return <span className='infinity'>{'\u221e'}</span>
+    }
+    if (props.value === -Infinity) {
+        return -<span className='infinity'>{'\u221e'}</span>
+    }
+    return String(props.value.toFixed(1)) + '%'
+
+}
 
 export default function GrowthRanking(props) {
     function categoryClassName(percentage) {
@@ -25,42 +46,50 @@ export default function GrowthRanking(props) {
         }
         return 'stable'
     }
-    function formatPercentage(n) {
-        if (isNaN(n)) {
-            return "-"
-        }
-        return String(n.toFixed(1)) + '%'
-    }
 
     let scoredRegions = new GrowthRanker().rank(props.recordSet.records);
 
-    let ranked_regions = scoredRegions.filter((row) => !isNaN(row.new_positives.percentage)).
-        sort((a,b) => {
-            return b.new_positives.percentage - a.new_positives.percentage;
-        }).
-        concat(scoredRegions.filter((row) => isNaN(row.new_positives.percentage)))
+    let ranked_regions = scoredRegions.filter((row) => !isNaN(row.new_positives.percentage)).sort((a, b) => {
+        return b.new_positives.percentage - a.new_positives.percentage;
+    }).concat(scoredRegions.filter((row) => isNaN(row.new_positives.percentage)))
     return <div className='GrowthRanking'>
-            <div className='row'>
-                <div className='cell header'>{props.regionSpec.singleNoun}</div>
-                <div className='cell header'>Positive Growth Percentage</div>
-                <div className='cell header'>Positive Growth per Day</div>
-            </div>{
-        ranked_regions.map(record => {
-            return (
-                <div key={record.region} className={`row ${categoryClassName(record.new_positives.percentage)}`}>
-                    <div className='cell growthRegion'>
-                        {props.regionSpec.displayNameFor(record.region)}
-                    </div>
-                    <div className='cell number'>
-                        {formatPercentage(record.new_positives.percentage)}
-                    </div>
-                    <div className='cell number'>
-                        {record.new_positives.delta.toFixed()}
-                    </div>
-                </div>
-            )
-        })
-    }
+        <table>
+            <thead>
+                <tr className='row'>
+                    <th className='cell'> </th>
+                    <th colSpan="3" className='cell'>Positive Growth</th>
+                </tr>
+                <tr className='row'>
+                    <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
+                    <th className='cell percentage'>Rate (7 days)</th>
+                    <th className='cell value'>per Day</th>
+                    <th className='cell value'>Current Daily</th>
+                </tr>
+            </thead>
+            <tbody>
+            {
+                ranked_regions.map(record => {
+                    let category = categoryClassName(record.new_positives.percentage);
+                    return (
+                        <tr key={record.region}
+                             className={`row`}>
+                            <td className='cell growthRegion'>
+                                {props.regionSpec.displayNameFor(record.region)}
+                            </td>
+                            <td className={`cell number percentage ${category}`}>
+                                <Percent value={record.new_positives.percentage}/>
+                            </td>
+                            <td className={`cell number value ${category}`}>
+                                {record.new_positives.delta.toFixed(3)}
+                            </td>
+                            {/*<td className={`cell number value ${category}`}>*/}
+                            {/*    {record.new_positives.currentValue.toFixed(0)}*/}
+                            {/*</td>*/}
+                        </tr>
+                    )
+                })
+            }</tbody>
+        </table>
 
     </div>
 }

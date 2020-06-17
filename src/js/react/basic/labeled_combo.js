@@ -25,12 +25,12 @@ export default function LabeledCombo(props) {
     return (
         <div  className="LabeledCombo">
             <span className="LabeledCombo-container">
-            {renderLabel()}<Select
+            {renderLabel()}<Select style={{width: `${longestLabelLength * pixelsPerCharacter}}px`}}
                     className='react-select'
                     classNamePrefix='react-select'
                     styles={{
                         valueContainer: (provided, state) => {
-                            return { ...provided, width: `${longestLabelLength * pixelsPerCharacter}}px`}
+                            return { ...provided, width: `${longestLabelLength * pixelsPerCharacter}px`}
                         },
                     }}
                     options={props.options}

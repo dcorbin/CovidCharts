@@ -1,13 +1,26 @@
-.GrowthRanking  {
-    display: table;
+.GrowthRanking {
 }
+
 .GrowthRanking .row {
-    display: table-row;
+}
+
+.GrowthRanking table {
+    border-collapse: collapse;
+}
+
+.cell.percentage {
+}
+.cell.percentage .infinity{
+    display: inline-block;
+    font-size:24px;
+    text-align: center;
+    width: 100%;
+}
+.cell.value {
 }
 .GrowthRanking .row .cell {
-    display: table-cell;
-    padding: 4px;
-    border: #cccccc 3px;
+    border: 1px solid #888;
+    padding: 2px 4px;
 }
 .GrowthRanking .row .cell.number {
     text-align: right;
