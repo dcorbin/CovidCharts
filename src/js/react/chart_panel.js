@@ -9,13 +9,13 @@ import PROP_TYPES from "./model/prop_types";
 
 export const LINES = [
     new DataLine('New Positives', 'left', 'blue', 'positive', r => {
-        return r.seven_day_averages.new_positives
+        return r.nDayAverages.new_positives
     }),
     new DataLine('New Hospitalizations', 'right', '#cc9900', 'hospitalized', r => {
-        return r.seven_day_averages.new_hospitalizations
+        return r.nDayAverages.new_hospitalizations
     }),
     new DataLine('New Deaths', 'right', 'red', 'death', r => {
-        return r.seven_day_averages.new_deaths
+        return r.nDayAverages.new_deaths
     }),
 ];
 
@@ -31,8 +31,8 @@ function createChartSubject(settings, formattedRegionList) {
 
 ChartPanel.propTypes = {
     recordSet: PropTypes.object.isRequired,
-    settings: PROP_TYPES.DataSourceSettings.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
+    settings: PROP_TYPES.DataSourceSettings.isRequired,
     onSettingsChange: PropTypes.func
 }
 

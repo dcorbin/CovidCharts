@@ -1,40 +1,43 @@
 import QuickPick from "./model/quick_pick";
-function normalizeTabSettings(tabSettings, outdatedSelectionPropertyName = null) {
-    if (outdatedSelectionPropertyName && tabSettings[outdatedSelectionPropertyName]) {
-        tabSettings.selectedRegions = tabSettings[outdatedSelectionPropertyName]
-        delete tabSettings[outdatedSelectionPropertyName]
+function normalizeDataSourceTabSettings(dataSourceSettings, outdatedSelectionPropertyName = null) {
+    if (outdatedSelectionPropertyName && dataSourceSettings[outdatedSelectionPropertyName]) {
+        dataSourceSettings.selectedRegions = dataSourceSettings[outdatedSelectionPropertyName]
+        delete dataSourceSettings[outdatedSelectionPropertyName]
     }
 
-    if (!tabSettings.selectedRegions)
-        tabSettings.selectedRegions = []
+    if (!dataSourceSettings.selectedRegions)
+        dataSourceSettings.selectedRegions = []
 
-    if (!tabSettings.userQuickPicks)
-        tabSettings.userQuickPicks = []
+    if (!dataSourceSettings.userQuickPicks)
+        dataSourceSettings.userQuickPicks = []
     else {
-        tabSettings.userQuickPicks = tabSettings.userQuickPicks.map(qpo => {
+        dataSourceSettings.userQuickPicks = dataSourceSettings.userQuickPicks.map(qpo => {
             return QuickPick.fromGenericObject(qpo);
         })
     }
 
-    if (!tabSettings.nullStrategy) {
-        tabSettings.nullStrategy = 'none'
+    if (!dataSourceSettings.nullStrategy) {
+        dataSourceSettings.nullStrategy = 'none'
     }
-    if (!tabSettings.movingAvgStrategy) {
-        tabSettings.movingAvgStrategy = 7
+    if (!dataSourceSettings.movingAvgStrategy) {
+        dataSourceSettings.movingAvgStrategy = 7
     }
-    if (!tabSettings.dataLinesId) {
-        tabSettings.dataLinesId = 'ALL'
+    if (!dataSourceSettings.dataLinesId) {
+        dataSourceSettings.dataLinesId = 'ALL'
     }
-    if (!tabSettings.verticalScaleType) {
-        tabSettings.verticalScaleType = 'linear'
+    if (!dataSourceSettings.verticalScaleType) {
+        dataSourceSettings.verticalScaleType = 'linear'
     }
-    tabSettings.selectedRegions = tabSettings.selectedRegions.filter(e => e !== null)
-    return tabSettings
+    if (!dataSourceSettings.activeTab) {
+        dataSourceSettings.activeTab = 0
+    }
+    dataSourceSettings.selectedRegions = dataSourceSettings.selectedRegions.filter(e => e !== null)
+    return dataSourceSettings
 }
 
 export class Settings {
     static defaultTabSettings(regions) {
-        return normalizeTabSettings({
+        return normalizeDataSourceTabSettings({
             selectedRegions: regions
         })
     }
@@ -65,8 +68,8 @@ export class SettingsStore {
     load() {
         function normalizeSettings(settings) {
             delete settings.georgia.states
-            normalizeTabSettings(settings.georgia, 'counties')
-            normalizeTabSettings(settings.covidTracking, 'states')
+            normalizeDataSourceTabSettings(settings.georgia, 'counties')
+            normalizeDataSourceTabSettings(settings.covidTracking, 'states')
             return settings
         }
 

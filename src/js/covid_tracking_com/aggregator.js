@@ -15,7 +15,7 @@ export default class Aggregator {
                     let a = accumulator[property];
                     let cv = currentValue[property];
                     if (typeof cv === 'undefined') {
-                        throw new Error("'" + property + "' is undefined in one or more records.")
+                        cv = null
                     }
                     let result = null;
                     if (a !== null && cv !== null)

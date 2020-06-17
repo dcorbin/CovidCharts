@@ -1,0 +1,35 @@
+.GrowthRanking  {
+    display: table;
+}
+.GrowthRanking .row {
+    display: table-row;
+}
+.GrowthRanking .row .cell {
+    display: table-cell;
+    padding: 4px;
+    border: #cccccc 3px;
+}
+.GrowthRanking .row .cell.number {
+    text-align: right;
+}
+
+.highGrowth {
+    background-color: #d92323;
+    color: white;
+}
+.lowGrowth {
+    background-color: lightcoral;
+    color: black;
+}
+.stable {
+    background-color: #eee958;
+    color: black;
+}
+.lowShrink {
+    background-color: lightgreen;
+    color: black;
+}
+.highShrink {
+    background-color: green;
+    color: white;
+}

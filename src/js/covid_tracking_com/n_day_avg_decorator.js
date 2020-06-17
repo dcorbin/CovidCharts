@@ -17,11 +17,11 @@ export default class NDayAverageDecorator {
         data = copyData(data)
 
         data.forEach((r, index, array) => {
-            r.seven_day_averages = {}
+            r.nDayAverages = {}
             if (index >= nDays) {
-                r.seven_day_averages.new_hospitalizations = moving_average(array, index, nDays, 'delta_hospitalized', 'hospitalized')
-                r.seven_day_averages.new_positives = moving_average(array, index, nDays, 'delta_positive', 'positive')
-                r.seven_day_averages.new_deaths = moving_average(array, index, nDays, 'delta_death', 'death')
+                r.nDayAverages.new_hospitalizations = moving_average(array, index, nDays, 'delta_hospitalized', 'hospitalized')
+                r.nDayAverages.new_positives = moving_average(array, index, nDays, 'delta_positive', 'positive')
+                r.nDayAverages.new_deaths = moving_average(array, index, nDays, 'delta_death', 'death')
             }
         })
         return data;

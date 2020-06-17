@@ -12,7 +12,6 @@ export default class DataPreparer {
         )
 
         let dataToChart = normalizedRecordSet.records.filter(r => selectedRegions.includes(r.region)).sort(compare_records_by_date)
-
         if (treatLeadingNullsAsZero) {
             dataToChart = new LeadingNullAsZeroConverter(dataLinePropertyNames).convert(dataToChart)
         }
