@@ -4,22 +4,30 @@ CLARITY: Settings/_Store refactoring.
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 
 FEATURE: HotSpot
-    - How do you get -Infinity?
-    - -NaN?
-    - How do you get NaN?
-    - Infinity Appearance
     - Add Maps
     - Deaths
     - Hospitalizations
     - DangerScore
-    - Special color for N/A types
-    - More Red shades?
-    - Better Yellow shade
+        (describe somewhere)
+    - Better Colors
+        - border?
+        - More Red shades?
+        - All Clear shade
+        - Better Yellow shade
     -- Release
     - input arguments
     - Hover over row to show State in Map
     - Link Back to chart-tab
+    - Summarize State/County
+        - Scores based on Totals
+        - Counts of Category
+    - Consider using per-capita growth
+
+PRODUCTION: Look into Jun2 data (Schley)
 FEATURE: Chart region vs region
+FEATURE: Donate button
+
+
 
 FEATURE: Other CT data charts
 FEATURE: Image (download) Link

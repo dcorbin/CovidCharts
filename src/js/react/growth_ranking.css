@@ -8,14 +8,12 @@
     border-collapse: collapse;
 }
 
-.cell.percentage {
-}
-.cell.percentage .infinity{
-    display: inline-block;
-    font-size:24px;
+.cell.percentage span {
     text-align: center;
+    display: inline-block;
     width: 100%;
 }
+
 .cell.value {
 }
 .GrowthRanking .row .cell {
@@ -45,4 +43,8 @@
 .highShrink {
     background-color: green;
     color: white;
+}
+.barren {
+    background-color: #888888;
+    color:white;
 }

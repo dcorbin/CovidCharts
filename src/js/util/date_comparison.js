@@ -1,3 +1,6 @@
+export function compare_records_by_date_descending(a,b) {
+    return compare_records_by_date(b, a)
+}
 export function compare_records_by_date(a, b) {
     if (a.date.getTime() < b.date.getTime())
         return -1

@@ -1,6 +1,3 @@
-import {expect} from "@jest/globals";
-import onlyUnique, {unique} from "../../src/js/util/unique";
-import {datesAreEqual} from "../../src/js/util/date_comparison";
 import QuickPick from "../../src/js/model/quick_pick";
 
 test('JSON for quickPick', () => {

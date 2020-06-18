@@ -6,8 +6,10 @@ import PropTypes from 'prop-types'
 import 'react-tabs/style/react-tabs.css';
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import GrowthRanking from "./react/growth_ranking";
-
+import './app_body.css'
+import useWindowDimensions from "./react/hooks/use_window_dimensions";
 AppBody.propTypes = {
+    headerHeight: PropTypes.number,
     dataSource: PROP_TYPES.DataSource,
     recordSet: PROP_TYPES.NormalizedRecordSet.isRequired,
     dataSourceSettings: PROP_TYPES.DataSourceSettings.isRequired,
@@ -19,12 +21,17 @@ export default function AppBody(props) {
         props.onSettingsChange({...props.dataSourceSettings, activeTab: index})
         return true
     }
+
+    const {width, height} = useWindowDimensions()
+
     let dataSource = props.dataSource
     if (!dataSource)
         return <p>Please select a dataSource.</p>
 
-    return <div className='AppBody'>
-        <Tabs onSelect={handleTabChange} selectedIndex={props.dataSourceSettings.activeTab}>
+    let headerHeight = props.headerHeight;
+
+    function renderTabs() {
+        return <Tabs onSelect={handleTabChange} selectedIndex={props.dataSourceSettings.activeTab}>
             <TabList>
                 <Tab>Charting</Tab>
                 <Tab>Growth Rankings</Tab>
@@ -43,8 +50,18 @@ export default function AppBody(props) {
                     regionSpec={dataSource.regionSpec}
                 />
             </TabPanel>
-        </Tabs>
+        </Tabs>;
+    }
 
-        <Footer source={<a href={dataSource.footerLink}>{dataSource.footerText}</a>}/>
-    </div>;
+    function renderVerticalScrollingTabs() {
+        return <div className="VerticalScroller" style={{height: `${height - headerHeight}px`}}>
+            {renderTabs()}
+        </div>;
+    }
+
+    return (
+        <div className='AppBody'>
+            {props.headerHeight ? renderVerticalScrollingTabs() : renderTabs()}
+            <Footer source={<a href={dataSource.footerLink}>{dataSource.footerText}</a>}/>
+        </div>)
 }

@@ -56,6 +56,7 @@ export default function App(props) {
                 </div>
             </div>
             <AppBody
+                headerHeight={100}
                 recordSet={normalizedRecordSet}
                 dataSource={dataSource}
                 dataSourceSettings={settings[dataSource.settingsKey]}

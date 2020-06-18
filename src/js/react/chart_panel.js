@@ -9,13 +9,13 @@ import PROP_TYPES from "./model/prop_types";
 
 export const LINES = [
     new DataLine('New Positives', 'left', 'blue', 'positive', r => {
-        return r.nDayAverages.new_positives
+        return r.nDayAverages.deltaPositive
     }),
     new DataLine('New Hospitalizations', 'right', '#cc9900', 'hospitalized', r => {
-        return r.nDayAverages.new_hospitalizations
+        return r.nDayAverages.deltaHospitalized
     }),
     new DataLine('New Deaths', 'right', 'red', 'death', r => {
-        return r.nDayAverages.new_deaths
+        return r.nDayAverages.deltaDeath
     }),
 ];
 

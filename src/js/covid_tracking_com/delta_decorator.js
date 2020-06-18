@@ -11,9 +11,9 @@ export default class DeltaDecorator {
             return array[index][property] - array[index - 1][property]
         }
         result.forEach((r, index, array) => {
-            r.delta_hospitalized = delta(array, index, "hospitalized")
-            r.delta_positive = delta(array, index, "positive")
-            r.delta_death = delta(array, index, "death")
+            r.deltaHospitalized = delta(array, index, "hospitalized")
+            r.deltaPositive = delta(array, index, "positive")
+            r.deltaDeath = delta(array, index, "death")
         })
 
         return result;
