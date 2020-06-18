@@ -6,9 +6,14 @@ export class CountyRegionSpec {
     constructor() {
         this.singleNoun = 'county'
         this.pluralNoun = 'counties'
+
+        this.mapURI = GA_URL
+
         this.matrixMapRatio = [7, 3]
         this.columns=7
         this.minimumCellWidth = 107
+        this.quickPicks = createQuickPicks()
+
         this.displayNameFor = function(region) {
             if (region === NON_RESIDENT_CODE) {
                 return <i>Non-resident</i>
@@ -18,7 +23,5 @@ export class CountyRegionSpec {
             }
             return region
         }
-        this.quickPicks = createQuickPicks()
-        this.mapURI = GA_URL
     }
 }

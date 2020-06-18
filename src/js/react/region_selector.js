@@ -150,7 +150,7 @@ export default function RegionSelector(props) {
                     </div>
                     <div style={{margin: '10px'}}>{(
                         <DownloadedMap
-                            regionSpec={regionSpec}
+                            mapURI={regionSpec.mapURI}
                             hoverLocation={hoverRegion}
                             onRegionSelected={regionClicked}
                             onHover={onHover}

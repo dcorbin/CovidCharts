@@ -1,19 +1,18 @@
-import PROP_TYPES from "../model/prop_types";
 import PropTypes from "prop-types";
 import SvgMap from "./svg_map";
 import React, {useState} from "react";
 
 DownloadedMap.propTypes = {
-    regionSpec: PROP_TYPES.RegionSpec.isRequired,
+    mapURI: PropTypes.string.isRequired,
     onRegionSelected: PropTypes.func.isRequired,
     onHover: PropTypes.func.isRequired,
     classNamesProvider: PropTypes.func.isRequired
 }
 
 export default function DownloadedMap(props) {
-    const [regionMap, setRegionMap] = useState(props.regionSpec.map)
+    const [regionMap, setRegionMap] = useState(null)
     if (!regionMap)
-        initiateMapFetch(props.regionSpec.mapURI)
+        initiateMapFetch(props.mapURI)
 
     function initiateMapFetch(uri) {
         fetch(uri, {method: 'GET', })
