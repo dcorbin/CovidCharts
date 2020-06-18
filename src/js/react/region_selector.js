@@ -10,6 +10,7 @@ import QuickPick from "../model/quick_pick";
 import useWindowDimensions from "./hooks/use_window_dimensions";
 import './hooks/region_selection/region_selection.css'
 import PropTypes from "prop-types";
+import DownloadedMap from "./maps/downloaded_map";
 
 class WarningRenderer {
     static footerFor(type) {
@@ -43,6 +44,7 @@ RegionSelector.propTypes = {
     onUserQuickPicksChange: PropTypes.func.isRequired
 }
 
+
 export default function RegionSelector(props) {
     const warningsByRegions = props.warningsByRegion
     const regionSpec = props.regionSpec
@@ -51,7 +53,6 @@ export default function RegionSelector(props) {
 
     const [selectedRegions, setSelectedRegions] = useState(props.initialSelections)
     const [hoverRegion, setHoverRegion] = useState(null)
-    const [regionMap, setRegionMap] = useState(regionSpec.map)
     const {width, height} = useWindowDimensions()
 
     const matrixWidth = width * regionSpec.matrixMapRatio[0] / (regionSpec.matrixMapRatio.reduce((a,b) => a + b)) - 20
@@ -61,8 +62,6 @@ export default function RegionSelector(props) {
     } else if (columns > regionSpec.columns) {
         columns = regionSpec.columns
     }
-    if (!regionMap)
-        initiateMapFetch(regionSpec.mapURI)
 
     function deleteQuickPick(quickPick) {
         props.onUserQuickPicksChange(userQuickPicks.filter(pick => pick.name !== quickPick.name))
@@ -80,23 +79,7 @@ export default function RegionSelector(props) {
         return null
     }
 
-    function initiateMapFetch(uri) {
-        fetch(uri, {method: 'GET', })
-            .then(
-                response => {
-                    if (response.status === 200) {
-                        return response.json();
-                    }
-                    console.log(`STATUS: ${response.status}`)
-                    response.text().then(t => console.log(`JSON: ${t}`))
-                    return null
-                }
-            )
-            .then(json => setRegionMap(json))
-        return null
-    }
-
-    function matrixItemClicked(clickedValue) {
+    function regionClicked(clickedValue) {
         function adjustedSelections(clickedValue, selections) {
             if (selections.some(p => p === clickedValue)) {
                 selections.splice (selections.indexOf(clickedValue), 1);
@@ -128,25 +111,6 @@ export default function RegionSelector(props) {
 
     function regionSelectionPanel() {
         let footers = renderWarningFooters();
-        function mapSection(map) {
-            if (!map) {
-                return null
-            }
-            return (
-                <SvgMap
-                    map={map}
-                    hoverLocation={hoverRegion}
-                    onClick={matrixItemClicked}
-                    onHover={onHover}
-                    classNamesProvider={(region) => {
-                        if (selectedRegions.includes(region)) {
-                            return ['selected']
-                        }
-                        return []
-                    }}/>
-            )
-        }
-
         function gridTemplate(regionSpec) {
             return {
                 gridTemplateColumns: regionSpec.matrixMapRatio.map(value => `${value}fr`).join(' ')
@@ -170,7 +134,7 @@ export default function RegionSelector(props) {
                     <div>
                         <ColumnarMatrix values={allRegions}
                                         columns={columns}
-                                        onValueClicked={matrixItemClicked}
+                                        onValueClicked={regionClicked}
                                         onHover={onHover}
                                         valueRenderer={value => {
                                             let selected = selectedRegions.includes(value)
@@ -184,7 +148,23 @@ export default function RegionSelector(props) {
                                         }}
                         />
                     </div>
-                    <div style={{margin: '10px'}}>{mapSection(regionMap)}</div>
+                    <div style={{margin: '10px'}}>{(
+                        <DownloadedMap
+                            regionSpec={regionSpec}
+                            hoverLocation={hoverRegion}
+                            onRegionSelected={regionClicked}
+                            onHover={onHover}
+                            classNamesProvider={(region) => {
+                                let classNames = []
+                                if (selectedRegions.includes(region)) {
+                                    classNames.push('selected')
+                                }
+                                if (hoverRegion === region) {
+                                    classNames.push('hover')
+                                }
+                                return classNames
+                            }}/>
+                    )}</div>
                 </div>
                 <div>&nbsp;</div>
                 <div className='footer'> {footers}</div>

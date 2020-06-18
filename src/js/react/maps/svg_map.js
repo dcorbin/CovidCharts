@@ -2,6 +2,23 @@ import PropTypes from "prop-types";
 import React from "react";
 import './svg_map.css'
 
+SvgMap.propTypes =  {
+    map: PropTypes.shape({
+        viewBox: PropTypes.string.isRequired,
+        locations: PropTypes.arrayOf(
+            PropTypes.shape({
+                path: PropTypes.string.isRequired,
+                id: PropTypes.string.isRequired,
+                name: PropTypes.string
+            })
+        ).isRequired,
+        label: PropTypes.string
+    }).isRequired,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    classNamesProvider : PropTypes.func
+}
+
 export default function SvgMap(props) {
     return <svg className='SvgMap' viewBox={props.map.viewBox} xmlns="http://www.w3.org/2000/svg">
                 <title>{props.map.label}</title>
@@ -12,11 +29,7 @@ export default function SvgMap(props) {
                     }
                 }}>
                     {props.map.locations.map(location => {
-                        let items = props.classNamesProvider(location.id);
-                        let classNames = ['region'].concat(items)
-                        if (location.id === props.hoverLocation) {
-                            classNames.push('hover')
-                        }
+                        let classNames = ['region'].concat(props.classNamesProvider(location.id))
                         return <path key={location.id}
                               className={classNames.join(' ')}
                               id={location.id}
@@ -35,22 +48,5 @@ SvgMap.defaultProps = {
     onClick: (id) => {},
     hoverLocation: null,
     classNamesProvider: (id) => []
-}
-SvgMap.propTypes =  {
-    map: PropTypes.shape({
-        viewBox: PropTypes.string.isRequired,
-        locations: PropTypes.arrayOf(
-            PropTypes.shape({
-                path: PropTypes.string.isRequired,
-                id: PropTypes.string.isRequired,
-                name: PropTypes.string
-            })
-        ).isRequired,
-        label: PropTypes.string
-    }).isRequired,
-    hoverLocation: PropTypes.string,
-    onHover: PropTypes.func,
-    onClick: PropTypes.func,
-    classNamesProvider : PropTypes.func
 }
 
