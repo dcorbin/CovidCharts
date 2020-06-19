@@ -4,8 +4,10 @@ import PROP_TYPES from "./model/prop_types";
 import {TrendAnalyzer} from "../model/trends/trend_analyzer";
 import './growth_ranking.css'
 import TrendPercentage from "./trend_percentage";
+import DownloadedMap from "./maps/downloaded_map";
 
 GrowthRanking.propTypes = {
+    height: PropTypes.number.isRequired,
     recordSet: PropTypes.object.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
 }
@@ -33,28 +35,27 @@ export default function GrowthRanking(props) {
 
     let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records);
 
-    return <div className='GrowthRanking'>
-        <table>
+    function renderTable() {
+        return <table>
             <thead>
-                <tr className='row'>
-                    <th className='cell'> </th>
-                    <th colSpan="3" className='cell'>Positive Growth</th>
-                </tr>
-                <tr className='row'>
-                    <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
-                    <th className='cell percentage'>Rate (7 days)</th>
-                    <th className='cell value'>per Day</th>
-                    <th className='cell value'>Current Daily</th>
-                </tr>
+            <tr className='row'>
+                <th className='cell'> </th>
+                <th colSpan="3" className='cell'>Positive Growth</th>
+            </tr>
+            <tr className='row'>
+                <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
+                <th className='cell percentage'>Rate (7 days)</th>
+                <th className='cell value'>per Day</th>
+                <th className='cell value'>Current Daily</th>
+            </tr>
             </thead>
             <tbody>
             {
                 scoredRegions.map(record => {
                     let category = categoryClassName(record.deltaPositive.percentage);
-                    console.log(`${record.region} ${record.deltaPositive.percentage}`)
                     return (
                         <tr key={record.region}
-                             className={`row`}>
+                            className={`row`}>
                             <td className='cell growthRegion'>
                                 {props.regionSpec.displayNameFor(record.region)}
                             </td>
@@ -71,7 +72,13 @@ export default function GrowthRanking(props) {
                     )
                 })
             }</tbody>
-        </table>
+        </table>;
+    }
 
+    console.log("MAP from: " + props.regionSpec.mapURI)
+    return <div className='GrowthRanking' style={{height: props.height - 30}}>
+        <div className='table' style={{overflowY: 'auto'}}>{renderTable()}</div>
+        <div className='map'><DownloadedMap mapURI={props.regionSpec.mapURI}/>
+        </div>
     </div>
 }

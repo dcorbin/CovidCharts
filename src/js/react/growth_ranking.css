@@ -1,4 +1,16 @@
 .GrowthRanking {
+    display: flex;
+    justify-content: space-around;
+}
+.GrowthRanking .table {
+    flex-grow: 1;
+    margin: 0 20px;
+}
+.GrowthRanking .map {
+    flex-grow: 2;
+    height: 100%;
+    max-height: 100%;
+    flex-basis: 50%;
 }
 
 .GrowthRanking .row {

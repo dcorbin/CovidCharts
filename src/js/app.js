@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import NormalizedRecordSet from "./covid_tracking_com/normalized_record_set";
 import './app.css'
 import AppBody from "./app_body";
+import useWindowDimensions from "./react/hooks/use_window_dimensions";
 
 const {useState} = require("react");
 
@@ -18,6 +19,7 @@ export default function App(props) {
     let [settings, setSettings]  = useState(props.initialSettings);
     let [dataSource, setDataSource] = useState(props.initialDataSource)
     let [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
+    const {width, height} = useWindowDimensions()
 
     function fetchData() {
         let isSubscribed = true
@@ -56,7 +58,7 @@ export default function App(props) {
                 </div>
             </div>
             <AppBody
-                headerHeight={100}
+                height={height - 111}
                 recordSet={normalizedRecordSet}
                 dataSource={dataSource}
                 dataSourceSettings={settings[dataSource.settingsKey]}

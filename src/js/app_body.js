@@ -7,9 +7,8 @@ import 'react-tabs/style/react-tabs.css';
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import GrowthRanking from "./react/growth_ranking";
 import './app_body.css'
-import useWindowDimensions from "./react/hooks/use_window_dimensions";
 AppBody.propTypes = {
-    headerHeight: PropTypes.number,
+    height: PropTypes.number.isRequired,
     dataSource: PROP_TYPES.DataSource,
     recordSet: PROP_TYPES.NormalizedRecordSet.isRequired,
     dataSourceSettings: PROP_TYPES.DataSourceSettings.isRequired,
@@ -22,13 +21,13 @@ export default function AppBody(props) {
         return true
     }
 
-    const {width, height} = useWindowDimensions()
 
     let dataSource = props.dataSource
     if (!dataSource)
         return <p>Please select a dataSource.</p>
 
     let headerHeight = props.headerHeight;
+    let tabHeight = 35;
 
     function renderTabs() {
         return <Tabs onSelect={handleTabChange} selectedIndex={props.dataSourceSettings.activeTab}>
@@ -46,6 +45,7 @@ export default function AppBody(props) {
             </TabPanel>
             <TabPanel>
                 <GrowthRanking
+                    height={props.height - tabHeight}
                     recordSet={props.recordSet}
                     regionSpec={dataSource.regionSpec}
                 />

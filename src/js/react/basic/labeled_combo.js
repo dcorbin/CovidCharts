@@ -17,7 +17,6 @@ export default function LabeledCombo(props) {
                 return
             }
         }
-         console.log(`CHANGE: ${action} ${JSON.stringify(value)}`);
     }
 
     let longestLabelLength = Math.max(...props.options.map(o => o.label.length));

@@ -2,6 +2,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import './svg_map.css'
 
+SvgMap.defaultProps = {
+    onHover: (id) => {},
+    onClick: (id) => {},
+    classNamesProvider: (id) => []
+}
+
 SvgMap.propTypes =  {
     map: PropTypes.shape({
         viewBox: PropTypes.string.isRequired,
@@ -20,7 +26,8 @@ SvgMap.propTypes =  {
 }
 
 export default function SvgMap(props) {
-    return <svg className='SvgMap' viewBox={props.map.viewBox} xmlns="http://www.w3.org/2000/svg">
+    return(
+        <svg className='SvgMap' viewBox={props.map.viewBox} xmlns="http://www.w3.org/2000/svg">
                 <title>{props.map.label}</title>
                 <g onClick={(e) => {
                     let id = e.target.id;
@@ -41,12 +48,6 @@ export default function SvgMap(props) {
                         })
                     }
                 </g>
-            </svg>
-}
-SvgMap.defaultProps = {
-    onHover: (id) => {},
-    onClick: (id) => {},
-    hoverLocation: null,
-    classNamesProvider: (id) => []
+            </svg>)
 }
 
