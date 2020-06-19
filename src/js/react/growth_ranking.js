@@ -34,6 +34,10 @@ export default function GrowthRanking(props) {
     }
 
     let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records);
+    let categoryByRegion = scoredRegions.reduce((result, record) => {
+        result[record.region] = categoryClassName(record.deltaPositive.percentage);
+        return result
+    }, {})
 
     function renderTable() {
         return <table>
@@ -52,7 +56,7 @@ export default function GrowthRanking(props) {
             <tbody>
             {
                 scoredRegions.map(record => {
-                    let category = categoryClassName(record.deltaPositive.percentage);
+                    let category = categoryByRegion[record.region]
                     return (
                         <tr key={record.region}
                             className={`row`}>
@@ -75,10 +79,13 @@ export default function GrowthRanking(props) {
         </table>;
     }
 
-    console.log("MAP from: " + props.regionSpec.mapURI)
     return <div className='GrowthRanking' style={{height: props.height - 30}}>
         <div className='table' style={{overflowY: 'auto'}}>{renderTable()}</div>
-        <div className='map'><DownloadedMap mapURI={props.regionSpec.mapURI}/>
+        <div className='map'><DownloadedMap mapURI={props.regionSpec.mapURI} classNamesProvider={
+            (region) => {
+                return  [categoryByRegion[region]]
+            }
+        }/>
         </div>
     </div>
 }

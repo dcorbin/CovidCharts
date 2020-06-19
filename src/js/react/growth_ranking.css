@@ -36,27 +36,34 @@
     text-align: right;
 }
 
-.highGrowth {
+.highGrowth, div .SvgMap .highGrowth {
     background-color: #d92323;
     color: white;
+    fill: #d92323;
 }
-.lowGrowth {
-    background-color: lightcoral;
+
+.lowGrowth, div .SvgMap .lowGrowth {
+    background-color: #F08080;
+    fill: #F08080;
     color: black;
 }
-.stable {
+.stable, div .SvgMap .stable {
     background-color: #eee958;
+    fill: #eee958;
     color: black;
 }
-.lowShrink {
-    background-color: lightgreen;
+.lowShrink, div .SvgMap .lowShrink {
+    background-color: #90EE90;
+    fill: #90EE90;
     color: black;
 }
-.highShrink {
-    background-color: green;
+.highShrink, div .SvgMap .highShrink {
+    background-color: #008000;
+    fill: #008000;
     color: white;
 }
-.barren {
+.barren, div .SvgMap .barren {
     background-color: #888888;
+    fill: #eee958;
     color:white;
 }
