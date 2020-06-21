@@ -4,17 +4,16 @@ CLARITY: Settings/_Store refactoring.
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 
 FEATURE: HotSpot
-    - Add Maps
-    - Deaths
-    - Hospitalizations
-    - DangerScore
-        (describe somewhere)
     - Better Colors
         - border?
         - More Red shades?
         - All Clear shade
         - Better Yellow shade
     -- Release
+    - DangerScore
+        (describe somewhere)
+    - Deaths
+    - Hospitalizations
     - input arguments
     - Hover over row to show State in Map
     - Link Back to chart-tab

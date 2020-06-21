@@ -36,32 +36,44 @@
     text-align: right;
 }
 
-.highGrowth, div .SvgMap .highGrowth {
+.bad3, div .SvgMap .bad3 {
+    background-color: #7f1212;
+    color: white;
+    fill: #7f1212;
+}
+.bad2, div .SvgMap .bad2 {
     background-color: #d92323;
     color: white;
     fill: #d92323;
 }
 
-.lowGrowth, div .SvgMap .lowGrowth {
+.bad1, div .SvgMap .bad1 {
     background-color: #F08080;
     fill: #F08080;
     color: black;
 }
-.stable, div .SvgMap .stable {
-    background-color: #eee958;
-    fill: #eee958;
+.neutral, div .SvgMap .neutral {
+    background-color: #fdec9e;
+    fill: #fdec9e;
     color: black;
 }
-.lowShrink, div .SvgMap .lowShrink {
+.good1, div .SvgMap .good1 {
     background-color: #90EE90;
     fill: #90EE90;
     color: black;
 }
-.highShrink, div .SvgMap .highShrink {
+
+.good2, div .SvgMap .good2 {
     background-color: #008000;
     fill: #008000;
     color: white;
 }
+.allClear, div .SvgMap .allClear {
+    background-color: #015301;
+    fill: #015301;
+    color: white;
+}
+
 .barren, div .SvgMap .barren {
     background-color: #888888;
     fill: #eee958;

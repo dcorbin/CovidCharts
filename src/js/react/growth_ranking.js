@@ -6,31 +6,51 @@ import './growth_ranking.css'
 import TrendPercentage from "./trend_percentage";
 import DownloadedMap from "./maps/downloaded_map";
 
+Value.defaultProps = {
+    precision: 0
+}
+Value.propTypes = {
+    value: PropTypes.number,
+    precision: PropTypes.number
+}
+function Value(props) {
+    if (props.value === null) {
+        return "-"
+    }
+    return props.value.toFixed(props.precision)
+}
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
     recordSet: PropTypes.object.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
 }
 
+class Classification {
+    constructor(className, description, requirement) {
+        this.className = className
+        this.description = description
+        this.requirement = requirement
+    }
+}
+const CLASSIFICATIONS = [
+    new Classification("barren", "Barren", p => {return isNaN(p) || p === null}),
+    new Classification("bad3", ">= 100%", p => p >= 100),
+    new Classification("bad2", "50 - 100%", p => p >= 50),
+    new Classification("bad1", "10 - 50%", p => p >= 10),
+    new Classification("neutral", "-10 - 10%", p => p > -10),
+    new Classification("good1", "-50 - -10%", p => p > -50),
+    new Classification("good2", "-100 - -50%", p => p > -100),
+    new Classification("allClear", "All Clear", p => true),
+]
 
 export default function GrowthRanking(props) {
     function categoryClassName(percentage) {
-        if (percentage === null || isNaN(percentage))
-            return "barren"
-
-        if (percentage >= 50) {
-            return 'highGrowth'
+        let classification = CLASSIFICATIONS.find(c => c.requirement(percentage))
+        if (classification === null) {
+            console.log("Unable to classify " + percentage)
+            return ''
         }
-        if (percentage >= 10) {
-            return 'lowGrowth'
-        }
-        if (percentage <= -50) {
-            return 'highShrink'
-        }
-        if (percentage <= -10) {
-            return 'lowShrink'
-        }
-        return 'stable'
+        return classification.className;
     }
 
     let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records);
@@ -44,13 +64,16 @@ export default function GrowthRanking(props) {
             <thead>
             <tr className='row'>
                 <th className='cell'> </th>
-                <th colSpan="3" className='cell'>Positive Growth</th>
+                <th colSpan="3" className='cell'>Positive Growth (7-day Avg)</th>
             </tr>
             <tr className='row'>
                 <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
-                <th className='cell percentage'>Rate (7 days)</th>
-                <th className='cell value'>per Day</th>
-                <th className='cell value'>Current Daily</th>
+                <th className='cell'>Growth over (7 days)</th>
+                {/*<th className='cell'>per Day</th>*/}
+                <th className='cell'>Current</th>
+                {/*<th className='cell'>7d Avg - 14d Avg</th>*/}
+                {/*<th className='cell'>as a Percent</th>*/}
+                {/*<th className='cell'>Danger Score</th>*/}
             </tr>
             </thead>
             <tbody>
@@ -66,12 +89,21 @@ export default function GrowthRanking(props) {
                             <td className={`cell number percentage ${category}`}>
                                 <TrendPercentage value={record.deltaPositive.percentage}/>
                             </td>
+                            {/*<td className={`cell number value ${category}`}>*/}
+                            {/*    <Value value={record.deltaPositive.delta} precision={2}/>*/}
+                            {/*</td>*/}
                             <td className={`cell number value ${category}`}>
-                                {record.deltaPositive.delta.toFixed(3)}
+                                <Value value={record.deltaPositive.sevenDayAvg} precision={2}/>
                             </td>
-                            <td className={`cell number value ${category}`}>
-                                {record.deltaPositive.currentValue.toFixed(0)}
-                            </td>
+                            {/*<td className={`cell number value ${category}`}>*/}
+                            {/*    <Value value={record.deltaPositive.sevenFourteen} precision={2}/>*/}
+                            {/*</td>*/}
+                            {/*<td className={`cell number percentage ${category}`}>*/}
+                            {/*    <TrendPercentage value={record.deltaPositive.sevenFourteenPercentage}/>*/}
+                            {/*</td>*/}
+                            {/*<td className={`cell number percentage ${category}`}>*/}
+                            {/*    <Value value={record.deltaPositive.dangerScore} precision={2}/>*/}
+                            {/*</td>*/}
                         </tr>
                     )
                 })

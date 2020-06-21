@@ -1,7 +1,7 @@
 import copyData from "../util/copyData";
 
 export default class NDayAverageDecorator {
-    decorate(data, nDays=7) {
+    decorate(data, nDays=7, property='nDayAverages') {
         function moving_average(array, index, days, property, base_property) {
             let start_of_block = index - days + 1;
             if (start_of_block < 0)
@@ -17,11 +17,11 @@ export default class NDayAverageDecorator {
         data = copyData(data)
 
         data.forEach((r, index, array) => {
-            r.nDayAverages = {}
+            r[property] = {}
             if (index >= nDays) {
-                r.nDayAverages.deltaHospitalized = moving_average(array, index, nDays, 'deltaHospitalized', 'hospitalized')
-                r.nDayAverages.deltaPositive = moving_average(array, index, nDays, 'deltaPositive', 'positive')
-                r.nDayAverages.deltaDeath = moving_average(array, index, nDays, 'deltaDeath', 'death')
+                r[property].deltaHospitalized = moving_average(array, index, nDays, 'deltaHospitalized', 'hospitalized')
+                r[property].deltaPositive = moving_average(array, index, nDays, 'deltaPositive', 'positive')
+                r[property].deltaDeath = moving_average(array, index, nDays, 'deltaDeath', 'death')
             }
         })
         return data;

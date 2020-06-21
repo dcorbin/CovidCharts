@@ -40,12 +40,14 @@ export class TrendAnalyzer {
             return regions.map(region => {
                 let regionRecords = records.filter(r => r.region === region).sort(compare_records_by_date)
                 let dataToAnalyze = new DeltaDecorator().decorate(regionRecords)
-                dataToAnalyze = new NDayAverageDecorator().decorate(dataToAnalyze, 7)
+                let nDayAverageDecorator = new NDayAverageDecorator();
+                dataToAnalyze = nDayAverageDecorator.decorate(dataToAnalyze, 7, "sevenDayAvg")
+                dataToAnalyze = nDayAverageDecorator.decorate(dataToAnalyze, 14, "fourteenDayAvg")
 
                 let boundaryRecords = new BoundaryFinder(7).findBoundaryRecords(dataToAnalyze)
                 let result = {region: region}
                 propertyNames.forEach(name => {
-                    result[name] = new RegionTrendCalculator().calculateTrend(boundaryRecords, name)
+                    result[name] = new RegionTrendCalculator().calculateTrend(boundaryRecords, "sevenDayAvg", name)
                 })
 
                 return result
