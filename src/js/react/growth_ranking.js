@@ -6,6 +6,7 @@ import './growth_ranking.css'
 import './growth_ranking_colors.css'
 import TrendPercentage from "./trend_percentage";
 import DownloadedMap from "./maps/downloaded_map";
+import {createMappingComparator} from "../util/comparator";
 
 Value.defaultProps = {
     precision: 0
@@ -27,26 +28,49 @@ GrowthRanking.propTypes = {
 }
 
 class Classification {
-    constructor(className, description, requirement) {
+    constructor(className, description, requirement, displayOrder) {
         this.className = className
         this.description = description
         this.requirement = requirement
+        this.displayOrder = displayOrder
     }
 }
 const CLASSIFICATIONS = [
-    new Classification("barren", "Barren", p => {return isNaN(p) || p === null}),
-    new Classification("bad3", ">= 100%", p => p >= 100),
-    new Classification("bad2", "50 - 100%", p => p >= 50),
-    new Classification("bad1", "10 - 50%", p => p >= 10),
-    new Classification("neutral", "-10 - 10%", p => p > -10),
-    new Classification("good1", "-50 - -10%", p => p > -50),
-    new Classification("good2", "-100 - -50%", p => p > -100),
-    new Classification("allClear", "All Clear", p => true),
+    new Classification("barren", "Barren", p => {return isNaN(p) || p === null}, 10),
+    new Classification("bad3", ">= 100%", p => p >= 100, 1),
+    new Classification("bad2", "50 - 100%", p => p >= 50, 2),
+    new Classification("bad1", "10 - 50%", p => p >= 10, 3),
+    new Classification("neutral", "-10 - 10%", p => p > -10, 4),
+    new Classification("good1", "-50 - -10%", p => p > -50, 5),
+    new Classification("good2", "-100 - -50%", p => p > -100, 6),
+    new Classification("allClear", "All Clear", p => true, 7),
 ]
+
+function GrowthLegend(props) {
+    function ClassificationLegendEntry(props) {
+        return <div className='ClassificationLegendEntry'>
+            <div className={`block ${props.classification.className}`} >&nbsp;</div>
+            <div className='label'>{props.classification.description}</div>
+        </div>
+    }
+
+    return <div className='GrowthLegend'>
+        {props.classifications.map(classification => {
+            return <ClassificationLegendEntry key={classification.className} classification={classification}/>
+        })
+        }
+
+    </div>
+}
 
 export default function GrowthRanking(props) {
     function categoryClassName(percentage) {
-        let classification = CLASSIFICATIONS.find(c => c.requirement(percentage))
+        if (percentage === null) {
+            percentage = -Infinity
+        }
+        let classification = CLASSIFICATIONS.
+            sort(createMappingComparator(p => p.displayOrder)).
+            find(c => c.requirement(percentage))
         if (classification === null) {
             console.log("Unable to classify " + percentage)
             return ''
@@ -115,6 +139,7 @@ export default function GrowthRanking(props) {
     return <div className='GrowthRanking' style={{height: props.height - 30}}>
         <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
         <div className='fixed'>
+            <GrowthLegend classifications={CLASSIFICATIONS} />
             <DownloadedMap mapURI={props.regionSpec.mapURI} classNamesProvider={
             (region) => {
                 return  [categoryByRegion[region]]

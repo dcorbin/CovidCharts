@@ -6,12 +6,15 @@
     flex-grow: 1;
     margin: 0 20px;
 }
+
 .GrowthRanking .fixed {
     flex-grow: 2;
     flex-basis: 50%;
-
     height: 100%;
     max-height: 100%;
+}
+.GrowthRanking .fixed .SvgMap{
+    height: 93%;
 }
 
 .GrowthRanking .row {
@@ -29,11 +32,36 @@
 
 .cell.value {
 }
+
 .GrowthRanking .row .cell {
     border: 1px solid #888;
     padding: 2px 4px;
 }
+
 .GrowthRanking .row .cell.number {
     text-align: right;
 }
 
+
+.GrowthLegend {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.ClassificationLegendEntry .block {
+    display: inline-block;
+    border: black solid 1px;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+}
+
+.ClassificationLegendEntry .label {
+    display: inline;
+}
+
+.ClassificationLegendEntry  {
+    display: inline;
+    padding: 4px;
+}

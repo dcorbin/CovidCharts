@@ -1,4 +1,4 @@
-export function createMappingComparator(mappingFunction, comparisonFunction) {
+export function createMappingComparator(mappingFunction, comparisonFunction = (a,b) => a-b) {
     return (a, b) => {
         const ap = mappingFunction(a)
         const bp = mappingFunction(b)

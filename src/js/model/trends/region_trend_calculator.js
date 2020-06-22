@@ -40,7 +40,6 @@ export default class RegionTrendCalculator {
                 dangerScore: null,
             }
         }
-        console.log(`${boundaryRecords.to.region}: 7: ${sevenDayAvg}; 14: ${fourteenDayAvg}`)
         let sevenFourteen = sevenDayAvg - fourteenDayAvg;
         let currentMagnitude = magnitude(sevenDayAvg);
         return {
