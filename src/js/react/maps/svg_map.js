@@ -27,7 +27,9 @@ SvgMap.propTypes =  {
 
 export default function SvgMap(props) {
     return(
-        <svg className='SvgMap' viewBox={props.map.viewBox} xmlns="http://www.w3.org/2000/svg">
+        <svg className='SvgMap'
+            width='100%' height='100%'
+             viewBox={props.map.viewBox}>
                 <title>{props.map.label}</title>
                 <g onClick={(e) => {
                     let id = e.target.id;

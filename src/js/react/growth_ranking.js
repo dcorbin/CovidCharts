@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PROP_TYPES from "./model/prop_types";
 import {TrendAnalyzer} from "../model/trends/trend_analyzer";
 import './growth_ranking.css'
+import './growth_ranking_colors.css'
 import TrendPercentage from "./trend_percentage";
 import DownloadedMap from "./maps/downloaded_map";
 
@@ -112,8 +113,9 @@ export default function GrowthRanking(props) {
     }
 
     return <div className='GrowthRanking' style={{height: props.height - 30}}>
-        <div className='table' style={{overflowY: 'auto'}}>{renderTable()}</div>
-        <div className='map'><DownloadedMap mapURI={props.regionSpec.mapURI} classNamesProvider={
+        <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
+        <div className='fixed'>
+            <DownloadedMap mapURI={props.regionSpec.mapURI} classNamesProvider={
             (region) => {
                 return  [categoryByRegion[region]]
             }

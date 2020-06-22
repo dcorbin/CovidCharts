@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import SvgMap from "./svg_map";
 import React, {useState} from "react";
+import './downloaded_map.css'
 
 const {useEffect} = require("react");
 
@@ -40,16 +41,15 @@ export default function DownloadedMap(props) {
         return null
     }
     return (
-        <div style={{
-            width: '100%',
-            height: '100%'
+        <div className='DownloadedMap' style={{
+            height: '100%', width: '100%'
         }}>
-        <SvgMap
-            map={regionMap}
-            onClick={props.onRegionSelected}
-            onHover={props.onHover}
-            classNamesProvider={props.classNamesProvider}/>
-            </div>
+            <SvgMap
+                map={regionMap}
+                onClick={props.onRegionSelected}
+                onHover={props.onHover}
+                classNamesProvider={props.classNamesProvider}/>
+        </div>
     )
 
 
