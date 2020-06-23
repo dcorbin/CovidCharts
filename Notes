@@ -4,23 +4,16 @@ CLARITY: Settings/_Store refactoring.
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 
 FEATURE: HotSpot
-    - Better Colors
-        - border?
-        - More Red shades?
-        - All Clear shade
-        - Better Yellow shade
-    -- Release
     - DangerScore
         (describe somewhere)
+        - Consider using per-capita growth
     - Deaths
     - Hospitalizations
     - input arguments
-    - Hover over row to show State in Map
     - Link Back to chart-tab
     - Summarize State/County
         - Scores based on Totals
         - Counts of Category
-    - Consider using per-capita growth
 
 PRODUCTION: Look into Jun2 data (Schley)
 FEATURE: Chart region vs region

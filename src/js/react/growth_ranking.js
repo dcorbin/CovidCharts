@@ -7,6 +7,7 @@ import './growth_ranking_colors.css'
 import TrendPercentage from "./trend_percentage";
 import DownloadedMap from "./maps/downloaded_map";
 import PositiveGrowthClassifier from "../model/trends/postiive_growth_classirifer";
+import scrollIntoView from "scroll-into-view-if-needed";
 
 Value.defaultProps = {
     precision: 0
@@ -70,16 +71,17 @@ export default function GrowthRanking(props) {
             {
                 scoredRegions.map(record => {
                     let category = categoryByRegion[record.region]
-                    let regionClassNames = ['cell']
+                    let rowClassNames = ['row']
                     if (record.region === hover) {
-                        regionClassNames.push('hover')
+                        rowClassNames.push('hover')
                     }
                     return (
                         <tr key={record.region}
+                            id={`table_row_${record.region}`}
                             onMouseEnter={(e) => highlightRegion(record.region)}
                             onMouseLeave={(e) => highlightRegion(null)}
-                            className={`row`}>
-                            <td className={`${regionClassNames.join(' ')} growthRegion`}>
+                            className={rowClassNames.join(' ')}>
+                            <td className={`cell growthRegion`}>
                                 {props.regionSpec.displayNameFor(record.region)}
                             </td>
                             <td className={`cell number percentage ${category}`}>
@@ -96,8 +98,11 @@ export default function GrowthRanking(props) {
     }
 
     function highlightRegion(region) {
-        console.log("region")
         setHover(region)
+    }
+    function showRegion(region) {
+        let row = document.getElementById(`table_row_${region}`)
+        scrollIntoView(row, {scrollMode: 'if-needed', block: 'center'})
     }
     return <div className='GrowthRanking' style={{height: props.height - 30}}>
         <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
@@ -115,6 +120,7 @@ export default function GrowthRanking(props) {
                     }
                 }
                 onHover={highlightRegion}
+                onRegionSelected={showRegion}
             />
         </div>
     </div>
