@@ -3,6 +3,5 @@ import {expect} from "@jest/globals";
 
 test('JSON for quickPick', () => {
     let pick = QuickPick.createUserManaged("A", "B", ["1", "2"])
-    let json = JSON.stringify(pick);
-    expect("").toEqual(json)
+    expect(pick.userManaged).toEqual(true)
 })

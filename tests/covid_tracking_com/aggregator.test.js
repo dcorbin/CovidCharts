@@ -77,7 +77,11 @@ test("when a an undefined value is received", () => {
         { date: date1, foo: 4, bar: 4},
     ]
 
-    expect(() => aggregator.aggregate(input)).toThrow(new Error("'bar' is undefined in one or more records."))
+    const output = aggregator.aggregate(input)
+
+    expect(output).toEqual([
+        { date: date1, foo: 7, bar: null},
+    ])
 })
 
 test("when a an two states start in different places", () => {

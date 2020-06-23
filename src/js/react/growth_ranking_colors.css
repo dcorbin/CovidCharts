@@ -31,14 +31,20 @@
     fill: #008000;
     color: white;
 }
-.allClear, div .SvgMap .allClear {
+.good3, div .SvgMap .good3 {
     background-color: #015301;
     fill: #015301;
     color: white;
 }
 
-.barren, div .SvgMap .barren {
+.allClear, div .SvgMap .allClear {
     background-color: #888888;
     fill: #888888;
+    color:white;
+}
+
+.dataOddity, div .SvgMap .dataOddity {
+    background-color: #2744ec;
+    fill: #2744ec;
     color:white;
 }
