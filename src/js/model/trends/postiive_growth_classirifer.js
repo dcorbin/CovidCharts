@@ -11,7 +11,7 @@ class Classification {
 
 
 const CLASSIFICATIONS = [
-    new Classification("dataOddity", "Data Oddity", p => (isNaN(p) || p === null), 12),
+    new Classification("dataOddity", "Data Anomaly", p => (isNaN(p) || p === null), 12),
     new Classification("bad3", ">= 100%", p => p >= 100, 1),
     new Classification("bad2", "50 - 100%", p => p >= 50, 2),
     new Classification("bad1", "10 - 50%", p => p >= 10, 3),

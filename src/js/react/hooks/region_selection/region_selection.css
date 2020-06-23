@@ -16,3 +16,6 @@
 .RegionSelection div.footer {
     clear:both;
 }
+.RegionSelection .SvgMap .region.hover {
+    fill: #e0ca8e;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import PROP_TYPES from "./model/prop_types";
 import {TrendAnalyzer} from "../model/trends/trend_analyzer";
@@ -45,6 +45,7 @@ function GrowthLegend(props) {
 }
 
 export default function GrowthRanking(props) {
+    let [hover, setHover] = useState(null)
     let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records);
     let categoryByRegion = scoredRegions.reduce((result, record) => {
         result[record.region] = new PositiveGrowthClassifier().
@@ -69,10 +70,16 @@ export default function GrowthRanking(props) {
             {
                 scoredRegions.map(record => {
                     let category = categoryByRegion[record.region]
+                    let regionClassNames = ['cell']
+                    if (record.region === hover) {
+                        regionClassNames.push('hover')
+                    }
                     return (
                         <tr key={record.region}
+                            onMouseEnter={(e) => highlightRegion(record.region)}
+                            onMouseLeave={(e) => highlightRegion(null)}
                             className={`row`}>
-                            <td className='cell growthRegion'>
+                            <td className={`${regionClassNames.join(' ')} growthRegion`}>
                                 {props.regionSpec.displayNameFor(record.region)}
                             </td>
                             <td className={`cell number percentage ${category}`}>
@@ -88,15 +95,27 @@ export default function GrowthRanking(props) {
         </table>;
     }
 
+    function highlightRegion(region) {
+        console.log("region")
+        setHover(region)
+    }
     return <div className='GrowthRanking' style={{height: props.height - 30}}>
         <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
         <div className='fixed'>
             <GrowthLegend classifications={PositiveGrowthClassifier.classifications()} />
-            <DownloadedMap mapURI={props.regionSpec.mapURI} classNamesProvider={
-            (region) => {
-                return  [categoryByRegion[region]]
-            }
-        }/>
+            <DownloadedMap
+                mapURI={props.regionSpec.mapURI}
+                classNamesProvider={
+                    (region) => {
+                        let classNames = [categoryByRegion[region]];
+                        if (region === hover) {
+                            classNames.push('hover')
+                        }
+                        return  classNames
+                    }
+                }
+                onHover={highlightRegion}
+            />
         </div>
     </div>
 }

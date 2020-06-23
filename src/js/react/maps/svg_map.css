@@ -15,7 +15,6 @@
 
 .SvgMap .region.hover {
     cursor: pointer;
-    fill: #e0ca8e;
 }
 
 .SvgMap path.selected {

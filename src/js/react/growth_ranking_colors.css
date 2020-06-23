@@ -1,3 +1,14 @@
+.GrowthRanking .cell.hover {
+    font-weight: bold;
+    border-color: #005eff;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.GrowthRanking .SvgMap .hover {
+    stroke: #005eff;
+    stroke-width: 4;
+}
 
 .bad3, div .SvgMap .bad3 {
     background-color: #7f1212;
@@ -44,7 +55,7 @@
 }
 
 .dataOddity, div .SvgMap .dataOddity {
-    background-color: #2744ec;
-    fill: #2744ec;
+    background-color: #cb92fd;
+    fill: #cb92fd;
     color:white;
 }
