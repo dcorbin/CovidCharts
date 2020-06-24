@@ -18,7 +18,8 @@
     height: 93%;
 }
 
-.GrowthRanking .row {
+.GrowthRanking .row .ChartIcon {
+    padding-right: 10px;
 }
 
 .GrowthRanking table {

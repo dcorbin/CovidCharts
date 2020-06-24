@@ -8,6 +8,7 @@ import TrendPercentage from "./trend_percentage";
 import DownloadedMap from "./maps/downloaded_map";
 import PositiveGrowthClassifier from "../model/trends/postiive_growth_classirifer";
 import scrollIntoView from "scroll-into-view-if-needed";
+import ChartIcon from "./basic/chart_icon/chart_icon";
 
 Value.defaultProps = {
     precision: 0
@@ -82,6 +83,11 @@ export default function GrowthRanking(props) {
                             onMouseLeave={(e) => highlightRegion(null)}
                             className={rowClassNames.join(' ')}>
                             <td className={`cell growthRegion`}>
+                                <span className='graphicLink' onClick={(e) => {
+                                    e.preventDefault()
+                                    console.log(`TAB_Change ${record.region}`)
+                                }
+                                }><ChartIcon/></span>
                                 {props.regionSpec.displayNameFor(record.region)}
                             </td>
                             <td className={`cell number percentage ${category}`}>

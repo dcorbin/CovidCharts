@@ -1,0 +1,14 @@
+.ChartIcon {
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+}
+.ChartIcon svg {
+    fill:none ;
+    stroke:red;
+    stroke-width:5;
+    stroke-linecap:round;
+    stroke-miterlimit:4;
+    stroke-dasharray:none;
+    stroke-opacity:1
+}
