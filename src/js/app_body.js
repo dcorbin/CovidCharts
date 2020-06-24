@@ -5,7 +5,7 @@ import PROP_TYPES from "./react/model/prop_types";
 import PropTypes from 'prop-types'
 import 'react-tabs/style/react-tabs.css';
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
-import GrowthRanking from "./react/growth_ranking";
+import GrowthRanking from "./react/growth_ranking/growth_ranking";
 import './app_body.css'
 AppBody.propTypes = {
     height: PropTypes.number.isRequired,

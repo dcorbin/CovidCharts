@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import PROP_TYPES from "./model/prop_types";
-import {TrendAnalyzer} from "../model/trends/trend_analyzer";
+import PROP_TYPES from "../model/prop_types";
+import {TrendAnalyzer} from "../../model/trends/trend_analyzer";
 import './growth_ranking.css'
 import './growth_ranking_colors.css'
 import TrendPercentage from "./trend_percentage";
@@ -9,42 +9,18 @@ import DownloadedMap from "./maps/downloaded_map";
 import PositiveGrowthClassifier from "../model/trends/postiive_growth_classirifer";
 import scrollIntoView from "scroll-into-view-if-needed";
 import ChartIcon from "./basic/chart_icon/chart_icon";
+import TrendValue from "./trend_value";
+import GrowthLegend from "./growth_legend";
 
-Value.defaultProps = {
-    precision: 0
-}
-Value.propTypes = {
-    value: PropTypes.number,
-    precision: PropTypes.number
-}
-function Value(props) {
-    if (props.value === null) {
-        return "-"
-    }
-    return props.value.toFixed(props.precision)
-}
+
+
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
     recordSet: PropTypes.object.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
 }
 
-function GrowthLegend(props) {
-    function ClassificationLegendEntry(props) {
-        return <div className='ClassificationLegendEntry'>
-            <div className={`block ${props.classification.className}`} >&nbsp;</div>
-            <div className='label'>{props.classification.description}</div>
-        </div>
-    }
 
-    return <div className='GrowthLegend'>
-        {props.classifications.map(classification => {
-            return <ClassificationLegendEntry key={classification.className} classification={classification}/>
-        })
-        }
-
-    </div>
-}
 
 export default function GrowthRanking(props) {
     let [hover, setHover] = useState(null)
@@ -94,7 +70,7 @@ export default function GrowthRanking(props) {
                                 <TrendPercentage value={record.deltaPositive.percentage}/>
                             </td>
                             <td className={`cell number value ${category}`}>
-                                <Value value={record.deltaPositive.sevenDayAvg} precision={2}/>
+                                <TrendValue value={record.deltaPositive.sevenDayAvg} precision={2}/>
                             </td>
                         </tr>
                     )
