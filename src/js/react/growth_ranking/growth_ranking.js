@@ -5,22 +5,19 @@ import {TrendAnalyzer} from "../../model/trends/trend_analyzer";
 import './growth_ranking.css'
 import './growth_ranking_colors.css'
 import TrendPercentage from "./trend_percentage";
-import DownloadedMap from "./maps/downloaded_map";
-import PositiveGrowthClassifier from "../model/trends/postiive_growth_classirifer";
+import DownloadedMap from "../maps/downloaded_map";
+import PositiveGrowthClassifier from "../../model/trends/postiive_growth_classirifer";
 import scrollIntoView from "scroll-into-view-if-needed";
-import ChartIcon from "./basic/chart_icon/chart_icon";
 import TrendValue from "./trend_value";
 import GrowthLegend from "./growth_legend";
-
-
+import {PopupActivatingButton} from "../basic/popup/popup_activating_button";
+import ChartIcon from "../basic/chart_icon/chart_icon";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
     recordSet: PropTypes.object.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
 }
-
-
 
 export default function GrowthRanking(props) {
     let [hover, setHover] = useState(null)
@@ -59,11 +56,9 @@ export default function GrowthRanking(props) {
                             onMouseLeave={(e) => highlightRegion(null)}
                             className={rowClassNames.join(' ')}>
                             <td className={`cell growthRegion`}>
-                                <span className='graphicLink' onClick={(e) => {
-                                    e.preventDefault()
-                                    console.log(`TAB_Change ${record.region}`)
-                                }
-                                }><ChartIcon/></span>
+                                <PopupActivatingButton
+                                    popupContent={() => <span>{record.region}</span>}
+                                    linkContent={() => <ChartIcon/>}/>
                                 {props.regionSpec.displayNameFor(record.region)}
                             </td>
                             <td className={`cell number percentage ${category}`}>
