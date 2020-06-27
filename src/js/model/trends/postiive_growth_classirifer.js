@@ -1,14 +1,5 @@
 import {createMappingComparator} from "../../util/comparator";
-
-class Classification {
-    constructor(className, description, requirement, displayOrder) {
-        this.className = className
-        this.description = description
-        this.requirement = requirement
-        this.displayOrder = displayOrder
-    }
-}
-
+import Classification from "../../react/model/classification";
 
 const CLASSIFICATIONS = [
     new Classification("dataOddity", "Data Anomaly", p => (isNaN(p) || p === null), 12),

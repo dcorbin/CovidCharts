@@ -25,10 +25,10 @@ export default function GrowthRanking(props) {
     let [hover, setHover] = useState(null)
     let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records);
     let categoryByRegion = scoredRegions.reduce((result, record) => {
-        result[record.region] = new PositiveGrowthClassifier().
-            categoryClassName(record.deltaPositive.percentage, record.region);
+        let className = new PositiveGrowthClassifier().categoryClassName(record.deltaPositive.percentage, record.region);
+        result.set(record.region,className);
         return result
-    }, {})
+    }, new Map())
 
     function renderTable() {
         return <table>
@@ -46,7 +46,7 @@ export default function GrowthRanking(props) {
             <tbody>
             {
                 scoredRegions.map(record => {
-                    let category = categoryByRegion[record.region]
+                    let category = categoryByRegion.get(record.region)
                     let rowClassNames = ['row']
                     if (record.region === hover) {
                         rowClassNames.push('hover')
@@ -94,12 +94,15 @@ export default function GrowthRanking(props) {
     return <div className='GrowthRanking' style={{height: props.height - 30}}>
         <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
         <div className='fixed'>
-            <GrowthLegend classifications={PositiveGrowthClassifier.classifications()} />
+            <GrowthLegend classifications={PositiveGrowthClassifier.classifications()}
+                countForClassificationName={(name)=> {
+                    return String(Array.from(categoryByRegion.values()).filter(category => category === name).length)
+                }}/>
             <DownloadedMap
                 mapURI={props.regionSpec.mapURI}
                 classNamesProvider={
                     (region) => {
-                        let classNames = [categoryByRegion[region]];
+                        let classNames = [categoryByRegion.get(region)];
                         if (region === hover) {
                             classNames.push('hover')
                         }

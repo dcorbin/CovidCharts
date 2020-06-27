@@ -4,12 +4,6 @@ CLARITY: Settings/_Store refactoring.
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 
 FEATURE: HotSpot
-    - Chart Popup
-      -- Actual chart content
-      -- Dim background
-    - Summarize State/County
-            - Scores based on Totals
-            - Counts of Category
     - DangerScore
         (describe somewhere)
         - Consider using per-capita growth
