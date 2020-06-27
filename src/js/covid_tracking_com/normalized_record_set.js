@@ -71,6 +71,16 @@ export default class NormalizedRecordSet {
             assessQuality(records)
         this.regions = unique(this.records.map(record => record.region).sort())
         this.warningsByRegion = buildWarningsByRegion(this)
+        if (records.length === 0) {
+            this._mostRecentDate = null
+        } else {
+            let values = records.map(r => r.date.getTime());
+            let mostRecent = Math.max(...values);
+            this._mostRecentDate = new Date(mostRecent)
+        }
+    }
+    mostRecentDate() {
+        return this._mostRecentDate
     }
 
     isEmpty() {

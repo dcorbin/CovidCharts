@@ -29,6 +29,14 @@ export default function GrowthRanking(props) {
         result.set(record.region,className);
         return result
     }, new Map())
+    let mostRecentDate = props.recordSet.mostRecentDate()
+    if (mostRecentDate !== null) {
+        const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' })
+        const [{ value: month },,{ value: day },,{ value: year }] = dateTimeFormat .formatToParts(mostRecentDate)
+        mostRecentDate = `${month}-${day}`
+    } else {
+        mostRecentDate = 'N/A'
+    }
 
     function renderTable() {
         return <table>
@@ -40,7 +48,7 @@ export default function GrowthRanking(props) {
             <tr className='row'>
                 <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
                 <th className='cell'>Growth over (7 days)</th>
-                <th className='cell'>Current</th>
+                <th className='cell'>New cases {mostRecentDate}</th>
             </tr>
             </thead>
             <tbody>

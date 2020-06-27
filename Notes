@@ -1,32 +1,35 @@
-RISK: Make fetching more robust than just "the fourth JSON block"
-CLARITY: Settings/_Store refactoring.
+RISK(GA): Make fetching more robust than just "the fourth JSON block"
 
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
+TOOLS: ret-tag old release tags
+TOOLS: auto-select next tag when releasing
 
+FEATURE: Add Per-capita column to Rankings
+FEATURE: Consider splitting neutral into two halves
 FEATURE: HotSpot
+    - Sort/Ranking control
     - DangerScore
         (describe somewhere)
         - Consider using per-capita growth
     - Deaths
     - Hospitalizations
-    - input arguments
+
+META-FEATURE: What's New (list of new features)
+META-FEATURE: Roadmap voting
 
 PRODUCTION: Look into Jun2 data (Schley)
 FEATURE: Chart region vs region
-FEATURE: Donate button
-
-
+FEATURE: Patreon
 
 FEATURE: Other CT data charts
+    - Tests run, Percent Positive
+    -
 FEATURE: Image (download) Link
 FEATURE: Dashboard building?
-
-Add Bootstrap?
 
 Per Capita charts?
 Other calculated charts
     Estimated Hospital usage
     Estimated Active cases
-    Trend detection?
-    Ratios?
-FEATURE: Add QP Ordering
+
+MINOR-FEATURE: Add QP Ordering
