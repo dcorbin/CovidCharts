@@ -21,8 +21,8 @@ export default class MultiLineChart extends React.Component {
         }
 
         return <Chart
-            width = {this.props.width || 700}
-            height = {this.props.height || 500}
+            height='100%'
+            width='100%'
             columns = {optionMaker.createColumnHeaders(linesWithData)}
             chartType = "LineChart"
             loader={<div>Loading Chart...</div>}
@@ -100,7 +100,6 @@ function findLinesWithData(records, lines) {
         return hasData(records, line.sevenDayAvgValueExtractor);
     });
 }
-
 
 class GoogleChartOptionMaker {
     createColumnHeaders(lines) {

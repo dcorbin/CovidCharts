@@ -28,12 +28,15 @@ function createChartSubject(settings, formattedRegionList) {
     }
     return movingAvgSummaryDescription(settings.movingAvgStrategy) + ' for ' + formattedRegionList;
 }
-
+ChartPanel.defaultProps = {
+    showControlPanel: true,
+}
 ChartPanel.propTypes = {
     recordSet: PropTypes.object.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
     settings: PROP_TYPES.DataSourceSettings.isRequired,
-    onSettingsChange: PropTypes.func
+    onSettingsChange: PropTypes.func,
+    showControlPanel: PropTypes.bool
 }
 
 
@@ -59,12 +62,12 @@ export default function ChartPanel(props) {
     let formattedRegionList = props.settings.selectedRegions.map(region => props.regionSpec.displayNameFor(region)).join(", ")
 
     return (
-        <div>
-            <ControlPanel settings={props.settings}
+        <div style={{height:'100%', width:'100%'}}>
+            {props.showControlPanel ?  <ControlPanel settings={props.settings}
                           onSettingsChange={props.onSettingsChange}
                           regionSpec={props.regionSpec}
-                          normalizedRecordSet={normalizedRecordSet}/>
-            <div>
+                          normalizedRecordSet={normalizedRecordSet}/>: null}
+            <div style={{width: '100%', height: '100%'}}>
                 {(props.settings.selectedRegions.length === 0) ?
                     <h3>No {props.regionSpec.pluralNoun} selected</h3> :
                     <MultiLineChart records={dataToChart}

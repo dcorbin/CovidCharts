@@ -1,17 +1,42 @@
 
 .PopupView {
     position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 10%;
-    bottom: 10%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     margin: auto;
+}
+.PopupView .background {
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    opacity: .75;
+    filter: blur(5px);
+}
+.PopupView .foreground {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    right: 10%;
+    bottom: 10%;
+    background-color: white;
+    opacity: 1;
+    filter: none;
     border-radius: 20px;
-    background: #cccccc;
+    z-index: 5;
+}
+.PopupView .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .PopupView .CloseIcon {
     position: relative;
+    z-index: 10;
 }
 .PopupView .CloseIcon svg {
     position: absolute;

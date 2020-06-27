@@ -37,11 +37,14 @@ export default function AppBody(props) {
             </TabList>
 
             <TabPanel>
+                <div style={{height: props.height - tabHeight}}>
                 <ChartPanel
                     recordSet={props.recordSet}
                     regionSpec={dataSource.regionSpec}
                     settings={props.dataSourceSettings}
                     onSettingsChange={props.onSettingsChange}/>
+                </div>
+
             </TabPanel>
             <TabPanel>
                 <GrowthRanking

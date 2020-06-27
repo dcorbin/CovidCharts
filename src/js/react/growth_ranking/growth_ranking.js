@@ -12,6 +12,8 @@ import TrendValue from "./trend_value";
 import GrowthLegend from "./growth_legend";
 import {PopupActivatingButton} from "../basic/popup/popup_activating_button";
 import ChartIcon from "../basic/chart_icon/chart_icon";
+import ChartPanel from "../chart_panel";
+import {Settings} from "../../settings";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
@@ -57,7 +59,15 @@ export default function GrowthRanking(props) {
                             className={rowClassNames.join(' ')}>
                             <td className={`cell growthRegion`}>
                                 <PopupActivatingButton
-                                    popupContent={() => <span>{record.region}</span>}
+                                    popupContent={() => {
+                                        let settings = Settings.defaultTabSettings([record.region])
+                                        return <div style={{ padding: '20px', boxSizing: 'border-box', width: '100%', height: '100%'}}>
+                                            <ChartPanel settings={settings}
+                                                           showControlPanel={false}
+                                                           regionSpec={props.regionSpec}
+                                                                 recordSet={props.recordSet}/>
+                                        </div>
+                                    }}
                                     linkContent={() => <ChartIcon/>}/>
                                 {props.regionSpec.displayNameFor(record.region)}
                             </td>
