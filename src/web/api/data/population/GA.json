@@ -1,0 +1,799 @@
+{
+    "data": [
+        {
+            "CTYNAME": "Fulton County",
+            "Pop": 1050114,
+            "GrowthRate": "13.4460"
+        },
+        {
+            "CTYNAME": "Gwinnett County",
+            "Pop": 927781,
+            "GrowthRate": "14.8174"
+        },
+        {
+            "CTYNAME": "Cobb County",
+            "Pop": 756865,
+            "GrowthRate": "9.7657"
+        },
+        {
+            "CTYNAME": "DeKalb County",
+            "Pop": 756558,
+            "GrowthRate": "9.2548"
+        },
+        {
+            "CTYNAME": "Clayton County",
+            "Pop": 289615,
+            "GrowthRate": "11.4628"
+        },
+        {
+            "CTYNAME": "Chatham County",
+            "Pop": 289195,
+            "GrowthRate": "8.8050"
+        },
+        {
+            "CTYNAME": "Cherokee County",
+            "Pop": 254149,
+            "GrowthRate": "18.1039"
+        },
+        {
+            "CTYNAME": "Forsyth County",
+            "Pop": 236612,
+            "GrowthRate": "33.8682"
+        },
+        {
+            "CTYNAME": "Henry County",
+            "Pop": 230220,
+            "GrowthRate": "12.2526"
+        },
+        {
+            "CTYNAME": "Hall County",
+            "Pop": 202148,
+            "GrowthRate": "12.2795"
+        },
+        {
+            "CTYNAME": "Richmond County",
+            "Pop": 201554,
+            "GrowthRate": "0.3170"
+        },
+        {
+            "CTYNAME": "Muscogee County",
+            "Pop": 194160,
+            "GrowthRate": "1.5986"
+        },
+        {
+            "CTYNAME": "Paulding County",
+            "Pop": 164044,
+            "GrowthRate": "14.8631"
+        },
+        {
+            "CTYNAME": "Houston County",
+            "Pop": 155469,
+            "GrowthRate": "10.4615"
+        },
+        {
+            "CTYNAME": "Columbia County",
+            "Pop": 154291,
+            "GrowthRate": "23.4555"
+        },
+        {
+            "CTYNAME": "Bibb County",
+            "Pop": 153095,
+            "GrowthRate": "-1.7425"
+        },
+        {
+            "CTYNAME": "Coweta County",
+            "Pop": 145864,
+            "GrowthRate": "14.0284"
+        },
+        {
+            "CTYNAME": "Douglas County",
+            "Pop": 145331,
+            "GrowthRate": "9.6052"
+        },
+        {
+            "CTYNAME": "Clarke County",
+            "Pop": 127330,
+            "GrowthRate": "8.4490"
+        },
+        {
+            "CTYNAME": "Carroll County",
+            "Pop": 118121,
+            "GrowthRate": "6.7355"
+        },
+        {
+            "CTYNAME": "Lowndes County",
+            "Pop": 116321,
+            "GrowthRate": "6.0433"
+        },
+        {
+            "CTYNAME": "Fayette County",
+            "Pop": 113459,
+            "GrowthRate": "6.0979"
+        },
+        {
+            "CTYNAME": "Newton County",
+            "Pop": 109541,
+            "GrowthRate": "9.3726"
+        },
+        {
+            "CTYNAME": "Bartow County",
+            "Pop": 106408,
+            "GrowthRate": "6.3155"
+        },
+        {
+            "CTYNAME": "Whitfield County",
+            "Pop": 104062,
+            "GrowthRate": "1.2867"
+        },
+        {
+            "CTYNAME": "Floyd County",
+            "Pop": 97927,
+            "GrowthRate": "1.5598"
+        },
+        {
+            "CTYNAME": "Walton County",
+            "Pop": 93503,
+            "GrowthRate": "11.3927"
+        },
+        {
+            "CTYNAME": "Dougherty County",
+            "Pop": 91243,
+            "GrowthRate": "-3.4598"
+        },
+        {
+            "CTYNAME": "Rockdale County",
+            "Pop": 90594,
+            "GrowthRate": "6.1279"
+        },
+        {
+            "CTYNAME": "Glynn County",
+            "Pop": 85219,
+            "GrowthRate": "6.8724"
+        },
+        {
+            "CTYNAME": "Barrow County",
+            "Pop": 80809,
+            "GrowthRate": "15.9766"
+        },
+        {
+            "CTYNAME": "Bulloch County",
+            "Pop": 77296,
+            "GrowthRate": "9.5434"
+        },
+        {
+            "CTYNAME": "Jackson County",
+            "Pop": 70422,
+            "GrowthRate": "16.0260"
+        },
+        {
+            "CTYNAME": "Troup County",
+            "Pop": 70034,
+            "GrowthRate": "4.4473"
+        },
+        {
+            "CTYNAME": "Walker County",
+            "Pop": 69410,
+            "GrowthRate": "0.7651"
+        },
+        {
+            "CTYNAME": "Catoosa County",
+            "Pop": 67420,
+            "GrowthRate": "5.2106"
+        },
+        {
+            "CTYNAME": "Spalding County",
+            "Pop": 66100,
+            "GrowthRate": "3.1410"
+        },
+        {
+            "CTYNAME": "Effingham County",
+            "Pop": 62190,
+            "GrowthRate": "18.5362"
+        },
+        {
+            "CTYNAME": "Liberty County",
+            "Pop": 61497,
+            "GrowthRate": "-2.0202"
+        },
+        {
+            "CTYNAME": "Gordon County",
+            "Pop": 57685,
+            "GrowthRate": "4.4602"
+        },
+        {
+            "CTYNAME": "Camden County",
+            "Pop": 53677,
+            "GrowthRate": "5.9554"
+        },
+        {
+            "CTYNAME": "Laurens County",
+            "Pop": 47325,
+            "GrowthRate": "-2.2191"
+        },
+        {
+            "CTYNAME": "Colquitt County",
+            "Pop": 45592,
+            "GrowthRate": "-0.1008"
+        },
+        {
+            "CTYNAME": "Habersham County",
+            "Pop": 45388,
+            "GrowthRate": "5.3966"
+        },
+        {
+            "CTYNAME": "Baldwin County",
+            "Pop": 44823,
+            "GrowthRate": "-1.9212"
+        },
+        {
+            "CTYNAME": "Thomas County",
+            "Pop": 44448,
+            "GrowthRate": "-0.6749"
+        },
+        {
+            "CTYNAME": "Coffee County",
+            "Pop": 43093,
+            "GrowthRate": "0.8377"
+        },
+        {
+            "CTYNAME": "Polk County",
+            "Pop": 42470,
+            "GrowthRate": "2.2634"
+        },
+        {
+            "CTYNAME": "Tift County",
+            "Pop": 40571,
+            "GrowthRate": "0.8050"
+        },
+        {
+            "CTYNAME": "Murray County",
+            "Pop": 39921,
+            "GrowthRate": "0.9789"
+        },
+        {
+            "CTYNAME": "Oconee County",
+            "Pop": 39272,
+            "GrowthRate": "19.2699"
+        },
+        {
+            "CTYNAME": "Bryan County",
+            "Pop": 38109,
+            "GrowthRate": "25.4493"
+        },
+        {
+            "CTYNAME": "Ware County",
+            "Pop": 35680,
+            "GrowthRate": "-1.7540"
+        },
+        {
+            "CTYNAME": "Harris County",
+            "Pop": 34475,
+            "GrowthRate": "7.2217"
+        },
+        {
+            "CTYNAME": "Lumpkin County",
+            "Pop": 32955,
+            "GrowthRate": "8.7301"
+        },
+        {
+            "CTYNAME": "Pickens County",
+            "Pop": 31980,
+            "GrowthRate": "8.5650"
+        },
+        {
+            "CTYNAME": "Gilmer County",
+            "Pop": 30816,
+            "GrowthRate": "8.8097"
+        },
+        {
+            "CTYNAME": "White County",
+            "Pop": 29970,
+            "GrowthRate": "10.1879"
+        },
+        {
+            "CTYNAME": "Wayne County",
+            "Pop": 29808,
+            "GrowthRate": "-0.8878"
+        },
+        {
+            "CTYNAME": "Lee County",
+            "Pop": 29764,
+            "GrowthRate": "4.7438"
+        },
+        {
+            "CTYNAME": "Sumter County",
+            "Pop": 29733,
+            "GrowthRate": "-9.0261"
+        },
+        {
+            "CTYNAME": "Madison County",
+            "Pop": 29650,
+            "GrowthRate": "5.1232"
+        },
+        {
+            "CTYNAME": "Haralson County",
+            "Pop": 29533,
+            "GrowthRate": "2.6842"
+        },
+        {
+            "CTYNAME": "Jones County",
+            "Pop": 28616,
+            "GrowthRate": "-0.1047"
+        },
+        {
+            "CTYNAME": "Monroe County",
+            "Pop": 27520,
+            "GrowthRate": "5.0943"
+        },
+        {
+            "CTYNAME": "Peach County",
+            "Pop": 27297,
+            "GrowthRate": "-1.5899"
+        },
+        {
+            "CTYNAME": "Toombs County",
+            "Pop": 26887,
+            "GrowthRate": "-1.3285"
+        },
+        {
+            "CTYNAME": "Decatur County",
+            "Pop": 26575,
+            "GrowthRate": "-4.4546"
+        },
+        {
+            "CTYNAME": "Upson County",
+            "Pop": 26215,
+            "GrowthRate": "-3.1084"
+        },
+        {
+            "CTYNAME": "Hart County",
+            "Pop": 26099,
+            "GrowthRate": "3.3869"
+        },
+        {
+            "CTYNAME": "Stephens County",
+            "Pop": 26035,
+            "GrowthRate": "-0.3826"
+        },
+        {
+            "CTYNAME": "Fannin County",
+            "Pop": 25964,
+            "GrowthRate": "9.6638"
+        },
+        {
+            "CTYNAME": "Tattnall County",
+            "Pop": 25391,
+            "GrowthRate": "-0.3649"
+        },
+        {
+            "CTYNAME": "Dawson County",
+            "Pop": 25083,
+            "GrowthRate": "12.5404"
+        },
+        {
+            "CTYNAME": "Chattooga County",
+            "Pop": 24790,
+            "GrowthRate": "-4.4775"
+        },
+        {
+            "CTYNAME": "Grady County",
+            "Pop": 24748,
+            "GrowthRate": "-1.0871"
+        },
+        {
+            "CTYNAME": "Butts County",
+            "Pop": 24193,
+            "GrowthRate": "1.8310"
+        },
+        {
+            "CTYNAME": "Union County",
+            "Pop": 24001,
+            "GrowthRate": "12.3222"
+        },
+        {
+            "CTYNAME": "Franklin County",
+            "Pop": 23023,
+            "GrowthRate": "4.3086"
+        },
+        {
+            "CTYNAME": "Emanuel County",
+            "Pop": 22612,
+            "GrowthRate": "0.0133"
+        },
+        {
+            "CTYNAME": "Crisp County",
+            "Pop": 22601,
+            "GrowthRate": "-3.5341"
+        },
+        {
+            "CTYNAME": "Burke County",
+            "Pop": 22423,
+            "GrowthRate": "-3.8506"
+        },
+        {
+            "CTYNAME": "Mitchell County",
+            "Pop": 22192,
+            "GrowthRate": "-5.5579"
+        },
+        {
+            "CTYNAME": "Putnam County",
+            "Pop": 21809,
+            "GrowthRate": "2.9163"
+        },
+        {
+            "CTYNAME": "McDuffie County",
+            "Pop": 21531,
+            "GrowthRate": "-1.2475"
+        },
+        {
+            "CTYNAME": "Meriwether County",
+            "Pop": 21068,
+            "GrowthRate": "-3.4552"
+        },
+        {
+            "CTYNAME": "Dodge County",
+            "Pop": 20705,
+            "GrowthRate": "-4.8483"
+        },
+        {
+            "CTYNAME": "Washington County",
+            "Pop": 20386,
+            "GrowthRate": "-3.3610"
+        },
+        {
+            "CTYNAME": "Worth County",
+            "Pop": 20299,
+            "GrowthRate": "-6.4562"
+        },
+        {
+            "CTYNAME": "Pierce County",
+            "Pop": 19389,
+            "GrowthRate": "3.0562"
+        },
+        {
+            "CTYNAME": "Berrien County",
+            "Pop": 19252,
+            "GrowthRate": "-0.5630"
+        },
+        {
+            "CTYNAME": "Elbert County",
+            "Pop": 19120,
+            "GrowthRate": "-4.8993"
+        },
+        {
+            "CTYNAME": "Lamar County",
+            "Pop": 19000,
+            "GrowthRate": "4.0298"
+        },
+        {
+            "CTYNAME": "Long County",
+            "Pop": 18998,
+            "GrowthRate": "30.4897"
+        },
+        {
+            "CTYNAME": "Banks County",
+            "Pop": 18988,
+            "GrowthRate": "3.1620"
+        },
+        {
+            "CTYNAME": "Brantley County",
+            "Pop": 18897,
+            "GrowthRate": "2.3396"
+        },
+        {
+            "CTYNAME": "Morgan County",
+            "Pop": 18853,
+            "GrowthRate": "5.3593"
+        },
+        {
+            "CTYNAME": "Pike County",
+            "Pop": 18634,
+            "GrowthRate": "3.9670"
+        },
+        {
+            "CTYNAME": "Appling County",
+            "Pop": 18507,
+            "GrowthRate": "0.9491"
+        },
+        {
+            "CTYNAME": "Greene County",
+            "Pop": 17698,
+            "GrowthRate": "10.7579"
+        },
+        {
+            "CTYNAME": "Cook County",
+            "Pop": 17162,
+            "GrowthRate": "-0.1455"
+        },
+        {
+            "CTYNAME": "Rabun County",
+            "Pop": 16867,
+            "GrowthRate": "3.6120"
+        },
+        {
+            "CTYNAME": "Ben Hill County",
+            "Pop": 16787,
+            "GrowthRate": "-4.7438"
+        },
+        {
+            "CTYNAME": "Dade County",
+            "Pop": 16226,
+            "GrowthRate": "-2.3824"
+        },
+        {
+            "CTYNAME": "Telfair County",
+            "Pop": 15876,
+            "GrowthRate": "-3.8867"
+        },
+        {
+            "CTYNAME": "Brooks County",
+            "Pop": 15513,
+            "GrowthRate": "-4.5178"
+        },
+        {
+            "CTYNAME": "Jefferson County",
+            "Pop": 15430,
+            "GrowthRate": "-8.6117"
+        },
+        {
+            "CTYNAME": "Oglethorpe County",
+            "Pop": 15054,
+            "GrowthRate": "1.0810"
+        },
+        {
+            "CTYNAME": "Jeff Davis County",
+            "Pop": 15029,
+            "GrowthRate": "-0.5821"
+        },
+        {
+            "CTYNAME": "McIntosh County",
+            "Pop": 14340,
+            "GrowthRate": "0.1956"
+        },
+        {
+            "CTYNAME": "Jasper County",
+            "Pop": 14040,
+            "GrowthRate": "1.0581"
+        },
+        {
+            "CTYNAME": "Screven County",
+            "Pop": 13938,
+            "GrowthRate": "-3.8692"
+        },
+        {
+            "CTYNAME": "Dooly County",
+            "Pop": 13706,
+            "GrowthRate": "-7.7099"
+        },
+        {
+            "CTYNAME": "Macon County",
+            "Pop": 13143,
+            "GrowthRate": "-10.2561"
+        },
+        {
+            "CTYNAME": "Charlton County",
+            "Pop": 12968,
+            "GrowthRate": "0.9026"
+        },
+        {
+            "CTYNAME": "Bleckley County",
+            "Pop": 12838,
+            "GrowthRate": "-1.4962"
+        },
+        {
+            "CTYNAME": "Crawford County",
+            "Pop": 12318,
+            "GrowthRate": "-2.3621"
+        },
+        {
+            "CTYNAME": "Heard County",
+            "Pop": 11879,
+            "GrowthRate": "0.3548"
+        },
+        {
+            "CTYNAME": "Towns County",
+            "Pop": 11852,
+            "GrowthRate": "12.4798"
+        },
+        {
+            "CTYNAME": "Bacon County",
+            "Pop": 11185,
+            "GrowthRate": "1.1759"
+        },
+        {
+            "CTYNAME": "Pulaski County",
+            "Pop": 11069,
+            "GrowthRate": "-7.5272"
+        },
+        {
+            "CTYNAME": "Candler County",
+            "Pop": 10836,
+            "GrowthRate": "-1.6697"
+        },
+        {
+            "CTYNAME": "Evans County",
+            "Pop": 10721,
+            "GrowthRate": "-2.7221"
+        },
+        {
+            "CTYNAME": "Chattahoochee County",
+            "Pop": 10684,
+            "GrowthRate": "-4.5134"
+        },
+        {
+            "CTYNAME": "Lanier County",
+            "Pop": 10340,
+            "GrowthRate": "2.4067"
+        },
+        {
+            "CTYNAME": "Early County",
+            "Pop": 10247,
+            "GrowthRate": "-6.7098"
+        },
+        {
+            "CTYNAME": "Wilkes County",
+            "Pop": 9876,
+            "GrowthRate": "-6.0145"
+        },
+        {
+            "CTYNAME": "Johnson County",
+            "Pop": 9708,
+            "GrowthRate": "-2.7644"
+        },
+        {
+            "CTYNAME": "Irwin County",
+            "Pop": 9398,
+            "GrowthRate": "-2.0429"
+        },
+        {
+            "CTYNAME": "Montgomery County",
+            "Pop": 9193,
+            "GrowthRate": "0.5139"
+        },
+        {
+            "CTYNAME": "Wilkinson County",
+            "Pop": 9036,
+            "GrowthRate": "-5.1538"
+        },
+        {
+            "CTYNAME": "Wilcox County",
+            "Pop": 8812,
+            "GrowthRate": "-4.6424"
+        },
+        {
+            "CTYNAME": "Jenkins County",
+            "Pop": 8683,
+            "GrowthRate": "4.3254"
+        },
+        {
+            "CTYNAME": "Terrell County",
+            "Pop": 8611,
+            "GrowthRate": "-9.5958"
+        },
+        {
+            "CTYNAME": "Marion County",
+            "Pop": 8351,
+            "GrowthRate": "-4.4617"
+        },
+        {
+            "CTYNAME": "Hancock County",
+            "Pop": 8348,
+            "GrowthRate": "-11.5116"
+        },
+        {
+            "CTYNAME": "Seminole County",
+            "Pop": 8315,
+            "GrowthRate": "-4.7210"
+        },
+        {
+            "CTYNAME": "Atkinson County",
+            "Pop": 8297,
+            "GrowthRate": "-0.8248"
+        },
+        {
+            "CTYNAME": "Twiggs County",
+            "Pop": 8188,
+            "GrowthRate": "-8.7078"
+        },
+        {
+            "CTYNAME": "Taylor County",
+            "Pop": 8039,
+            "GrowthRate": "-8.4292"
+        },
+        {
+            "CTYNAME": "Lincoln County",
+            "Pop": 7915,
+            "GrowthRate": "-0.6901"
+        },
+        {
+            "CTYNAME": "Turner County",
+            "Pop": 7912,
+            "GrowthRate": "-11.1710"
+        },
+        {
+            "CTYNAME": "Wheeler County",
+            "Pop": 7879,
+            "GrowthRate": "1.5466"
+        },
+        {
+            "CTYNAME": "Randolph County",
+            "Pop": 6833,
+            "GrowthRate": "-10.8662"
+        },
+        {
+            "CTYNAME": "Treutlen County",
+            "Pop": 6809,
+            "GrowthRate": "-1.1900"
+        },
+        {
+            "CTYNAME": "Clinch County",
+            "Pop": 6648,
+            "GrowthRate": "-1.8021"
+        },
+        {
+            "CTYNAME": "Calhoun County",
+            "Pop": 6352,
+            "GrowthRate": "-5.1516"
+        },
+        {
+            "CTYNAME": "Talbot County",
+            "Pop": 6272,
+            "GrowthRate": "-8.6247"
+        },
+        {
+            "CTYNAME": "Stewart County",
+            "Pop": 6199,
+            "GrowthRate": "1.6563"
+        },
+        {
+            "CTYNAME": "Miller County",
+            "Pop": 5686,
+            "GrowthRate": "-7.2582"
+        },
+        {
+            "CTYNAME": "Warren County",
+            "Pop": 5251,
+            "GrowthRate": "-9.1837"
+        },
+        {
+            "CTYNAME": "Schley County",
+            "Pop": 5236,
+            "GrowthRate": "4.3652"
+        },
+        {
+            "CTYNAME": "Echols County",
+            "Pop": 4000,
+            "GrowthRate": "-0.4728"
+        },
+        {
+            "CTYNAME": "Baker County",
+            "Pop": 3092,
+            "GrowthRate": "-9.9854"
+        },
+        {
+            "CTYNAME": "Glascock County",
+            "Pop": 2995,
+            "GrowthRate": "-2.6016"
+        },
+        {
+            "CTYNAME": "Clay County",
+            "Pop": 2887,
+            "GrowthRate": "-9.0995"
+        },
+        {
+            "CTYNAME": "Webster County",
+            "Pop": 2611,
+            "GrowthRate": "-6.1467"
+        },
+        {
+            "CTYNAME": "Quitman County",
+            "Pop": 2279,
+            "GrowthRate": "-9.3116"
+        },
+        {
+            "CTYNAME": "Taliaferro County",
+            "Pop": 1608,
+            "GrowthRate": "-5.5784"
+        }
+    ]
+}

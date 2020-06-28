@@ -19,13 +19,22 @@ export default function App(props) {
     let [settings, setSettings]  = useState(props.initialSettings);
     let [dataFocus, setDataFocus] = useState(props.initialDataFocus)
     let [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
+    let [populationMap, setPopulationMap] = useState(new Map())
     const {width, height} = useWindowDimensions()
 
-    function fetchData() {
+    function fetchCovidData() {
         let isSubscribed = true
         dataFocus.dataProvider.getData().then(recordSet => {
             if (isSubscribed)
                 setNormalizedRecordSet(recordSet)
+        })
+        return () => isSubscribed = false
+    }
+    function fetchPopulationData() {
+        let isSubscribed = true
+        dataFocus.populationLoader.getData().then(populationMap => {
+            if (isSubscribed)
+                setPopulationMap(populationMap)
         })
         return () => isSubscribed = false
     }
@@ -37,7 +46,8 @@ export default function App(props) {
         setSettings(newSettings)
     }
 
-    useEffect(fetchData,[dataFocus])
+    useEffect(fetchCovidData,[dataFocus])
+    useEffect(fetchPopulationData,[dataFocus])
 
     return (
         <div className='App'>
@@ -49,7 +59,7 @@ export default function App(props) {
                                   onChange={key => {
                                       setNormalizedRecordSet(NormalizedRecordSet.empty())
                                       setDataFocus(dataFocusFromKey(key))
-                                      window.localStorage.setItem("dataFocuseKey", key);
+                                      window.localStorage.setItem("dataFocusKey", key);
                                   }}
                                   options={DATA_FOCUS_LIST.map(s => {
                                       return {value: s.key, label: s.name}

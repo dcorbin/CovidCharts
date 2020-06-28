@@ -3,6 +3,8 @@ RISK(GA): Make fetching more robust than just "the fourth JSON block"
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 TOOLS: ret-tag old release tags
 TOOLS: auto-select next tag when releasing
+REFACTOR: Normalize US Records by name, not abbreviation
+REFACTOR: Split RegionSpec into parts - terms, MAP, LAYOUT
 
 FEATURE: Add Per-capita column to Rankings
 FEATURE: Consider splitting neutral into two halves

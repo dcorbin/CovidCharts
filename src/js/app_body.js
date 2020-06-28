@@ -20,15 +20,6 @@ export default function AppBody(props) {
         props.onSettingsChange({...props.dataFocusSettings, activeTab: index})
         return true
     }
-
-
-    let dataFocus = props.dataFocus
-    if (!dataFocus)
-        return <p>Please select a Data Focus.</p>
-
-    let headerHeight = props.headerHeight;
-    let tabHeight = 35;
-
     function renderTabs() {
         return <Tabs onSelect={handleTabChange} selectedIndex={props.dataFocusSettings.activeTab}>
             <TabList>
@@ -61,6 +52,14 @@ export default function AppBody(props) {
             {renderTabs()}
         </div>;
     }
+
+    let dataFocus = props.dataFocus
+    if (!dataFocus)
+        return <p>Please select a Data Focus.</p>
+
+    let headerHeight = props.headerHeight;
+    let tabHeight = 35;
+
 
     return (
         <div className='AppBody'>
