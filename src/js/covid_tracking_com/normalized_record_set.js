@@ -88,7 +88,12 @@ export default class NormalizedRecordSet {
     }
 
     hasValidData(region, propertyName) {
-        return this.dataSeriesQualityByRegion.get(region).get(propertyName).validDataStartingAt !== null
+        let regionData = this.dataSeriesQualityByRegion.get(region);
+        if (!regionData) {
+            console.log(`WARNING: hasValidData(${region}, ${propertyName}) -> false`)
+            return false
+        }
+        return regionData.get(propertyName).validDataStartingAt !== null
     }
 
     isContinuous(region, propertyName) {
