@@ -1,10 +1,10 @@
 'use strict';
 
-import {Settings, SettingsStore} from './settings';
+import {persistentStateLoader, Settings, SettingsStore} from './settings';
 import React  from 'react'
 import ReactDom from 'react-dom'
 import App from "./app";
-import DATA_SOURCES, {dataSourceFromKey} from "./react/model/data_source";
+import DATA_FOCUS_LIST, {dataFocusFromKey} from "./react/model/data_focus";
 
 function initialize() {
     let settings_store = new SettingsStore(window.localStorage)
@@ -17,9 +17,9 @@ function initialize() {
         return settings
     }
 
-    let dataSourceKey = window.localStorage.getItem("dataSourceKey") || DATA_SOURCES[0].key
+    let dataFocusKey = persistentStateLoader("dataFocusKey", DATA_FOCUS_LIST[0].key, ["dataSourceKey"])
     ReactDom.render(<App
-            initialDataSource={dataSourceFromKey(dataSourceKey)}
+            initialDataFocus={dataFocusFromKey(dataFocusKey)}
             initialSettings={loadOrCreateSettings()}
             saveSettings={(s) => settings_store.store(s)} />,
             document.getElementById("app"))

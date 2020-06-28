@@ -68,7 +68,7 @@ export default function GrowthRanking(props) {
                             <td className={`cell growthRegion`}>
                                 <PopupActivatingButton
                                     popupContent={() => {
-                                        let settings = Settings.defaultTabSettings([record.region])
+                                        let settings = Settings.defaultFocusSettings([record.region])
                                         return <div style={{ padding: '20px', boxSizing: 'border-box', width: '100%', height: '100%'}}>
                                             <ChartPanel settings={settings}
                                                            showControlPanel={false}

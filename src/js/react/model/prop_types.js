@@ -26,7 +26,7 @@ PROP_TYPES.DataProvider = PropTypes.shape({
     getData: PropTypes.func.isRequired
 })
 
-PROP_TYPES.DataSource = PropTypes.shape({
+PROP_TYPES.DataFocus = PropTypes.shape({
     name: PropTypes.string.isRequired,
     key: PropTypes.string.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
@@ -52,7 +52,7 @@ PROP_TYPES.NormalizedRecordSet = PropTypes.shape({
     warningsByRegion: PropTypes.object.isRequired,
 
 })
-PROP_TYPES.DataSourceSettings = PropTypes.shape({
+PROP_TYPES.DataFocusSettings = PropTypes.shape({
     selectedRegions : PropTypes.arrayOf(PropTypes.string).isRequired,
     userQuickPicks: PropTypes.arrayOf(PROP_TYPES.QuickPick).isRequired,
     nullStrategy: PropTypes.string.isRequired,

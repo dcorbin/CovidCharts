@@ -1,50 +1,50 @@
 import QuickPick from "./model/quick_pick";
-function normalizeDataSourceTabSettings(dataSourceSettings, outdatedSelectionPropertyName = null) {
-    if (outdatedSelectionPropertyName && dataSourceSettings[outdatedSelectionPropertyName]) {
-        dataSourceSettings.selectedRegions = dataSourceSettings[outdatedSelectionPropertyName]
-        delete dataSourceSettings[outdatedSelectionPropertyName]
+function normalizeDataFocusTabSettings(dataFocusSettings, outdatedSelectionPropertyName = null) {
+    if (outdatedSelectionPropertyName && dataFocusSettings[outdatedSelectionPropertyName]) {
+        dataFocusSettings.selectedRegions = dataFocusSettings[outdatedSelectionPropertyName]
+        delete dataFocusSettings[outdatedSelectionPropertyName]
     }
 
-    if (!dataSourceSettings.selectedRegions)
-        dataSourceSettings.selectedRegions = []
+    if (!dataFocusSettings.selectedRegions)
+        dataFocusSettings.selectedRegions = []
 
-    if (!dataSourceSettings.userQuickPicks)
-        dataSourceSettings.userQuickPicks = []
+    if (!dataFocusSettings.userQuickPicks)
+        dataFocusSettings.userQuickPicks = []
     else {
-        dataSourceSettings.userQuickPicks = dataSourceSettings.userQuickPicks.map(qpo => {
+        dataFocusSettings.userQuickPicks = dataFocusSettings.userQuickPicks.map(qpo => {
             return QuickPick.fromGenericObject(qpo);
         })
     }
 
-    if (!dataSourceSettings.nullStrategy) {
-        dataSourceSettings.nullStrategy = 'none'
+    if (!dataFocusSettings.nullStrategy) {
+        dataFocusSettings.nullStrategy = 'none'
     }
-    if (!dataSourceSettings.movingAvgStrategy) {
-        dataSourceSettings.movingAvgStrategy = 7
+    if (!dataFocusSettings.movingAvgStrategy) {
+        dataFocusSettings.movingAvgStrategy = 7
     }
-    if (!dataSourceSettings.dataLinesId) {
-        dataSourceSettings.dataLinesId = 'ALL'
+    if (!dataFocusSettings.dataLinesId) {
+        dataFocusSettings.dataLinesId = 'ALL'
     }
-    if (!dataSourceSettings.verticalScaleType) {
-        dataSourceSettings.verticalScaleType = 'linear'
+    if (!dataFocusSettings.verticalScaleType) {
+        dataFocusSettings.verticalScaleType = 'linear'
     }
-    if (!dataSourceSettings.activeTab) {
-        dataSourceSettings.activeTab = 0
+    if (!dataFocusSettings.activeTab) {
+        dataFocusSettings.activeTab = 0
     }
-    dataSourceSettings.selectedRegions = dataSourceSettings.selectedRegions.filter(e => e !== null)
-    return dataSourceSettings
+    dataFocusSettings.selectedRegions = dataFocusSettings.selectedRegions.filter(e => e !== null)
+    return dataFocusSettings
 }
 
 export class Settings {
-    static defaultTabSettings(regions) {
-        return normalizeDataSourceTabSettings({
+    static defaultFocusSettings(regions) {
+        return normalizeDataFocusTabSettings({
             selectedRegions: regions
         })
     }
     static defaultSettings() {
         return new Settings(
-                Settings.defaultTabSettings(['GA']),
-                Settings.defaultTabSettings([])
+                Settings.defaultFocusSettings(['GA']),
+                Settings.defaultFocusSettings([])
         )
     }
 
@@ -52,6 +52,23 @@ export class Settings {
         this.covidTracking = covidTracking
         this.georgia = georgia
     }
+}
+
+export function persistentStateLoader(primaryKey, defaultValue, ...legacyKeys) {
+    let value = window.localStorage.getItem(primaryKey)
+    if (value != null) {
+        return value
+    }
+
+    legacyKeys.forEach(key => {
+        let value = window.localStorage.getItem(key)
+        if (value != null) {
+            window.localStorage.setItem(primaryKey, value)
+            window.localStorage.removeItem(key)
+            return value
+        }
+    })
+
 }
 
 const SETTINGS_KEY = 'settings.v3';
@@ -68,8 +85,8 @@ export class SettingsStore {
     load() {
         function normalizeSettings(settings) {
             delete settings.georgia.states
-            normalizeDataSourceTabSettings(settings.georgia, 'counties')
-            normalizeDataSourceTabSettings(settings.covidTracking, 'states')
+            normalizeDataFocusTabSettings(settings.georgia, 'counties')
+            normalizeDataFocusTabSettings(settings.covidTracking, 'states')
             return settings
         }
 

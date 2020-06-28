@@ -1,4 +1,4 @@
-import DATA_SOURCES, {dataSourceFromKey} from "./react/model/data_source";
+import DATA_FOCUS_LIST, {dataFocusFromKey} from "./react/model/data_focus";
 import LabeledCombo from "./react/basic/labeled_combo";
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types'
@@ -12,32 +12,32 @@ const {useState} = require("react");
 App.propTypes = {
     initialSettings: PropTypes.object.isRequired,
     saveSettings: PropTypes.func.isRequired,
-    initialDataSource: PropTypes.object.isRequired
+    initialDataFocus: PropTypes.object.isRequired
 }
 
 export default function App(props) {
     let [settings, setSettings]  = useState(props.initialSettings);
-    let [dataSource, setDataSource] = useState(props.initialDataSource)
+    let [dataFocus, setDataFocus] = useState(props.initialDataFocus)
     let [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
     const {width, height} = useWindowDimensions()
 
     function fetchData() {
         let isSubscribed = true
-        dataSource.dataProvider.getData().then(recordSet => {
+        dataFocus.dataProvider.getData().then(recordSet => {
             if (isSubscribed)
                 setNormalizedRecordSet(recordSet)
         })
         return () => isSubscribed = false
     }
 
-    function handleSettingsChange(newDataSourceSettings) {
+    function handleSettingsChange(newDataFocusSettings) {
         let newSettings = {...settings}
-        newSettings[dataSource.settingsKey] = newDataSourceSettings
+        newSettings[dataFocus.settingsKey] = newDataFocusSettings
         props.saveSettings(newSettings)
         setSettings(newSettings)
     }
 
-    useEffect(fetchData,[dataSource])
+    useEffect(fetchData,[dataFocus])
 
     return (
         <div className='App'>
@@ -45,13 +45,13 @@ export default function App(props) {
                 <h1>{document.title}</h1>
                 <div className='DataFocus'>
                     <LabeledCombo label='Data Focus'
-                                  initialValue={dataSource.key}
+                                  initialValue={dataFocus.key}
                                   onChange={key => {
                                       setNormalizedRecordSet(NormalizedRecordSet.empty())
-                                      setDataSource(dataSourceFromKey(key))
-                                      window.localStorage.setItem("dataSourceKey", key);
+                                      setDataFocus(dataFocusFromKey(key))
+                                      window.localStorage.setItem("dataFocuseKey", key);
                                   }}
-                                  options={DATA_SOURCES.map(s => {
+                                  options={DATA_FOCUS_LIST.map(s => {
                                       return {value: s.key, label: s.name}
                                   })}
                     />
@@ -60,8 +60,8 @@ export default function App(props) {
             <AppBody
                 height={height - 111}
                 recordSet={normalizedRecordSet}
-                dataSource={dataSource}
-                dataSourceSettings={settings[dataSource.settingsKey]}
+                dataFocus={dataFocus}
+                dataFocusSettings={settings[dataFocus.settingsKey]}
                 onSettingsChange={handleSettingsChange}
             />
         </div>

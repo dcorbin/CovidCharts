@@ -7,7 +7,7 @@ import PROP_TYPES from "./model/prop_types";
 
 
 ControlPanel.propTypes = {
-    settings: PROP_TYPES.DataSourceSettings.isRequired,
+    settings: PROP_TYPES.DataFocusSettings.isRequired,
     onSettingsChange: PropTypes.func.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
     normalizedRecordSet: PROP_TYPES.NormalizedRecordSet.isRequired

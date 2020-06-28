@@ -34,7 +34,7 @@ ChartPanel.defaultProps = {
 ChartPanel.propTypes = {
     recordSet: PropTypes.object.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
-    settings: PROP_TYPES.DataSourceSettings.isRequired,
+    settings: PROP_TYPES.DataFocusSettings.isRequired,
     onSettingsChange: PropTypes.func,
     showControlPanel: PropTypes.bool
 }

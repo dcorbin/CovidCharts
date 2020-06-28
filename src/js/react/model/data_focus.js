@@ -6,7 +6,7 @@ import CovidTrackingCom from "../../covid_tracking_com/covid_tracking_com";
 import Clock from "../../util/clock";
 import GeorgiaByCounty from "../../subject/georgia/GeorgiaByCounty";
 
-class DataSource {
+class DataFocus {
     constructor(name, key, regionSpec, dataProvider, settingsKey, footerLink, footerText) {
         this.name = name
         this.key = key
@@ -18,13 +18,13 @@ class DataSource {
     }
 }
 
-export function dataSourceFromKey(key) {
-    return DATA_SOURCES.find(s => s.key === key)
+export function dataFocusFromKey(key) {
+    return DATA_FOCUS_LIST.find(s => s.key === key)
 }
 
 
-const DATA_SOURCES = [
-    new DataSource('United\u00a0States',
+const DATA_FOCUS_LIST = [
+    new DataFocus('United\u00a0States',
         'covidTracking.com',
         new StateRegionSpec(),
         new ReadThroughCache(1000 * 60 * 60, new Clock(), new CovidTrackingCom()),
@@ -32,7 +32,7 @@ const DATA_SOURCES = [
         "https://covidtracking.com",
         "covidtracking.com"
         ),
-    new DataSource('Georgia',
+    new DataFocus('Georgia',
         'georgia-dph',
         new CountyRegionSpec(),
         new ReadThroughCache(1000 * 60 * 60, new Clock(), new GeorgiaByCounty()),
@@ -42,4 +42,4 @@ const DATA_SOURCES = [
 
     ),
 ]
-export default DATA_SOURCES
+export default DATA_FOCUS_LIST

@@ -9,28 +9,28 @@ import GrowthRanking from "./react/growth_ranking/growth_ranking";
 import './app_body.css'
 AppBody.propTypes = {
     height: PropTypes.number.isRequired,
-    dataSource: PROP_TYPES.DataSource,
+    dataFocus: PROP_TYPES.DataFocus,
     recordSet: PROP_TYPES.NormalizedRecordSet.isRequired,
-    dataSourceSettings: PROP_TYPES.DataSourceSettings.isRequired,
+    dataFocusSettings: PROP_TYPES.DataFocusSettings.isRequired,
     onSettingsChange: PropTypes.func.isRequired
 }
 
 export default function AppBody(props) {
     function handleTabChange(index) {
-        props.onSettingsChange({...props.dataSourceSettings, activeTab: index})
+        props.onSettingsChange({...props.dataFocusSettings, activeTab: index})
         return true
     }
 
 
-    let dataSource = props.dataSource
-    if (!dataSource)
-        return <p>Please select a dataSource.</p>
+    let dataFocus = props.dataFocus
+    if (!dataFocus)
+        return <p>Please select a Data Focus.</p>
 
     let headerHeight = props.headerHeight;
     let tabHeight = 35;
 
     function renderTabs() {
-        return <Tabs onSelect={handleTabChange} selectedIndex={props.dataSourceSettings.activeTab}>
+        return <Tabs onSelect={handleTabChange} selectedIndex={props.dataFocusSettings.activeTab}>
             <TabList>
                 <Tab>Charting</Tab>
                 <Tab>Growth Rankings</Tab>
@@ -40,8 +40,8 @@ export default function AppBody(props) {
                 <div style={{height: props.height - tabHeight}}>
                 <ChartPanel
                     recordSet={props.recordSet}
-                    regionSpec={dataSource.regionSpec}
-                    settings={props.dataSourceSettings}
+                    regionSpec={dataFocus.regionSpec}
+                    settings={props.dataFocusSettings}
                     onSettingsChange={props.onSettingsChange}/>
                 </div>
 
@@ -50,7 +50,7 @@ export default function AppBody(props) {
                 <GrowthRanking
                     height={props.height - tabHeight}
                     recordSet={props.recordSet}
-                    regionSpec={dataSource.regionSpec}
+                    regionSpec={dataFocus.regionSpec}
                 />
             </TabPanel>
         </Tabs>;
@@ -65,6 +65,6 @@ export default function AppBody(props) {
     return (
         <div className='AppBody'>
             {props.headerHeight ? renderVerticalScrollingTabs() : renderTabs()}
-            <Footer source={<a href={dataSource.footerLink}>{dataSource.footerText}</a>}/>
+            <Footer source={<a href={dataFocus.footerLink}>{dataFocus.footerText}</a>}/>
         </div>)
 }
