@@ -4,7 +4,7 @@ export default class UsPopulationLoader {
     getData() {
         function normalizeData(json) {
                 json.data.reduce((result, stateRecord) => {
-                result.setItem(stateRecord.State, stateRecord.Pop)
+                result.set(stateRecord.State, stateRecord.Pop)
             }, new Map())
         }
         return fetch('/api/data/population/USA.json', {method: 'GET', })
