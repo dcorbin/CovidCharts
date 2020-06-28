@@ -18,12 +18,13 @@ import {Settings} from "../../settings";
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
     recordSet: PropTypes.object.isRequired,
+    populationMap: PropTypes.instanceOf(Map).isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
 }
 
 export default function GrowthRanking(props) {
     let [hover, setHover] = useState(null)
-    let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records);
+    let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records, props.populationMap);
     let categoryByRegion = scoredRegions.reduce((result, record) => {
         let className = new PositiveGrowthClassifier().categoryClassName(record.deltaPositive.percentage, record.region);
         result.set(record.region,className);
@@ -47,8 +48,9 @@ export default function GrowthRanking(props) {
             </tr>
             <tr className='row'>
                 <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
-                <th className='cell'>Growth over (7 days)</th>
-                <th className='cell'>New cases {mostRecentDate}</th>
+                <th className='cell'>Growth over<br/>7 days</th>
+                <th className='cell'>New cases<br/>{mostRecentDate}</th>
+                <th className='cell'>per 100,000</th>
             </tr>
             </thead>
             <tbody>
@@ -84,6 +86,9 @@ export default function GrowthRanking(props) {
                             </td>
                             <td className={`cell number value ${category}`}>
                                 <TrendValue value={record.deltaPositive.sevenDayAvg} precision={2}/>
+                            </td>
+                            <td className={`cell number value ${category}`}>
+                               <TrendValue value={record.deltaPositive.newCasesPer100k} infinity='N/A' precision={1} />
                             </td>
                         </tr>
                     )

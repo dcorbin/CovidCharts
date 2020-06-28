@@ -1,8 +1,9 @@
 export default class GaPopulationLoader {
     getData() {
         function normalizeData(json) {
-                json.data.reduce((result, countyRecord) => {
-                result.set(countyRecord.CTYNAME, countyRecord.Pop)
+            return json.data.reduce((result, countyRecord) => {
+                result.set(countyRecord.CTYNAME.replace(' County', ''), countyRecord.Pop)
+                return result
             }, new Map())
         }
         return fetch('/api/data/population/GA.json', {method: 'GET', })

@@ -10,6 +10,7 @@ import './app_body.css'
 AppBody.propTypes = {
     height: PropTypes.number.isRequired,
     dataFocus: PROP_TYPES.DataFocus,
+    populationMap: PropTypes.instanceOf(Map),
     recordSet: PROP_TYPES.NormalizedRecordSet.isRequired,
     dataFocusSettings: PROP_TYPES.DataFocusSettings.isRequired,
     onSettingsChange: PropTypes.func.isRequired
@@ -39,6 +40,7 @@ export default function AppBody(props) {
             </TabPanel>
             <TabPanel>
                 <GrowthRanking
+                    populationMap={props.populationMap}
                     height={props.height - tabHeight}
                     recordSet={props.recordSet}
                     regionSpec={dataFocus.regionSpec}

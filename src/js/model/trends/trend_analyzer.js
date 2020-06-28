@@ -29,7 +29,7 @@ export class TrendAnalyzer {
     constructor() {
         this.propertyNames =  ["deltaPositive", "deltaDeath", "deltaHospitalized"]
     }
-    calculateTrendsForAllRegions(records) {
+    calculateTrendsForAllRegions(records, populationMap) {
         let regions = unique(records.map(r => r.region))
 
         function createMapper(propertyName) {
@@ -47,7 +47,7 @@ export class TrendAnalyzer {
                 let boundaryRecords = new BoundaryFinder(7).findBoundaryRecords(dataToAnalyze)
                 let result = {region: region}
                 propertyNames.forEach(name => {
-                    result[name] = new RegionTrendCalculator().calculateTrend(boundaryRecords, "sevenDayAvg", name)
+                    result[name] = new RegionTrendCalculator(populationMap).calculateTrend(boundaryRecords, "sevenDayAvg", name)
                 })
 
                 return result

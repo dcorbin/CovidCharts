@@ -1,5 +1,6 @@
 export default class RegionTrendCalculator {
-    constructor() {
+    constructor(populationMap) {
+        this.populationMap = populationMap
     }
     calculateTrend(boundaryRecords, avgPropertyName, propertyName) {
         let pastValue = boundaryRecords.from[avgPropertyName][propertyName];
@@ -9,6 +10,7 @@ export default class RegionTrendCalculator {
                 sevenDayAvg: null,
                 delta: null,
                 percentage: null,
+                newCasesPer100k: null,
             }
         }
         let delta = currentValue - pastValue;
@@ -21,10 +23,12 @@ export default class RegionTrendCalculator {
             deltaPercentage = - Infinity
         }
         let sevenDayAvg = boundaryRecords.to.sevenDayAvg[propertyName];
+        let population = this.populationMap.get(boundaryRecords.to.region) || 0;
         return {
             sevenDayAvg: sevenDayAvg,
             delta: delta,
             percentage: deltaPercentage,
+            newCasesPer100k: currentValue*100000/ population,
         }
 
     }

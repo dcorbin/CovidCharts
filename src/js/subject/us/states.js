@@ -1,62 +1,62 @@
 import {US_URL} from './US.svg-map'
 import QuickPick from "../../model/quick_pick";
 const STATES = [
-    {"name": "Alabama", "abbreviation": "AL", actualState: true, continental: true },
-    {"name": "Alaska", "abbreviation": "AK", actualState: true, continental: false },
-    {"name": "Arizona", "abbreviation": "AZ", actualState: true, continental: true },
-    {"name": "Arkansas", "abbreviation": "AR", actualState: true, continental: true },
-    {"name": "California", "abbreviation": "CA", actualState: true, continental: true },
-    {"name": "Colorado", "abbreviation": "CO", actualState: true, continental: true },
-    {"name": "Connecticut", "abbreviation": "CT", actualState: true, continental: true },
-    {"name": "Delaware", "abbreviation": "DE", actualState: true, continental: true },
-    {"name": "District of Columbia", "abbreviation": "DC", actualState: false, continental: true },
-    {"name": "Puerto Rico", "abbreviation": "PR", actualState: false, continental: false },
-    {"name": "U.S. Virgin Is.", "abbreviation": "VI", actualState: false, continental: false },
-    {"name": "American Samoa", "abbreviation": "AS", actualState: false, continental: false },
-    {"name": "Guam", "abbreviation": "GU", actualState: false, continental: false },
-    {"name": "N. Mariana Is.", "abbreviation": "MP", actualState: false, continental: false },
-    {"name": "Florida", "abbreviation": "FL", actualState: true, continental: true },
-    {"name": "Georgia", "abbreviation": "GA", actualState: true, continental: true },
-    {"name": "Hawaii", "abbreviation": "HI", actualState: true, continental: false },
-    {"name": "Idaho", "abbreviation": "ID", actualState: true, continental: true },
-    {"name": "Illinois", "abbreviation": "IL", actualState: true, continental: true },
-    {"name": "Indiana", "abbreviation": "IN", actualState: true, continental: true },
-    {"name": "Iowa", "abbreviation": "IA", actualState: true, continental: true },
-    {"name": "Kansas", "abbreviation": "KS", actualState: true, continental: true },
-    {"name": "Kentucky", "abbreviation": "KY", actualState: true, continental: true },
-    {"name": "Louisiana", "abbreviation": "LA", actualState: true, continental: true },
-    {"name": "Maine", "abbreviation": "ME", actualState: true, continental: true },
-    {"name": "Maryland", "abbreviation": "MD", actualState: true, continental: true },
-    {"name": "Massachusetts", "abbreviation": "MA", actualState: true, continental: true },
-    {"name": "Michigan", "abbreviation": "MI", actualState: true, continental: true },
-    {"name": "Minnesota", "abbreviation": "MN", actualState: true, continental: true },
-    {"name": "Mississippi", "abbreviation": "MS", actualState: true, continental: true },
-    {"name": "Missouri", "abbreviation": "MO", actualState: true, continental: true },
-    {"name": "Montana", "abbreviation": "MT", actualState: true, continental: true },
-    {"name": "Nebraska", "abbreviation": "NE", actualState: true, continental: true },
-    {"name": "Nevada", "abbreviation": "NV", actualState: true, continental: true },
-    {"name": "New Hampshire", "abbreviation": "NH", actualState: true, continental: true },
-    {"name": "New Jersey", "abbreviation": "NJ", actualState: true, continental: true },
-    {"name": "New Mexico", "abbreviation": "NM", actualState: true, continental: true },
-    {"name": "New York", "abbreviation": "NY", actualState: true, continental: true },
-    {"name": "North Carolina", "abbreviation": "NC", actualState: true, continental: true },
-    {"name": "North Dakota", "abbreviation": "ND", actualState: true, continental: true },
-    {"name": "Ohio", "abbreviation": "OH", actualState: true, continental: true },
-    {"name": "Oklahoma", "abbreviation": "OK", actualState: true, continental: true },
-    {"name": "Oregon", "abbreviation": "OR", actualState: true, continental: true },
-    {"name": "Pennsylvania", "abbreviation": "PA", actualState: true, continental: true },
-    {"name": "Rhode Island", "abbreviation": "RI", actualState: true, continental: true },
-    {"name": "South Carolina", "abbreviation": "SC", actualState: true, continental: true },
-    {"name": "South Dakota", "abbreviation": "SD", actualState: true, continental: true },
-    {"name": "Tennessee", "abbreviation": "TN", actualState: true, continental: true },
-    {"name": "Texas", "abbreviation": "TX", actualState: true, continental: true },
-    {"name": "Utah", "abbreviation": "UT", actualState: true, continental: true },
-    {"name": "Vermont", "abbreviation": "VT", actualState: true, continental: true },
-    {"name": "Virginia", "abbreviation": "VA", actualState: true, continental: true },
-    {"name": "Washington", "abbreviation": "WA", actualState: true, continental: true },
-    {"name": "West Virginia", "abbreviation": "WV", actualState: true, continental: true },
-    {"name": "Wisconsin", "abbreviation": "WI", actualState: true, continental: true },
-    {"name": "Wyoming", "abbreviation": "WY", actualState: true, continental: true }
+    {"name": "Alabama", "abbreviation": "AL", alternateNames: []},
+    {"name": "Alaska", "abbreviation": "AK", alternateNames: [] },
+    {"name": "Arizona", "abbreviation": "AZ", alternateNames: []},
+    {"name": "Arkansas", "abbreviation": "AR", alternateNames: []},
+    {"name": "California", "abbreviation": "CA", alternateNames: []},
+    {"name": "Colorado", "abbreviation": "CO", alternateNames: []},
+    {"name": "Connecticut", "abbreviation": "CT", alternateNames: []},
+    {"name": "Delaware", "abbreviation": "DE", alternateNames: []},
+    {"name": "District of Columbia", "abbreviation": "DC", alternateNames: []},
+    {"name": "Puerto Rico", "abbreviation": "PR", alternateNames: [] },
+    {"name": "U.S. Virgin Is.", "abbreviation": "VI", alternateNames: ['United States Virgin Islands'] },
+    {"name": "American Samoa", "abbreviation": "AS", alternateNames: [] },
+    {"name": "Guam", "abbreviation": "GU", alternateNames: [] },
+    {"name": "N. Mariana Is.", "abbreviation": "MP", alternateNames: ['Northern Mariana Islands'] },
+    {"name": "Florida", "abbreviation": "FL", alternateNames: []},
+    {"name": "Georgia", "abbreviation": "GA", alternateNames: []},
+    {"name": "Hawaii", "abbreviation": "HI", alternateNames: [] },
+    {"name": "Idaho", "abbreviation": "ID", alternateNames: []},
+    {"name": "Illinois", "abbreviation": "IL", alternateNames: []},
+    {"name": "Indiana", "abbreviation": "IN", alternateNames: []},
+    {"name": "Iowa", "abbreviation": "IA", alternateNames: []},
+    {"name": "Kansas", "abbreviation": "KS", alternateNames: []},
+    {"name": "Kentucky", "abbreviation": "KY", alternateNames: []},
+    {"name": "Louisiana", "abbreviation": "LA", alternateNames: []},
+    {"name": "Maine", "abbreviation": "ME", alternateNames: []},
+    {"name": "Maryland", "abbreviation": "MD", alternateNames: []},
+    {"name": "Massachusetts", "abbreviation": "MA", alternateNames: []},
+    {"name": "Michigan", "abbreviation": "MI", alternateNames: []},
+    {"name": "Minnesota", "abbreviation": "MN", alternateNames: []},
+    {"name": "Mississippi", "abbreviation": "MS", alternateNames: []},
+    {"name": "Missouri", "abbreviation": "MO", alternateNames: []},
+    {"name": "Montana", "abbreviation": "MT", alternateNames: []},
+    {"name": "Nebraska", "abbreviation": "NE", alternateNames: []},
+    {"name": "Nevada", "abbreviation": "NV", alternateNames: []},
+    {"name": "New Hampshire", "abbreviation": "NH", alternateNames: []},
+    {"name": "New Jersey", "abbreviation": "NJ", alternateNames: []},
+    {"name": "New Mexico", "abbreviation": "NM", alternateNames: []},
+    {"name": "New York", "abbreviation": "NY", alternateNames: []},
+    {"name": "North Carolina", "abbreviation": "NC", alternateNames: []},
+    {"name": "North Dakota", "abbreviation": "ND", alternateNames: []},
+    {"name": "Ohio", "abbreviation": "OH", alternateNames: []},
+    {"name": "Oklahoma", "abbreviation": "OK", alternateNames: []},
+    {"name": "Oregon", "abbreviation": "OR", alternateNames: []},
+    {"name": "Pennsylvania", "abbreviation": "PA", alternateNames: []},
+    {"name": "Rhode Island", "abbreviation": "RI", alternateNames: []},
+    {"name": "South Carolina", "abbreviation": "SC", alternateNames: []},
+    {"name": "South Dakota", "abbreviation": "SD", alternateNames: []},
+    {"name": "Tennessee", "abbreviation": "TN", alternateNames: []},
+    {"name": "Texas", "abbreviation": "TX", alternateNames: []},
+    {"name": "Utah", "abbreviation": "UT", alternateNames: []},
+    {"name": "Vermont", "abbreviation": "VT", alternateNames: []},
+    {"name": "Virginia", "abbreviation": "VA", alternateNames: []},
+    {"name": "Washington", "abbreviation": "WA", alternateNames: []},
+    {"name": "West Virginia", "abbreviation": "WV", alternateNames: []},
+    {"name": "Wisconsin", "abbreviation": "WI", alternateNames: []},
+    {"name": "Wyoming", "abbreviation": "WY", alternateNames: []}
 ].sort(byName)
 
 function byName(a, b) {
@@ -69,6 +69,16 @@ function byName(a, b) {
 
 
 export class StateTable {
+    abbreviationFromName(name) {
+        let state = STATES.find(s => {
+            return s.name === name || s.alternateNames.some(s1 => s1 === name);
+        })
+        if (!state) {
+            console.log(`ERROR: Unable to resolve '${name}'`)
+            return "Unknown State"
+        }
+        return state.abbreviation
+    }
     fullName(abbreviation) {
         let stateRecord = STATES.filter(s => s.abbreviation === abbreviation)[0];
         if (typeof stateRecord === "undefined") {
@@ -76,9 +86,6 @@ export class StateTable {
             return "N/A"
         }
         return stateRecord.name
-    }
-    all_abbreviations() {
-        return STATES.map(s => s.abbreviation)
     }
     all() {
         return STATES
@@ -103,7 +110,6 @@ export class StateRegionSpec {
 
 function createUSQuickPicks(stateTable) {
     let allStates = stateTable.all();
-    let continentalStates = allStates.filter(s => s.continental).map(s => s.abbreviation)
 
     return  [
         QuickPick.NONE,
