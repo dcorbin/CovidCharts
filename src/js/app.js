@@ -47,7 +47,7 @@ export default function App(props) {
     }
 
     useEffect(fetchCovidData,[dataFocus])
-    useEffect(fetchPopulationData,[dataFocus])
+    // useEffect(fetchPopulationData,[dataFocus])
 
     return (
         <div className='App'>
