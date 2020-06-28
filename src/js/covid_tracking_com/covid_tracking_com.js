@@ -1,8 +1,10 @@
 import NormalizedRecordSet, {STANDARD_DATA_PROPERTIES} from "./normalized_record_set";
-import debugDataLog from "./debug_data_log";
+import {StateTable} from "../subject/us/states";
 
 export default class CovidTrackingCom {
     getData() {
+        let stateTable = new StateTable();
+
         function normalize_data(records) {
             function date_from_8digit_integer(n) {
                 const year = Math.floor(n / 10000)
@@ -21,7 +23,7 @@ export default class CovidTrackingCom {
 
                 let normalizedRecord = {
                     date: date_from_8digit_integer(record.date),
-                    region: record.state
+                    region: stateTable.fullName(record.state)
                 }
 
                 STANDARD_DATA_PROPERTIES.forEach(property => {
