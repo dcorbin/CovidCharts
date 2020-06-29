@@ -1,14 +1,15 @@
 RISK(GA): Make fetching more robust than just "the fourth JSON block"
 
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
-TOOLS: ret-tag old release tags
-TOOLS: auto-select next tag when releasing
+BUG?: Texas Hospitalizations?
 TUNE: Growth Ranking Header rows, remove bolding of hovered state name
 REFACTOR: Split RegionSpec into parts - terms, MAP, LAYOUT
 FEATURE: reload cached data??
 FEATURE: Provide option to sort/categorize by any of 3 columns
 FEATURE: Consider splitting neutral into two halves
 FEATURE: Animated spinner for times when data is loading
+FEATURE: popup per state on growth ranking to see textual stats
+FEATURE: hover/popup per state in the map
 FEATURE: HotSpot
     - Sort/Ranking control
     - DangerScore

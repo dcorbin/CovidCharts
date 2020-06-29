@@ -32,6 +32,9 @@
     width: 100%;
 }
 
+th.cell {
+    background-color: #cccccc;
+}
 .cell.value {
 }
 
