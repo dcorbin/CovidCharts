@@ -3,11 +3,12 @@ RISK(GA): Make fetching more robust than just "the fourth JSON block"
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 TOOLS: ret-tag old release tags
 TOOLS: auto-select next tag when releasing
-REFACTOR: Normalize US Records by name, not abbreviation
+TUNE: Growth Ranking Header rows, remove bolding of hovered state name
 REFACTOR: Split RegionSpec into parts - terms, MAP, LAYOUT
 FEATURE: reload cached data??
-FEATURE: Add Per-capita column to Rankings
+FEATURE: Provide option to sort/categorize by any of 3 columns
 FEATURE: Consider splitting neutral into two halves
+FEATURE: Animated spinner for times when data is loading
 FEATURE: HotSpot
     - Sort/Ranking control
     - DangerScore
