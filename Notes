@@ -2,7 +2,7 @@ RISK(GA): Make fetching more robust than just "the fourth JSON block"
 
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 BUG?: Texas Hospitalizations?
-TUNE: Growth Ranking Header rows, remove bolding of hovered state name
+INFRASTRUCTURE: Error boundary
 REFACTOR: Split RegionSpec into parts - terms, MAP, LAYOUT
 FEATURE: reload cached data??
 FEATURE: Provide option to sort/categorize by any of 3 columns

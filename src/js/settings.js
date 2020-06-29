@@ -68,7 +68,7 @@ export function persistentStateLoader(primaryKey, defaultValue, ...legacyKeys) {
             return value
         }
     })
-
+    return defaultValue
 }
 
 const SETTINGS_KEY = 'settings.v3';
