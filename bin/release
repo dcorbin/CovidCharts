@@ -1,16 +1,16 @@
 #!/bin/bash 
 set -e
 
-if [ -z "$1" ]; then
-	echo "usage: $0 <release-tag>" >&2
-	git tag
-	exit 1
-fi
+LAST_RELEASE_NUMBER=$(git tag | tail -n 1 | sed -e 's/R0*//')
+NEXT_RELEASE_NUMBER=$(expr 1 + ${LAST_RELEASE_NUMBER} | sed -e 's/^/R000/' | sed -E 's/.*(....)$/\1/')
+echo Preparing for release R${NEXT_RELEASE_NUMBER}.  Press ENTER to continue or CTRL-C to interrupt
+read FOO
+
 npm run test
 git co master
 git pull
 git merge develop --ff-only
-git tag "$1"
+git tag "R${NEXT_RELEASE_NUMBER}"
 git push
 git push --tags
 git co develop
