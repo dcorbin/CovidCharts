@@ -6,15 +6,19 @@ let boundaryRecords = {
         deltaAlpha: 55,
         deltaBeta: 99,
         sevenDayAvg: {deltaAlpha: 50, deltaBeta: 9},
+        region: 'alpha'
     },
     to: {
         deltaAlpha: 75,
         deltaBeta: 99,
         sevenDayAvg: {deltaAlpha: 60, deltaBeta: 9},
+        region: 'alpha'
     }
 }
-let calculator = new RegionTrendCalculator()
 
+let populationMap = new Map()
+populationMap.set('alpha', 1000 * 1000)
+let calculator = new RegionTrendCalculator(populationMap)
 
 test('calculate simple trend', () => {
     let trend = calculator.calculateTrend(boundaryRecords, 'sevenDayAvg', "deltaAlpha")
@@ -22,6 +26,7 @@ test('calculate simple trend', () => {
     expect(trend.percentage).toBe(20)
     expect(trend.delta).toBe(10)
     expect(trend.sevenDayAvg).toBe(60)
+    expect(trend.newCasesPer100k).toBe(6)
 })
 
 test('calculate flat trend', () => {
@@ -32,6 +37,7 @@ test('calculate flat trend', () => {
     expect(trend.percentage).toBe(0)
     expect(trend.delta).toBe(0)
     expect(trend.sevenDayAvg).toBe(60)
+    expect(trend.newCasesPer100k).toBe(6)
 })
 test('calculate negative trend', () => {
     boundaryRecords.from.sevenDayAvg.deltaAlpha = 120
@@ -40,6 +46,7 @@ test('calculate negative trend', () => {
     expect(trend.percentage).toBe(-50)
     expect(trend.delta).toBe(-60)
     expect(trend.sevenDayAvg).toBe(60)
+    expect(trend.newCasesPer100k).toBe(6)
 })
 
 test('calculate from 0', () => {
@@ -49,6 +56,7 @@ test('calculate from 0', () => {
     expect(trend.percentage).toBe(Infinity)
     expect(trend.delta).toBe(60)
     expect(trend.sevenDayAvg).toBe(60)
+    expect(trend.newCasesPer100k).toBe(6)
 })
 
 test('calculate from 0 to 0', () => {
@@ -60,6 +68,8 @@ test('calculate from 0 to 0', () => {
     expect(trend.percentage).toBe(- Infinity)
     expect(trend.delta).toBe(0)
     expect(trend.sevenDayAvg).toBe(0)
+    expect(trend.newCasesPer100k).toBe(0)
+
 })
 
 test('test when to value is negative', () => {
@@ -70,6 +80,7 @@ test('test when to value is negative', () => {
     expect(trend.percentage).toBe(null)
     expect(trend.delta).toBe(-1)
     expect(trend.sevenDayAvg).toBe(-1)
+    expect(trend.newCasesPer100k).toBe(-0.1)
 })
 
 test('test when from value is negative', () => {
@@ -80,6 +91,7 @@ test('test when from value is negative', () => {
     expect(trend.percentage).toBe(null)
     expect(trend.delta).toBe(1)
     expect(trend.sevenDayAvg).toBe(0)
+    expect(trend.newCasesPer100k).toBe(0)
 })
 
 test('test when both values are negative', () => {
@@ -90,6 +102,8 @@ test('test when both values are negative', () => {
     expect(trend.percentage).toBe(null)
     expect(trend.delta).toBe(0)
     expect(trend.sevenDayAvg).toBe(-1)
+    expect(trend.newCasesPer100k).toBe(-0.1)
+
 })
 
 test('test when from value is missing', () => {
@@ -100,6 +114,7 @@ test('test when from value is missing', () => {
     expect(trend.percentage).toBe(null)
     expect(trend.delta).toBe(null)
     expect(trend.sevenDayAvg).toBe(null)
+    expect(trend.newCasesPer100k).toBe(null)
 })
 test('test when to value is missing', () => {
     boundaryRecords.to.sevenDayAvg.deltaAlpha = null
@@ -109,4 +124,5 @@ test('test when to value is missing', () => {
     expect(trend.percentage).toBe(null)
     expect(trend.delta).toBe(null)
     expect(trend.sevenDayAvg).toBe(null)
+    expect(trend.newCasesPer100k).toBe(null)
 })
