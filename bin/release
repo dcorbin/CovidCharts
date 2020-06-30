@@ -7,6 +7,7 @@ echo Preparing for release R${NEXT_RELEASE_NUMBER}.  Press ENTER to continue or 
 read FOO
 
 npm run test
+npm run it
 git co master
 git pull
 git merge develop --ff-only

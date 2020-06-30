@@ -25,5 +25,4 @@ function initialize() {
             document.getElementById("app"))
 }
 
-
 window.onload = initialize

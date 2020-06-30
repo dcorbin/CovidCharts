@@ -24,7 +24,7 @@ let config = {
         new SvgMapGeneratorPlugin({
                 normalizers: [
                     {
-                        test: /^GA$/,
+                            test: /^GA$/,
                         file: path.resolve('webpack/normalize-GA.js')
                     },
                     {

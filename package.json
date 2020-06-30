@@ -26,6 +26,8 @@
     "fs": "0.0.1-security",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.0.1",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "jsdom": "^16.2.2",
     "loader-utils": "^2.0.0",
     "nodemon": "^2.0.4",
     "source-map-loader": "^1.0.0",
@@ -38,6 +40,7 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon --watch webpack.config.js  --watch webpack --exec 'npm run dev-server'",
+    "it": "jest -c jest.integration.config.js",
     "dev-server": "webpack-dev-server --mode development",
     "release": "webpack --mode production",
     "build": "webpack --mode development"
