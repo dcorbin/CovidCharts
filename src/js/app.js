@@ -6,6 +6,9 @@ import NormalizedRecordSet from "./covid_tracking_com/normalized_record_set";
 import './app.css'
 import AppBody from "./app_body";
 import useWindowDimensions from "./react/hooks/use_window_dimensions";
+import {ErrorBoundary} from "react-error-boundary";
+import ErrorBlock from "./react/basic/error_block";
+import {TabPanel} from "react-tabs";
 
 const {useState} = require("react");
 
@@ -48,32 +51,34 @@ export default function App(props) {
     useEffect(fetchData,[dataFocus])
 
     return (
-        <div className='App'>
-            <div className='Header'>
-                <h1>{document.title}</h1>
-                <div className='DataFocus'>
-                    <LabeledCombo label='Data Focus'
-                                  initialValue={dataFocus.key}
-                                  onChange={key => {
-                                      setNormalizedRecordSet(NormalizedRecordSet.empty())
-                                      setDataFocus(dataFocusFromKey(key))
-                                      window.localStorage.setItem("dataFocusKey", key);
-                                  }}
-                                  options={DATA_FOCUS_LIST.map(s => {
-                                      return {value: s.key, label: s.name}
-                                  })}
-                    />
+        <ErrorBoundary FallbackComponent={ErrorBlock.callback}>
+            <div className='App'>
+                <div className='Header'>
+                    <h1>{document.title}</h1>
+                    <div className='DataFocus'>
+                        <LabeledCombo label='Data Focus'
+                                      initialValue={dataFocus.key}
+                                      onChange={key => {
+                                          setNormalizedRecordSet(NormalizedRecordSet.empty())
+                                          setDataFocus(dataFocusFromKey(key))
+                                          window.localStorage.setItem("dataFocusKey", key);
+                                      }}
+                                      options={DATA_FOCUS_LIST.map(s => {
+                                          return {value: s.key, label: s.name}
+                                      })}
+                        />
+                    </div>
                 </div>
+                <AppBody
+                    height={height - 111}
+                    recordSet={normalizedRecordSet}
+                    populationMap={populationMap}
+                    dataFocus={dataFocus}
+                    dataFocusSettings={settings[dataFocus.settingsKey]}
+                    onSettingsChange={handleSettingsChange}
+                />
             </div>
-            <AppBody
-                height={height - 111}
-                recordSet={normalizedRecordSet}
-                populationMap={populationMap}
-                dataFocus={dataFocus}
-                dataFocusSettings={settings[dataFocus.settingsKey]}
-                onSettingsChange={handleSettingsChange}
-            />
-        </div>
+        </ErrorBoundary>
     )
 
 }

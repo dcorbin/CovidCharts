@@ -7,6 +7,9 @@ import 'react-tabs/style/react-tabs.css';
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import GrowthRanking from "./react/growth_ranking/growth_ranking";
 import './app_body.css'
+import {ErrorBoundary} from "react-error-boundary";
+import ErrorBlock from "./react/basic/error_block";
+
 AppBody.propTypes = {
     height: PropTypes.number.isRequired,
     dataFocus: PROP_TYPES.DataFocus,
@@ -29,22 +32,25 @@ export default function AppBody(props) {
             </TabList>
 
             <TabPanel>
-                <div style={{height: props.height - tabHeight}}>
-                <ChartPanel
-                    recordSet={props.recordSet}
-                    regionSpec={dataFocus.regionSpec}
-                    settings={props.dataFocusSettings}
-                    onSettingsChange={props.onSettingsChange}/>
-                </div>
-
+                <ErrorBoundary FallbackComponent={ErrorBlock.callback}>
+                    <div style={{height: props.height - tabHeight}}>
+                    <ChartPanel
+                        recordSet={props.recordSet}
+                        regionSpec={dataFocus.regionSpec}
+                        settings={props.dataFocusSettings}
+                        onSettingsChange={props.onSettingsChange}/>
+                    </div>
+                </ErrorBoundary>
             </TabPanel>
             <TabPanel>
-                <GrowthRanking
-                    populationMap={props.populationMap}
-                    height={props.height - tabHeight}
-                    recordSet={props.recordSet}
-                    regionSpec={dataFocus.regionSpec}
-                />
+                <ErrorBoundary FallbackComponent={ErrorBlock.callback}>
+                    <GrowthRanking
+                        populationMap={props.populationMap}
+                        height={props.height - tabHeight}
+                        recordSet={props.recordSet}
+                        regionSpec={dataFocus.regionSpec}
+                    />
+                </ErrorBoundary>
             </TabPanel>
         </Tabs>;
     }

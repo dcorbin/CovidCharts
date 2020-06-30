@@ -1,0 +1,21 @@
+.ErrorBlock.alert {
+    width: 100%;
+    background-color: #dc9696;
+    font-size: 14px;
+    padding: 3px 3px;
+}
+.ErrorBlock.alert div {
+    padding: 3px 3px;
+}
+
+.ErrorBlock.alert .error {
+    margin: 5px;
+    font-size: 14px;
+}
+.ErrorBlock.alert .stack {
+    margin: 0 5px;
+    padding: 5px;
+    border: #7f1212 solid 1px;
+    background-color: #cccccc;
+    font-size: 14px;
+}
