@@ -1,4 +1,4 @@
-import DATA_FOCUS_LIST, {dataFocusFromKey} from "./react/model/data_focus";
+import DATA_FOCUS_LIST, {dataFocusFromKey} from "./model/data_focus";
 import LabeledCombo from "./react/basic/labeled_combo";
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types'

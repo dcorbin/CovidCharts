@@ -1,12 +1,12 @@
-import {StateRegionSpec} from "../../subject/us/states";
-import {CountyRegionSpec} from "../../subject/georgia/county_spec";
+import {StateRegionSpec} from "../subject/us/states";
+import {CountyRegionSpec} from "../subject/georgia/county_spec";
 import React from "react";
-import ReadThroughCache from "../../util/read_thru_cache";
-import CovidTrackingCom from "../../covid_tracking_com/covid_tracking_com";
-import Clock from "../../util/clock";
-import GeorgiaByCounty from "../../subject/georgia/GeorgiaByCounty";
-import UsaPopulationLoader from "../../population/usa_population_loader";
-import GaPopulationLoader from "../../population/ga_population_loader";
+import ReadThroughCache from "../util/read_thru_cache";
+import CovidTrackingCom from "../covid_tracking_com/covid_tracking_com";
+import Clock from "../util/clock";
+import GeorgiaByCounty from "../subject/georgia/GeorgiaByCounty";
+import UsaPopulationLoader from "../population/usa_population_loader";
+import GaPopulationLoader from "../population/ga_population_loader";
 
 class DataFocus {
     constructor(name, key, regionSpec, dataProvider,
