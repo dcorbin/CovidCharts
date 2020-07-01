@@ -49,7 +49,8 @@ export default function AppBody(props) {
                         height={props.height - tabHeight}
                         recordSet={props.recordSet}
                         regionSpec={dataFocus.regionSpec}
-                    />
+                        settings={props.dataFocusSettings}
+                        onSettingsChange={props.onSettingsChange}/>
                 </ErrorBoundary>
             </TabPanel>
         </Tabs>;

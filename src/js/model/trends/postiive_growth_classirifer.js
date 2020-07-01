@@ -14,7 +14,7 @@ const CLASSIFICATIONS = [
 ]
 
 export default class PositiveGrowthClassifier {
-    static classifications() {
+    classifications() {
         return [...CLASSIFICATIONS].sort(createMappingComparator(p => p.displayOrder))
     }
     categoryClassName(percentage, region='Unspecified') {

@@ -25,6 +25,7 @@ function ErrorBlock(props) {
 }
 
 ErrorBlock.callback = function ({error, componentStack, resetErrorBoundary}) {
+    console.log(error)
     return <ErrorBlock errorMessage={error.message}
                        componentStack={componentStack}
                        resetErrorBoundary={resetErrorBoundary}/>

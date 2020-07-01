@@ -1,10 +1,10 @@
-.GrowthRanking .cell.hover, .GrowthRanking .row.hover {
+.GrowthRanking .mainPanel .cell.hover, .mainPanel .row.hover {
     border-color: #005eff;
     border-width: 3px;
     border-style: solid;
 }
 
-.GrowthRanking .SvgMap .hover {
+.GrowthRanking .mainPanel .SvgMap .hover {
     stroke: #005eff;
     stroke-width: 4;
 }

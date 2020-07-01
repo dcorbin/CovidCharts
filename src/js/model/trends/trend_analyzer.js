@@ -7,34 +7,13 @@ import RegionTrendCalculator from "./region_trend_calculator";
 import {createMappingComparator, createReverseComparator} from "../../util/comparator";
 
 
-export function compareTrendPercentage(a, b) {
-    if (a === null) {
-        if (b === null) {
-            return 0
-        }
-        return -1
-    }
-    if (b === null) {
-        return 1
-    }
-    if (a < b) {
-        return -1
-    }
-    if (a > b) {
-        return 1
-    }
-    return 0;
-}
+
 export class TrendAnalyzer {
     constructor() {
         this.propertyNames =  ["deltaPositive", "deltaDeath", "deltaHospitalized"]
     }
     calculateTrendsForAllRegions(records, populationMap) {
         let regions = unique(records.map(r => r.region))
-
-        function createMapper(propertyName) {
-            return (record) => record[propertyName].percentage;
-        }
 
         function rankRecords(regions, records, propertyNames) {
             return regions.map(region => {
@@ -55,11 +34,7 @@ export class TrendAnalyzer {
         }
 
         let rankingRecords = rankRecords(regions, records, this.propertyNames);
-        let mapper = createMapper(this.propertyNames[0])
-        let comparator = createReverseComparator(
-            createMappingComparator(mapper,
-                compareTrendPercentage));
-        return rankingRecords.sort(comparator)
+        return rankingRecords
     }
 
 }

@@ -31,6 +31,9 @@ export function normalizeDataFocusTabSettings(dataFocusSettings, outdatedSelecti
     if (!dataFocusSettings.activeTab) {
         dataFocusSettings.activeTab = 0
     }
+    if (!dataFocusSettings.ranker) {
+        dataFocusSettings.ranker = 'rate'
+    }
     dataFocusSettings.selectedRegions = dataFocusSettings.selectedRegions.filter(e => e !== null)
     return dataFocusSettings
 }
