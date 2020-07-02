@@ -22,22 +22,6 @@
     padding-right: 10px;
 }
 
-.mainPanel table {
-    border-collapse: collapse;
-}
-
-.cell.percentage span {
-    text-align: center;
-    display: inline-block;
-    width: 100%;
-}
-
-th.cell {
-    background-color: #cccccc;
-}
-.cell.value {
-}
-
 .GrowthRanking {
     width: 100%;
 }
@@ -45,15 +29,6 @@ th.cell {
     width: 100%;
     margin-bottom: 4px;
 }
-.mainPanel .row .cell {
-    border: 1px solid #888;
-    padding: 2px 4px;
-}
-
-.mainPanel .row .cell.number {
-    text-align: right;
-}
-
 
 .GrowthLegend {
     display: flex;

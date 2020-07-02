@@ -4,18 +4,15 @@ import PROP_TYPES from "../model/prop_types";
 import {TrendAnalyzer} from "../../model/trends/trend_analyzer";
 import './growth_ranking.css'
 import './growth_ranking_colors.css'
-import TrendPercentage from "./trend_percentage";
 import DownloadedMap from "../maps/downloaded_map";
 import scrollIntoView from "scroll-into-view-if-needed";
-import TrendValue from "./trend_value";
 import GrowthLegend from "./growth_legend";
-import {PopupActivatingButton} from "../basic/popup/popup_activating_button";
-import ChartIcon from "../basic/chart_icon/chart_icon";
 import ChartPanel from "../chart_panel";
 import {Settings} from "../../settings";
 import ControlPanelDropDown from "../control_panel_drop_down";
 import {createReverseComparator} from "../../util/comparator";
 import {RANKERS} from "../../model/trends/rankers/rankers";
+import RankingTable from "../../model/trends/ranking_table";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
@@ -39,62 +36,14 @@ export default function GrowthRanking(props) {
         return mostRecentDate;
     }
 
-    function renderTable() {
-        return <table>
-            <thead>
-            <tr className='row'>
-                <th className='cell'> </th>
-                <th colSpan="3" className='cell'>Positivity Growth (7-day Avg)</th>
-            </tr>
-            <tr className='row'>
-                <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
-                <th className='cell'>Growth over<br/>7 days</th>
-                <th className='cell'>New cases<br/>{mostRecentDate}</th>
-                <th className='cell'>New cases<br/>per 100,000</th>
-            </tr>
-            </thead>
-            <tbody>
-            {
-                scoredRegions.map(record => {
-                    let category = categoryByRegion.get(record.region)
-                    let rowClassNames = ['row']
-                    if (record.region === hover) {
-                        rowClassNames.push('hover')
-                    }
-                    return (
-                        <tr key={record.region}
-                            id={`table_row_${record.region}`}
-                            onMouseEnter={() => highlightRegion(record.region)}
-                            onMouseLeave={() => highlightRegion(null)}
-                            className={rowClassNames.join(' ')}>
-                            <td className={`cell growthRegion`}>
-                                <PopupActivatingButton
-                                    popupContent={() => {
-                                        let settings = Settings.defaultFocusSettings([record.region])
-                                        return <div style={{ padding: '20px', boxSizing: 'border-box', width: '100%', height: '100%'}}>
-                                            <ChartPanel settings={settings}
-                                                           showControlPanel={false}
-                                                           regionSpec={props.regionSpec}
-                                                                 recordSet={props.recordSet}/>
-                                        </div>
-                                    }}
-                                    linkContent={() => <ChartIcon/>}/>
-                                {props.regionSpec.displayNameFor(record.region)}
-                            </td>
-                            <td className={`cell number percentage ${category}`}>
-                                <TrendPercentage value={record.deltaPositive.percentage}/>
-                            </td>
-                            <td className={`cell number value ${category}`}>
-                                <TrendValue value={record.deltaPositive.sevenDayAvg} precision={2}/>
-                            </td>
-                            <td className={`cell number value ${category}`}>
-                               <TrendValue value={record.deltaPositive.newCasesPer100k} NaN='N/A' precision={1} />
-                            </td>
-                        </tr>
-                    )
-                })
-            }</tbody>
-        </table>;
+    function renderChartFor(region) {
+        let settings = Settings.defaultFocusSettings([region])
+        return <div style={{padding: '20px', boxSizing: 'border-box', width: '100%', height: '100%'}}>
+            <ChartPanel settings={settings}
+                        showControlPanel={false}
+                        regionSpec={props.regionSpec}
+                        recordSet={props.recordSet}/>
+        </div>
     }
 
     function highlightRegion(region) {
@@ -108,12 +57,21 @@ export default function GrowthRanking(props) {
     function renderMainPanel() {
         return (
             <div className='mainPanel' style={{height: props.height - 30}}>
-                <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
+                <div className='verticalScroll' style={{overflowY: 'auto'}}>
+                    <RankingTable records={scoredRegions}
+                                   categoryByRegion={categoryByRegion}
+                                   onHover={highlightRegion}
+                                   hoverRegion={hover}
+                                   regionSpec={props.regionSpec}
+                                   mostRecentDate={findMostRecentDate()}
+                                   renderChartFor={renderChartFor}/>
+                </div>
                 <div className='fixed'>
                     <GrowthLegend classifications={ranker.classifications()}
                                   infoBlock={ranker.explanation}
                                   countForClassificationName={(name) => {
-                                      return String(Array.from(categoryByRegion.values()).filter(category => category === name).length)
+                                      return String(Array.from(categoryByRegion.values()).
+                                        filter(category => category === name).length)
                                   }}/>
                     <DownloadedMap
                         mapURI={props.regionSpec.mapURI}
@@ -143,7 +101,6 @@ export default function GrowthRanking(props) {
         return result
     }, new Map())
 
-    let mostRecentDate = findMostRecentDate();
     return (
         <div className='GrowthRanking'>
              <div className='ControlPanel'>
