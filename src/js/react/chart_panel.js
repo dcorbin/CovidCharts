@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './chart_panel.css'
 import DataPreparer from "../model/data_preparer";
 import MultiLineChart from "./multi_line_chart";
-import ControlPanel from "./control_panel";
+import ChartControlPanel from "./chart_control_panel";
 import PROP_TYPES from "./model/prop_types";
 
 export const LINES = [
@@ -63,10 +63,10 @@ export default function ChartPanel(props) {
 
     return (
         <div style={{height:'100%', width:'100%'}}>
-            {props.showControlPanel ?  <ControlPanel settings={props.settings}
-                          onSettingsChange={props.onSettingsChange}
-                          regionSpec={props.regionSpec}
-                          normalizedRecordSet={normalizedRecordSet}/>: null}
+            {props.showControlPanel ?  <ChartControlPanel settings={props.settings}
+                                                          onSettingsChange={props.onSettingsChange}
+                                                          regionSpec={props.regionSpec}
+                                                          normalizedRecordSet={normalizedRecordSet}/>: null}
             <div style={{width: '100%', height: '100%'}}>
                 {(props.settings.selectedRegions.length === 0) ?
                     <h3>No {props.regionSpec.pluralNoun} selected</h3> :

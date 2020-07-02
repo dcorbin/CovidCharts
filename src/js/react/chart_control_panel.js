@@ -6,14 +6,14 @@ import RegionSelector from "./region_selector";
 import PROP_TYPES from "./model/prop_types";
 
 
-ControlPanel.propTypes = {
+ChartControlPanel.propTypes = {
     settings: PROP_TYPES.DataFocusSettings.isRequired,
     onSettingsChange: PropTypes.func.isRequired,
     regionSpec: PROP_TYPES.RegionSpec.isRequired,
     normalizedRecordSet: PROP_TYPES.NormalizedRecordSet.isRequired
 }
 
-export default function ControlPanel(props) {
+export default function ChartControlPanel(props) {
     function createSettingsChangeHandler(property) {
         return (newValue) => {
             props.settings[property] = newValue
