@@ -1,6 +1,5 @@
 import {expect} from "@jest/globals";
-import RegionTrendCalculator from "../../../src/js/model/trends/region_trend_calculator";
-import {compareTrendPercentage} from "../../../src/js/model/trends/trend_analyzer";
+import compareTrendPercentage from "../../../src/js/model/trends/compare_trend_percentge";
 
 test('compareTrendPercentage', () => {
     expect(compareTrendPercentage(3, 4)).toBe(-1)

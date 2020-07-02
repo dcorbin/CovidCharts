@@ -9,7 +9,8 @@ const CLASSIFICATIONS = [
     new Classification("neutral", "-10 - 10%", p => p > -10, 4),
     new Classification("good1", "-50 - -10%", p => p > -50, 5),
     new Classification("good2", "-100 - -50%", p => p > -100, 6),
-    new Classification("allClear", "All Clear", p =>  (p === -100 || p === -Infinity), 10),
+    new Classification("good3", "All Clear", p => (p === -100), 7),
+    new Classification("notApplicable", "N/A", p =>  p === -Infinity, 10),
 ]
 
 export default class PositiveGrowthClassifier {

@@ -30,8 +30,8 @@ test('good3', () => {
     verifyPercentagesYieldClassName([-100], 'good3');
 })
 
-test('good3', () => {
-    verifyPercentagesYieldClassName([-Infinity], 'allClear');
+test('notApplicable', () => {
+    verifyPercentagesYieldClassName([-Infinity], 'notApplicable');
 })
 
 test('problem child', () => {
