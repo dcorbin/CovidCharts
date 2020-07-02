@@ -6,7 +6,6 @@ import './growth_ranking.css'
 import './growth_ranking_colors.css'
 import TrendPercentage from "./trend_percentage";
 import DownloadedMap from "../maps/downloaded_map";
-import PositiveGrowthClassifier from "../../model/trends/postiive_growth_classirifer";
 import scrollIntoView from "scroll-into-view-if-needed";
 import TrendValue from "./trend_value";
 import GrowthLegend from "./growth_legend";
@@ -15,10 +14,8 @@ import ChartIcon from "../basic/chart_icon/chart_icon";
 import ChartPanel from "../chart_panel";
 import {Settings} from "../../settings";
 import ControlPanelDropDown from "../control_panel_drop_down";
-import {createMappingComparator, createReverseComparator} from "../../util/comparator";
-import compareTrendPercentage from "../../model/trends/compare_trend_percentge";
-import Per100KClassifier from "../../model/trends/per100k_classifier";
-import {NEW_YORK_REF_PER100k} from "../../model/trends/region_trend_calculator";
+import {createReverseComparator} from "../../util/comparator";
+import {RANKERS} from "../../model/trends/rankers";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
@@ -28,47 +25,6 @@ GrowthRanking.propTypes = {
     settings: PROP_TYPES.DataFocusSettings.isRequired,
     onSettingsChange: PropTypes.func.isRequired,
 }
-function createMapper(propertyName) {
-    return (record) => {
-        let propertyNames = propertyName.split('.')
-        return propertyNames.reduce((total, element) =>  total[element], record)
-    };
-}
-class Per100KRanker {
-    constructor() {
-        this.keyPropertyExtractor = createMapper("deltaPositive.perCapitaRelatedToNY")
-        this.label = "Per 100 K"
-        this.key = 'per100k'
-        this.comparator = createMappingComparator(this.keyPropertyExtractor, (a,b) => {
-            if (a === b) return 0
-            if (isNaN(a)) return -1
-            if (a === null) {
-                return -1
-            }
-            if (b === null) {
-                return 1
-            }
-            return a-b
-        })
-        this.classifier = new Per100KClassifier()
-        this.explanation = "On 2020-Apr-10 New York state, the worst hot-spot in the US at the time, had it's peak growth in new cases -- " +
-            NEW_YORK_REF_PER100k.toFixed(2) + '.  Regions are categorized relative to this value, referred to as 1 NY.'
-    }
-
-}
-class RateRanker {
-    constructor() {
-        this.key = 'rate'
-        this.keyPropertyExtractor = createMapper("deltaPositive.percentage")
-        this.classifier = new PositiveGrowthClassifier()
-        this.comparator = createMappingComparator(this.keyPropertyExtractor, compareTrendPercentage)
-        this.label = "Growth over 7 days"
-    }
-}
-const RANKERS = [
-     new RateRanker(),
-     new Per100KRanker()
-]
 
 export default function GrowthRanking(props) {
     function findMostRecentDate() {
