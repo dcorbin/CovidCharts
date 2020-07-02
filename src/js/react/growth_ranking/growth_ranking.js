@@ -18,6 +18,7 @@ import ControlPanelDropDown from "../control_panel_drop_down";
 import {createMappingComparator, createReverseComparator} from "../../util/comparator";
 import compareTrendPercentage from "../../model/trends/compare_trend_percentge";
 import Per100KClassifier from "../../model/trends/per100k_classifier";
+import {NEW_YORK_REF_PER100k} from "../../model/trends/region_trend_calculator";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
@@ -35,11 +36,12 @@ function createMapper(propertyName) {
 }
 class Per100KRanker {
     constructor() {
-        this.keyPropertyExtractor = createMapper("deltaPositive.newCasesPer100k")
+        this.keyPropertyExtractor = createMapper("deltaPositive.perCapitaRelatedToNY")
         this.label = "Per 100 K"
         this.key = 'per100k'
         this.comparator = createMappingComparator(this.keyPropertyExtractor, (a,b) => {
             if (a === b) return 0
+            if (isNaN(a)) return -1
             if (a === null) {
                 return -1
             }
@@ -49,6 +51,8 @@ class Per100KRanker {
             return a-b
         })
         this.classifier = new Per100KClassifier()
+        this.explanation = "On 2020-Apr-10 New York state, the worst hot-spot in the US at the time, had it's peak growth in new cases -- " +
+            NEW_YORK_REF_PER100k.toFixed(2) + '.  Regions are categorized relative to this value, referred to as 1 NY.'
     }
 
 }
@@ -128,7 +132,7 @@ export default function GrowthRanking(props) {
                                 <TrendValue value={record.deltaPositive.sevenDayAvg} precision={2}/>
                             </td>
                             <td className={`cell number value ${category}`}>
-                               <TrendValue value={record.deltaPositive.newCasesPer100k} infinity='N/A' precision={1} />
+                               <TrendValue value={record.deltaPositive.newCasesPer100k} NaN='N/A' precision={1} />
                             </td>
                         </tr>
                     )
@@ -151,6 +155,7 @@ export default function GrowthRanking(props) {
                 <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
                 <div className='fixed'>
                     <GrowthLegend classifications={ranker.classifier.classifications()}
+                                  infoBlock={ranker.explanation}
                                   countForClassificationName={(name) => {
                                       return String(Array.from(categoryByRegion.values()).filter(category => category === name).length)
                                   }}/>
@@ -185,7 +190,7 @@ export default function GrowthRanking(props) {
     let mostRecentDate = findMostRecentDate();
     return (
         <div className='GrowthRanking'>
-             <div className='controlPanel'>
+             <div className='ControlPanel'>
                  <ControlPanelDropDown
                      settings={ props.settings }
                      propertyName='ranker'

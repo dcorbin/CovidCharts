@@ -9,7 +9,6 @@ FEATURE: Provide option to sort/categorize by any of 3 columns
     - refactor code/Ranker and categorizers
     - how to handle "All Clear math 0"
     - selection labels to match columns
-    - different color-scales for different rankers?
 FEATURE: Historical Growth Rankings
 FEATURE: Animated spinner for times when data is loading
 FEATURE: popup per state on growth ranking to see textual stats

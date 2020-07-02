@@ -1,3 +1,7 @@
+// 9664.143 peak NY APR 10
+// NY Pop
+// NY Peak/100k 4.971147043829035
+export const NEW_YORK_REF_PER100k = 4.971147043829035
 export default class RegionTrendCalculator {
     constructor(populationMap) {
         this.populationMap = populationMap
@@ -11,6 +15,7 @@ export default class RegionTrendCalculator {
                 delta: null,
                 percentage: null,
                 newCasesPer100k: null,
+                perCapitaRelatedToNY: null
             }
         }
         let delta = currentValue - pastValue;
@@ -23,12 +28,14 @@ export default class RegionTrendCalculator {
             deltaPercentage = - Infinity
         }
         let sevenDayAvg = boundaryRecords.to.sevenDayAvg[propertyName];
-        let population = this.populationMap.get(boundaryRecords.to.region) || 0;
+        let population = this.populationMap.get(boundaryRecords.to.region) || NaN
+        const newCasesPer100k = sevenDayAvg*100000/ population;
         return {
             percentage: deltaPercentage,
             delta: delta,
             sevenDayAvg: sevenDayAvg,
-            newCasesPer100k: sevenDayAvg*100000/ population,
+            newCasesPer100k: newCasesPer100k,
+            perCapitaRelatedToNY: newCasesPer100k/NEW_YORK_REF_PER100k * 100
         }
 
     }
