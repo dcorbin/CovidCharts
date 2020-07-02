@@ -1,5 +1,20 @@
-import {createMappingComparator} from "../../util/comparator";
-import Classification from "../../react/model/classification";
+import compareTrendPercentage from "../compare_trend_percentge";
+import propertyMapper from "../../../util/property_mapper";
+import {createMappingComparator} from "../../../util/comparator";
+import Classification from "../../../react/model/classification";
+import Ranker from "./ranker";
+
+export default class GrowthRateRanker extends Ranker {
+    constructor() {
+        super("rate", "deltaPositive.percentage", "Growth over 7 days", compareTrendPercentage,
+            new PositiveGrowthClassifier())
+        this.key = 'rate'
+        this.keyPropertyExtractor = propertyMapper("deltaPositive.percentage")
+        this.classifier = new PositiveGrowthClassifier()
+        this.comparator = createMappingComparator(this.keyPropertyExtractor, compareTrendPercentage)
+        this.label = "Growth over 7 days"
+    }
+}
 
 const CLASSIFICATIONS = [
     new Classification("dataOddity", "Data Anomaly", p => (isNaN(p) || p === null), 12),
@@ -13,7 +28,7 @@ const CLASSIFICATIONS = [
     new Classification("notApplicable", "N/A", p =>  p === -Infinity, 10),
 ]
 
-export default class PositiveGrowthClassifier {
+class PositiveGrowthClassifier {
     classifications() {
         return [...CLASSIFICATIONS].sort(createMappingComparator(p => p.displayOrder))
     }

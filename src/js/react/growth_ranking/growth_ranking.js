@@ -15,7 +15,7 @@ import ChartPanel from "../chart_panel";
 import {Settings} from "../../settings";
 import ControlPanelDropDown from "../control_panel_drop_down";
 import {createReverseComparator} from "../../util/comparator";
-import {RANKERS} from "../../model/trends/rankers";
+import {RANKERS} from "../../model/trends/rankers/rankers";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
@@ -31,7 +31,7 @@ export default function GrowthRanking(props) {
         let mostRecentDate = props.recordSet.mostRecentDate()
         if (mostRecentDate !== null) {
             const dateTimeFormat = new Intl.DateTimeFormat('en', {year: 'numeric', month: 'short', day: '2-digit'})
-            const [{value: month}, , {value: day}, , {value: year}] = dateTimeFormat.formatToParts(mostRecentDate)
+            const [{value: month}, , {value: day}, ,] = dateTimeFormat.formatToParts(mostRecentDate)
             mostRecentDate = `${month}-${day}`
         } else {
             mostRecentDate = 'N/A'
@@ -64,8 +64,8 @@ export default function GrowthRanking(props) {
                     return (
                         <tr key={record.region}
                             id={`table_row_${record.region}`}
-                            onMouseEnter={(e) => highlightRegion(record.region)}
-                            onMouseLeave={(e) => highlightRegion(null)}
+                            onMouseEnter={() => highlightRegion(record.region)}
+                            onMouseLeave={() => highlightRegion(null)}
                             className={rowClassNames.join(' ')}>
                             <td className={`cell growthRegion`}>
                                 <PopupActivatingButton
@@ -110,7 +110,7 @@ export default function GrowthRanking(props) {
             <div className='mainPanel' style={{height: props.height - 30}}>
                 <div className='verticalScroll' style={{overflowY: 'auto'}}>{renderTable()}</div>
                 <div className='fixed'>
-                    <GrowthLegend classifications={ranker.classifier.classifications()}
+                    <GrowthLegend classifications={ranker.classifications()}
                                   infoBlock={ranker.explanation}
                                   countForClassificationName={(name) => {
                                       return String(Array.from(categoryByRegion.values()).filter(category => category === name).length)
@@ -138,7 +138,7 @@ export default function GrowthRanking(props) {
     let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records, props.populationMap).
         sort(createReverseComparator(ranker.comparator));
     let categoryByRegion = scoredRegions.reduce((result, record) => {
-        let className = ranker.classifier.categoryClassName(ranker.keyPropertyExtractor(record), record.region);
+        let className = ranker.categoryClassName(record)
         result.set(record.region,className);
         return result
     }, new Map())

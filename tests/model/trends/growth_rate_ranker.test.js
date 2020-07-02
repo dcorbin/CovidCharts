@@ -1,11 +1,12 @@
 import {expect} from "@jest/globals";
-import PositiveGrowthClassifier from "../../../src/js/model/trends/postiive_growth_classirifer";
+import GrowthRateRanker from "../../../src/js/model/trends/rankers/growth_rate_ranker";
 
-let classifier = new PositiveGrowthClassifier()
+let ranker = new GrowthRateRanker()
 
 function verifyPercentagesYieldClassName(percentages, className) {
     percentages.forEach(percentage => {
-        expect(classifier.categoryClassName(percentage)).toBe(className)
+        let record = { deltaPositive: { percentage: percentage}}
+        expect(ranker.categoryClassName(record)).toBe(className)
     })
 }
 test('bad3', () => {

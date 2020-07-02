@@ -1,6 +1,7 @@
-import {createMappingComparator} from "../../util/comparator";
-import Classification from "../../react/model/classification";
-import PositiveGrowthClassifier from "./postiive_growth_classirifer";
+import {NEW_YORK_REF_PER100k} from "../region_trend_calculator";
+import Classification from "../../../react/model/classification";
+import {createMappingComparator} from "../../../util/comparator";
+import Ranker from "./ranker";
 
 const CLASSIFICATIONS = [
     new Classification("dataOddity", "Data Anomaly", p => p < 0, 12),
@@ -14,10 +15,9 @@ const CLASSIFICATIONS = [
     new Classification("bad3", ">= 4 NY", p => true, 3),
 ]
 
-export default class Per100KClassifier {
-    constructor() {
-        this.delegate = new PositiveGrowthClassifier()
-    }
+
+class Per100KClassifier {
+
     classifications() {
         return [...CLASSIFICATIONS].sort(createMappingComparator(p => p.displayOrder))
     }
@@ -32,5 +32,22 @@ export default class Per100KClassifier {
             return ''
         }
         return classification.className;
+    }
+}
+
+export default class Per100KRanker extends Ranker {
+    constructor() {
+        super("per100k", "deltaPositive.perCapitaRelatedToNY", "per 100,000", (a, b) => {
+            if (a === b) return 0
+            if (isNaN(a)) return -1
+            if (a === null) {
+                return -1
+            }
+            if (b === null) {
+                return 1
+            }
+            return a - b
+        }, new Per100KClassifier(), "On 2020-Apr-10 New York state, the worst hot-spot in the US at the time, had it's peak growth in new cases -- " +
+            NEW_YORK_REF_PER100k.toFixed(2) + '.  Regions are categorized relative to this value, referred to as 1 NY.')
     }
 }

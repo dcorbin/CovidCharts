@@ -4,7 +4,6 @@ BUILD: Map svg processing happening over and over (post to StackOverflow if not 
 FEATURE: Provide option to sort/categorize by any of 3 columns
     - add new cases (raw)
     - selection labels to match columns
-    - refactor code/Ranker and categorizers
 FEATURE: Historical Growth Rankings
 FEATURE: Animated spinner for times when data is loading
 FEATURE: popup per state on growth ranking to see textual stats
