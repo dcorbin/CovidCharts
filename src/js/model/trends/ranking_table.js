@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import PROP_TYPES from "../../react/model/prop_types";
 import './ranking_table.css'
+import {RANKERS} from "./rankers/rankers";
 RankingTable.defaultProps = {
     onHover: () => {},
     mostRecentDate: ''
@@ -24,13 +25,13 @@ export default function RankingTable(props) {
         <thead>
         <tr className='row'>
             <th className='cell'> </th>
-            <th colSpan="3" className='cell'>Positivity Growth (7-day Avg)</th>
+            <th colSpan="3" className='cell'>Positivity (7-day Avg) through {props.mostRecentDate}</th>
         </tr>
         <tr className='row'>
             <th className='cell'>{props.regionSpec.singleNoun.charAt(0).toUpperCase()}{props.regionSpec.singleNoun.substr(1)}</th>
-            <th className='cell'>Growth over<br/>7 days</th>
-            <th className='cell'>New cases<br/>{props.mostRecentDate}</th>
-            <th className='cell'>New cases<br/>per 100,000</th>
+            <th className='cell'>{RANKERS[0].label}</th>
+            <th className='cell'>New cases</th>
+            <th className='cell'>{RANKERS[2].label}</th>
         </tr>
         </thead>
         <tbody>

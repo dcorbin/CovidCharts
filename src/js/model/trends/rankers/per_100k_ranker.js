@@ -37,7 +37,8 @@ class Per100KClassifier {
 
 export default class Per100KRanker extends Ranker {
     constructor() {
-        super("per100k", "deltaPositive.perCapitaRelatedToNY", "per 100,000", (a, b) => {
+        super("per100k", "deltaPositive.perCapitaRelatedToNY", "New cases per 100,000",
+            (a, b) => {
             if (a === b) return 0
             if (isNaN(a)) return -1
             if (a === null) {
@@ -47,7 +48,8 @@ export default class Per100KRanker extends Ranker {
                 return 1
             }
             return a - b
-        }, new Per100KClassifier(), "On 2020-Apr-10 New York state, the worst hot-spot in the US at the time, had it's peak growth in new cases -- " +
-            NEW_YORK_REF_PER100k.toFixed(2) + '.  Regions are categorized relative to this value, referred to as 1 NY.')
+        }, new Per100KClassifier(),
+            "On 2020-Apr-10 New York state, the worst hot-spot in the US at the time, had it's peak growth in  -- " +
+            NEW_YORK_REF_PER100k.toFixed(2) + ' new cases per 100,000.  Regions are categorized relative to this value, referred to as 1 NY.')
     }
 }

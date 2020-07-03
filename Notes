@@ -1,9 +1,6 @@
 RISK(GA): Make fetching more robust than just "the fourth JSON block"
 
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
-FEATURE: Provide option to sort/categorize by any of 3 columns
-    - add new cases (raw)
-    - selection labels to match columns
 FEATURE: Historical Growth Rankings
 FEATURE: Animated spinner for times when data is loading
 FEATURE: popup per state on growth ranking to see textual stats
