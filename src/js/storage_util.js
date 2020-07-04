@@ -12,5 +12,7 @@ export default function persistentStateLoader(primaryKey, defaultValue, ...legac
             return value
         }
     })
+    if (typeof defaultValue === 'function')
+        return defaultValue()
     return defaultValue
 }

@@ -9,6 +9,7 @@ REFACTOR: Split RegionSpec into parts - terms, MAP, LAYOUT
 FEATURE: reload cached data??
 FEATURE: Consider splitting neutral into two halves
 FEATURE: hover/popup per state in the map
+FEATURE: Ranking Table -- show ordinal
 FEATURE: HotSpot
     - Sort/Ranking control
     - DangerScore
