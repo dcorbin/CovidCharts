@@ -1,5 +1,7 @@
 RISK(GA): Make fetching more robust than just "the fourth JSON block"
 
+BUG: Click in map to select region to chart gives no local feedback
+
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
 FEATURE: Historical Growth Rankings
 FEATURE: Animated spinner for times when data is loading

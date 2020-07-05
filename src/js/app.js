@@ -9,18 +9,18 @@ import useWindowDimensions from "./react/hooks/use_window_dimensions";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorBlock from "./react/basic/error_block";
 import {TabPanel} from "react-tabs";
+import SettingsManager from "./settings_manager";
 
 const {useState} = require("react");
 
 App.propTypes = {
-    initialSettings: PropTypes.object.isRequired,
-    saveSettings: PropTypes.func.isRequired,
-    initialDataFocus: PropTypes.object.isRequired
+    settingsManager: PropTypes.instanceOf(SettingsManager)
 }
 
 export default function App(props) {
-    let [settings, setSettings]  = useState(props.initialSettings);
-    let [dataFocus, setDataFocus] = useState(props.initialDataFocus)
+    const appSettings = props.settingsManager.getAppSettings();
+    let [settings, setSettings]  = useState(appSettings.settings);
+    let [dataFocus, setDataFocus] = useState(appSettings.dataFocus)
     let [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
     let [populationMap, setPopulationMap] = useState(new Map())
     const {width, height} = useWindowDimensions()
@@ -44,7 +44,7 @@ export default function App(props) {
     function handleSettingsChange(newDataFocusSettings) {
         let newSettings = {...settings}
         newSettings[dataFocus.settingsKey] = newDataFocusSettings
-        props.saveSettings(newSettings)
+        props.settingsManager.saveSettings(newSettings)
         setSettings(newSettings)
     }
 
@@ -59,9 +59,10 @@ export default function App(props) {
                         <LabeledCombo label='Data Focus'
                                       initialValue={dataFocus.key}
                                       onChange={key => {
+                                          const dataFocus = dataFocusFromKey(key);
                                           setNormalizedRecordSet(NormalizedRecordSet.empty())
-                                          setDataFocus(dataFocusFromKey(key))
-                                          window.localStorage.setItem("dataFocusKey", key);
+                                          props.settingsManager.saveDataFocus(dataFocus)
+                                          setDataFocus(dataFocus)
                                       }}
                                       options={DATA_FOCUS_LIST.map(s => {
                                           return {value: s.key, label: s.name}
