@@ -24,6 +24,7 @@ export default function App(props) {
     let [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
     let [populationMap, setPopulationMap] = useState(new Map())
     const {width, height} = useWindowDimensions()
+    useEffect(fetchData,[dataFocus])
 
     function fetchData() {
         let isSubscribed = true
@@ -48,7 +49,6 @@ export default function App(props) {
         setSettings(newSettings)
     }
 
-    useEffect(fetchData,[dataFocus])
 
     return (
         <ErrorBoundary FallbackComponent={ErrorBlock.callback}>
