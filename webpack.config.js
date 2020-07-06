@@ -1,7 +1,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const SvgMapGeneratorPlugin = require('./webpack/svg_map_generator_plugin');
+const SvgMapGeneratorPlugin = require('./webpack/svg_map/svg_map_generator_plugin');
 let config = {
     entry: {
         main: './src/js/index.js',
@@ -25,11 +25,11 @@ let config = {
                 normalizers: [
                     {
                             test: /^GA$/,
-                        file: path.resolve('webpack/normalize-GA.js')
+                        file: path.resolve('webpack/svg_map/normalize-GA.js')
                     },
                     {
                         test: /^US$/,
-                        file: path.resolve('webpack/normalize-US.js')
+                        file: path.resolve('webpack/svg_map/normalize-US.js')
                     }
                 ]
             }
@@ -66,7 +66,7 @@ let config = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: path.resolve('webpack/svg_map_loader.js'),
+                        loader: path.resolve('webpack/svg_map/svg_map_loader.js'),
                         options: {
                         }
                     }
