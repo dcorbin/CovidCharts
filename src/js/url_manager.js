@@ -40,7 +40,7 @@ export default class UrlManager {
                     return []
                 }
                 const regions = value.split(',');
-                return regions.filter( r => validRegions[priorElements.dataFocus.key].includes(r))
+                return regions.filter( r => priorElements.dataFocus.populationMap.has(r))
             }
         }
     }

@@ -1,53 +1,55 @@
 import {expect, jest} from "@jest/globals";
 import UrlManager from "../src/js/url_manager";
-const focusList = [ {key: 'alpha', name: 'Able'}, {key: 'colors', name: 'Bob'}, {key: 'gamma', name: 'Charlie'}]
-let urlManager = new UrlManager(focusList, {
-    colors: ['red', 'green', 'blue'],
-    shapes: ['circle', 'square', 'triangle']
-})
+
+const population = new Map([['red', 3],['green', 4],[ 'blue', 5]]);
+const focusList = [
+    {key: 'alpha', name: 'Able'},
+    {key: 'colors', name: 'Bob', populationMap: population},
+    {key: 'gamma', name: 'Charlie'}]
+let urlManager = new UrlManager(focusList)
 test('url parsing dataFocus happyPath', () => {
     let  result = urlManager.parse("http://dummy.com/#dataFocus/colors")
 
-    expect(result.dataFocus).toEqual({name: 'Bob', key: 'colors'})
+    expect(result.dataFocus).toEqual(focusList[1])
 })
 
 test('url parsing selectedRegions happyPath', () => {
     let  result = urlManager.parse("http://dummy.com/#dataFocus/colors/selectedRegions/red,blue")
 
-    expect(result.dataFocus).toEqual({name: 'Bob', key: 'colors'})
+    expect(result.dataFocus).toEqual(focusList[1])
     expect(result.selectedRegions).toEqual(['red', 'blue'])
 })
 
 test('url parsing selectedRegions single', () => {
     let  result = urlManager.parse("http://dummy.com/#dataFocus/colors/selectedRegions/red")
 
-    expect(result.dataFocus).toEqual({name: 'Bob', key: 'colors'})
+    expect(result.dataFocus).toEqual(focusList[1])
     expect(result.selectedRegions).toEqual(['red'])
 })
 test('url parsing selectedRegions in the wrong order', () => {
     let  result = urlManager.parse("http://dummy.com/#selectedRegions/red/dataFocus/colors")
 
-    expect(result.dataFocus).toEqual({name: 'Bob', key: 'colors'})
+    expect(result.dataFocus).toEqual(focusList[1])
     expect(result.selectedRegions).toBeUndefined()
 })
 test('url parsing selectedRegions with No Regions', () => {
     let  result = urlManager.parse("http://dummy.com/#dataFocus/colors/selectedRegions/")
 
-    expect(result.dataFocus).toEqual({name: 'Bob', key: 'colors'})
+    expect(result.dataFocus).toEqual(focusList[1])
     expect(result.selectedRegions).toEqual([])
 })
 
 test('url parsing selectedRegions with no value given', () => {
     let  result = urlManager.parse("http://dummy.com/#dataFocus/colors/selectedRegions")
 
-    expect(result.dataFocus).toEqual({name: 'Bob', key: 'colors'})
+    expect(result.dataFocus).toEqual(focusList[1])
     expect(result.selectedRegions).toEqual([])
 })
 
 test('url parsing selectedRegions withSomeInvalid', () => {
     let  result = urlManager.parse("http://dummy.com/#dataFocus/colors/selectedRegions/red,square")
 
-    expect(result.dataFocus).toEqual({name: 'Bob', key: 'colors'})
+    expect(result.dataFocus).toEqual(focusList[1])
     expect(result.selectedRegions).toEqual(['red'])
 })
 
