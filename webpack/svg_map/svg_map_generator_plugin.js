@@ -1,8 +1,23 @@
-let SvgMapStore = require('./svg_map_store.js')
 const { RawSource } = require('webpack-sources')
 const xml2js = require('xml2js')
 
+class SvgMapStore {
+    static singleton = new SvgMapStore()
+    constructor() {
+        this.svgContentByResourcePath = new Map()
+    }
 
+    register(name, svgContent) {
+        this.svgContentByResourcePath.set(name, svgContent)
+    }
+
+    mapNames() {
+        return this.svgContentByResourcePath.keys()
+    }
+    svgContentFor(name) {
+        return this.svgContentByResourcePath.get(name)
+    }
+}
 
 class SvgMapGeneratorPlugin {
     constructor(options) {
@@ -45,8 +60,13 @@ class SvgMapGeneratorPlugin {
             })
         })
     }
-
-
 }
 
-module.exports = SvgMapGeneratorPlugin
+function loader(source, map, meta) {
+    let name =this.resourcePath.replace(/.*\//, '').replace('.svg-map', '')
+    SvgMapStore.singleton.register(name, source)
+    return `exports.${name.toUpperCase()}_URL = "/api/maps/${name}.json";`;
+}
+
+module.exports.SvgMapGeneratorPlugin = SvgMapGeneratorPlugin
+module.exports.default = loader
