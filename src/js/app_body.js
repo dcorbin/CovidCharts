@@ -13,7 +13,6 @@ import ErrorBlock from "./react/basic/error_block";
 AppBody.propTypes = {
     height: PropTypes.number.isRequired,
     dataFocus: PROP_TYPES.DataFocus,
-    populationMap: PropTypes.instanceOf(Map),
     recordSet: PROP_TYPES.NormalizedRecordSet.isRequired,
     dataFocusSettings: PROP_TYPES.DataFocusSettings.isRequired,
     onSettingsChange: PropTypes.func.isRequired
@@ -45,7 +44,7 @@ export default function AppBody(props) {
             <TabPanel>
                 <ErrorBoundary FallbackComponent={ErrorBlock.callback}>
                     <GrowthRanking
-                        populationMap={props.populationMap}
+                        populationMap={props.dataFocus.populationMap}
                         height={props.height - tabHeight}
                         recordSet={props.recordSet}
                         regionSpec={dataFocus.regionSpec}

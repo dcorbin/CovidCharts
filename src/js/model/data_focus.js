@@ -7,10 +7,12 @@ import Clock from "../util/clock";
 import GeorgiaByCounty from "../subject/georgia/GeorgiaByCounty";
 import UsaPopulationLoader from "../population/usa_population_loader";
 import GaPopulationLoader from "../population/ga_population_loader";
+import {GA_POPULATION} from "../subject/georgia/population";
+import {USA_POPULATION} from "../subject/us/population";
 
 class DataFocus {
     constructor(name, key, regionSpec, dataProvider,
-                populationLoader,
+                populationMap,
                 settingsKey,
                 footerLink, footerText) {
         this.name = name
@@ -18,7 +20,7 @@ class DataFocus {
         this.regionSpec = regionSpec
         this.dataProvider = dataProvider
         this.settingsKey = settingsKey
-        this.populationLoader = populationLoader
+        this.populationMap = populationMap
         this.footerLink = footerLink
         this.footerText = footerText
     }
@@ -36,7 +38,7 @@ const DATA_FOCUS_LIST = [
         'covidTracking.com',
         new StateRegionSpec(),
         new ReadThroughCache(COVID_CACHE_DURATION, clock, new CovidTrackingCom()),
-        new ReadThroughCache(POPULATION_CACHE_DURATION, clock, new UsaPopulationLoader()),
+        USA_POPULATION,
         'covidTracking',
         "https://covidtracking.com",
         "covidtracking.com"
@@ -45,7 +47,7 @@ const DATA_FOCUS_LIST = [
         'georgia-dph',
         new CountyRegionSpec(),
         new ReadThroughCache(COVID_CACHE_DURATION, clock, new GeorgiaByCounty()),
-        new ReadThroughCache(POPULATION_CACHE_DURATION, clock, new GaPopulationLoader()),
+        GA_POPULATION,
             'georgia',
             "https://dph.georgia.gov/covid-19-daily-status-report",
             "Georgia Department of Public Health"

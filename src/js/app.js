@@ -22,22 +22,15 @@ export default function App(props) {
     let [settings, setSettings]  = useState(appSettings.settings);
     let [dataFocus, setDataFocus] = useState(appSettings.dataFocus)
     let [normalizedRecordSet, setNormalizedRecordSet] = useState(NormalizedRecordSet.empty)
-    let [populationMap, setPopulationMap] = useState(new Map())
     const {width, height} = useWindowDimensions()
     useEffect(fetchData,[dataFocus])
 
     function fetchData() {
         let isSubscribed = true
-        function fetchPopulationData() {
-            dataFocus.populationLoader.getData().then(populationMap => {
-                if (isSubscribed)
-                    setPopulationMap(populationMap)
-            })
-        }
         dataFocus.dataProvider.getData().then(recordSet => {
             if (isSubscribed)
                 setNormalizedRecordSet(recordSet)
-        }).then(() => fetchPopulationData())
+        })
         return () => isSubscribed = false
     }
 
@@ -73,7 +66,6 @@ export default function App(props) {
                 <AppBody
                     height={height - 111}
                     recordSet={normalizedRecordSet}
-                    populationMap={populationMap}
                     dataFocus={dataFocus}
                     dataFocusSettings={settings[dataFocus.settingsKey]}
                     onSettingsChange={handleSettingsChange}

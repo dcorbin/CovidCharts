@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "country": "Puerto Rico",
+            "pop2020": "2860.8530"
+        },
+        {
+            "country": "Guam",
+            "pop2020": "168.7750"
+        },
+        {
+            "country": "United States Virgin Islands",
+            "pop2020": "104.4250"
+        },
+        {
+            "country": "Northern Mariana Islands",
+            "pop2020": "57.5590"
+        },
+        {
+            "country": "American Samoa",
+            "pop2020": "55.1910"
+        }
+    ]
+}
