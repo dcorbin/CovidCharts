@@ -108,8 +108,6 @@ export default function GrowthRanking(props) {
         result.set(record.region,className);
         return result
     }, new Map())
-    console.log(`DEBUG: ranker ${ranker}`)
-    console.log(`DEBUG: classifications ${JSON.stringify(ranker.classifications())}`)
 
     return (
         <div className='GrowthRanking'>
