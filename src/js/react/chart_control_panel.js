@@ -2,7 +2,7 @@ import ControlPanelDropDown from "./control_panel_drop_down";
 import PropTypes from "prop-types";
 import React from "react";
 import {LINES} from "./chart_panel";
-import RegionSelector from "./region_selector";
+import RegionSelector from "./hooks/region_selection/region_selector";
 import PROP_TYPES from "./model/prop_types";
 
 

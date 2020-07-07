@@ -1,7 +1,5 @@
 RISK(GA): Make fetching more robust than just "the fourth JSON block"
 
-BUG: Click in map to select region to chart gives no local feedback
-
 BUILD: incorporate Hash
 EXPERIMENT: Change how GrowthRanking is structured.
 BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)

@@ -1,17 +1,15 @@
 import React, {useState} from "react";
-import ArraySummary from "./array_summary";
-import ColumnarMatrix from "./columnar_matrix/columnar_matrix";
-import SelectableValue from "./selectable_value";
-import useCollapsable from "./hooks/collapsable/use_collapsable";
-import QuickPickButtonBar from "./quickpick/quick_pick_button_bar";
-import DataIcon from "./data_icon";
-import SvgMap from "./maps/svg_map";
-import QuickPick from "../model/quick_pick";
-import useWindowDimensions from "./hooks/use_window_dimensions";
-import './hooks/region_selection/region_selection.css'
+import ArraySummary from "../../array_summary";
+import ColumnarMatrix from "../../columnar_matrix/columnar_matrix";
+import SelectableValue from "../../selectable_value";
+import useCollapsable from "../collapsable/use_collapsable";
+import QuickPickButtonBar from "../../quickpick/quick_pick_button_bar";
+import DataIcon from "../../data_icon";
+import QuickPick from "../../../model/quick_pick";
+import useWindowDimensions from "../use_window_dimensions";
+import './region_selection.css'
 import PropTypes from "prop-types";
-import DownloadedMap from "./maps/downloaded_map";
-
+import DownloadedMap from "../../maps/downloaded_map";
 class WarningRenderer {
     static footerFor(type) {
         if (type === 'noHosp') {

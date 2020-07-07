@@ -17,10 +17,3 @@
     cursor: pointer;
 }
 
-.SvgMap path.selected {
-    fill: #008e00;
-}
-
-.SvgMap path.selected.hover {
-    fill: #67e567;
-}

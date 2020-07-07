@@ -19,3 +19,10 @@
 .RegionSelection .SvgMap .region.hover {
     fill: #e0ca8e;
 }
+.RegionSelection .SvgMap path.selected {
+    fill: #008e00;
+}
+
+.RegionSelection .SvgMap path.region.selected.hover {
+    fill: #67e567;
+}
