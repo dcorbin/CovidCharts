@@ -54,7 +54,8 @@ export default function GrowthRanking(props) {
     }
     function showRegion(region) {
         let row = document.getElementById(`table_row_${region}`)
-        scrollIntoView(row, {scrollMode: 'if-needed', block: 'center'})
+        if (row)
+            scrollIntoView(row, {scrollMode: 'if-needed', block: 'center'})
     }
     function renderMainPanel() {
         return (
