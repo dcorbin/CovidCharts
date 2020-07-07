@@ -5,8 +5,8 @@ import UrlManager from "../../src/js/url/url_manager";
 import UrlParser from "../../src/js/url/url_parser";
 jest.mock( "../../src/js/url/url_parser")
 
-import location from '../../src/js/web/location'
-jest.mock('../../src/js/web/location')
+import LocationManager from '../../src/js/web/location_manager'
+jest.mock('../../src/js/web/location_manager')
 const population = new Map([['red', 3],['green', 4],[ 'blue', 5]]);
 const colorDataFocus = {settingsKey: 'colors', name: 'Colors', populationMap: population, key: 'kColor'};
 const shapeDataFocus = {settingsKey: 'shapes', name: 'Shapes', key: 'kShape'};
@@ -14,9 +14,9 @@ const focusList = [
     shapeDataFocus,
     colorDataFocus,
 ]
+const locationManager = new LocationManager()
 const urlParser = new UrlParser();
-let urlManager = new UrlManager(urlParser, location)
-
+const urlManager = new UrlManager(urlParser, locationManager)
 const appSettings = {
     dataFocus: shapeDataFocus,
     settings: {
@@ -110,7 +110,7 @@ test('url merging parseResults with appSettings when dataFocusNotIncluded', () =
     expect(newAppSettings).toEqual(appSettings)
 })
 test('testUrlCreationFor Tab 1', () => {
-    location.mockReturnValue('http://dummy.com/foo/bar')
+    locationManager.getLocation.mockReturnValue('http://dummy.com/foo/bar')
     let testInput = cloneDeep(appSettings)
     testInput.settings.shapes = {
                 nullStrategy: 'none',
@@ -127,7 +127,7 @@ test('testUrlCreationFor Tab 1', () => {
 })
 
 test('testUrlCreationFor Tab 0', () => {
-    location.mockReturnValue('http://dummy.com/foo/bar')
+    locationManager.getLocation.mockReturnValue('http://dummy.com/foo/bar')
     let testInput = cloneDeep(appSettings)
     testInput.settings.shapes = {
         activeTab: 0 ,

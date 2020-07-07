@@ -66,7 +66,7 @@ export default function ChartControlPanel(props) {
             <RegionSelector
                 warningsByRegion={props.normalizedRecordSet.warningsByRegion}
                 regionSpec={props.regionSpec}
-                initialSelections={props.settings.selectedRegions}
+                selectedRegions={props.settings.selectedRegions}
                 userQuickPicks={props.settings.userQuickPicks}
                 onSelectionChange={createSettingsChangeHandler('selectedRegions')}
                 onUserQuickPicksChange={createSettingsChangeHandler('userQuickPicks')}

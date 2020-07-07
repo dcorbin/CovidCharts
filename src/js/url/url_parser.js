@@ -31,7 +31,7 @@ export default class UrlParser {
             activeTab:  validNumbers([0, 1]),
             dataLinesId: validStringValues(['ALL'].concat(STANDARD_DATA_PROPERTIES)),
             ranker: validStringValues(RANKERS.map(r => r.key)),
-            verticalScaleType: validStringValues(['linear', 'logarithmic']),
+            verticalScaleType: validStringValues(['linear', 'log']),
             selectedRegions: (value, priorElements) => {
                 if (typeof(priorElements.dataFocus) === 'undefined') {
                     return null

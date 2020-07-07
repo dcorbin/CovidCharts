@@ -41,6 +41,7 @@ ChartPanel.propTypes = {
 
 
 export default function ChartPanel(props) {
+    console.log(`REGIONS: ${props.settings.selectedRegions}`)
     const normalizedRecordSet = props.recordSet
     if (normalizedRecordSet.error) {
         return normalizedRecordSet.error

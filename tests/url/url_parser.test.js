@@ -85,7 +85,7 @@ test('url parsing ranker happyPath', () => {
     })
 })
 test('url verticalScaleType ranker happyPath', () => {
-    ['linear', 'logarithmic'].forEach(value => {
+    ['linear', 'log'].forEach(value => {
         let  result = urlParser.parse(`http://dummy.com/#verticalScaleType/${value}`)
         expect(result).toEqual({verticalScaleType: value})
     })

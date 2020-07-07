@@ -38,7 +38,7 @@ class WarningRenderer {
 RegionSelector.propTypes = {
     warningsByRegion: PropTypes.object.isRequired,
     regionSpec: PropTypes.object.isRequired,
-    initialSelections: PropTypes.array.isRequired,
+    selectedRegions: PropTypes.array.isRequired,
     userQuickPicks: PropTypes.array.isRequired,
     onSelectionChange: PropTypes.func.isRequired,
     onUserQuickPicksChange: PropTypes.func.isRequired
@@ -51,7 +51,6 @@ export default function RegionSelector(props) {
     const userQuickPicks = props.userQuickPicks
     const allRegions = warningsByRegions.regions
 
-    const [selectedRegions, setSelectedRegions] = useState(props.initialSelections)
     const [hoverRegion, setHoverRegion] = useState(null)
     const {width, height} = useWindowDimensions()
 
@@ -74,7 +73,7 @@ export default function RegionSelector(props) {
         }
         let key = "_" + name
         let copiedQuickPicks = [...userQuickPicks]
-        copiedQuickPicks.push(QuickPick.createUserManaged(key, name, selectedRegions))
+        copiedQuickPicks.push(QuickPick.createUserManaged(key, name, props.selectedRegions))
         props.onUserQuickPicksChange(copiedQuickPicks)
         return null
     }
@@ -88,8 +87,7 @@ export default function RegionSelector(props) {
             }
             return selections
         }
-        let newSelections = adjustedSelections(clickedValue, [...selectedRegions]);
-        setSelectedRegions(newSelections)
+        let newSelections = adjustedSelections(clickedValue, [...props.selectedRegions]);
         props.onSelectionChange(newSelections)
     }
 
@@ -97,7 +95,7 @@ export default function RegionSelector(props) {
     function collapsedRegionSelectionPanel() {
         return <ArraySummary singleNoun={regionSpec.singleNoun}
                              pluralNoun={regionSpec.pluralNoun}
-                             values={selectedRegions.map(s => regionSpec.displayNameFor(s))}/>
+                             values={props.selectedRegions.map(s => regionSpec.displayNameFor(s))}/>
     }
 
     function renderWarningFooters() {
@@ -125,7 +123,6 @@ export default function RegionSelector(props) {
                                         onCreateNew={(name) => createNewQuickPick(name)}
                                         onDeleteQuickPick={(quickPick => deleteQuickPick(quickPick))}
                                         onClick={(regions) => {
-                                         setSelectedRegions(regions)
                                          props.onSelectionChange(regions)
                                      }}
                     />
@@ -137,7 +134,7 @@ export default function RegionSelector(props) {
                                         onValueClicked={regionClicked}
                                         onHover={onHover}
                                         valueRenderer={value => {
-                                            let selected = selectedRegions.includes(value)
+                                            let selected = props.selectedRegions.includes(value)
                                             let hover = hoverRegion === value
                                             return <SelectableValue value={value}
                                                                     valueRenderer={region => {
@@ -156,7 +153,7 @@ export default function RegionSelector(props) {
                             onHover={onHover}
                             classNamesProvider={(region) => {
                                 let classNames = []
-                                if (selectedRegions.includes(region)) {
+                                if (props.selectedRegions.includes(region)) {
                                     classNames.push('selected')
                                 }
                                 if (hoverRegion === region) {

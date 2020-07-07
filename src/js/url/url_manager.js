@@ -7,9 +7,9 @@ function copySettings(newAppSettings, appSettings) {
 }
 
 export default class UrlManager {
-    constructor(urlParser, locationFinder) {
+    constructor(urlParser, locationManager) {
         this.urlParser = urlParser
-        this.locationFinder = locationFinder
+        this.locationManager = locationManager
     }
 
     settingsAdjustedForUrl(appSettings, url) {
@@ -31,7 +31,7 @@ export default class UrlManager {
     }
 
     buildUrl(appSettings) {
-        let url = new URL(this.locationFinder())
+        let url = new URL(this.locationManager.getLocation())
         const dataFocus = appSettings.dataFocus;
         let parts = []
 

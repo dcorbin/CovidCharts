@@ -56,7 +56,7 @@ export default function GrowthRanking(props) {
 
     function renderMainPanel() {
         return (
-            <div className='mainPanel' style={{height: props.height - 30}}>
+            <div className='mainPanel' style={{height: props.height - 30 - 34}}>
                 <div className='verticalScroll' style={{overflowY: 'auto'}}>
                     <RankingTable records={scoredRegions}
                                    categoryByRegion={categoryByRegion}
