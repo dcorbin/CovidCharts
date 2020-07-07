@@ -11,6 +11,8 @@ ClassificationLegendEntry.propTypes = {
 function ClassificationLegendEntry(props) {
     let blockText = <span>&nbsp</span>;
     if (props.count.length > 0) blockText = props.count
+    console.log(`DEBUG: typeof(classification.description) ${typeof(props.classification.description)}`)
+    console.log(`DEBUG: classification.description ${props.classification.description}`)
     const label = props.classification.description.replaceAll(" ", "\u00a0");
     return <div
         className='ClassificationLegendEntry'>

@@ -15,8 +15,8 @@ function ErrorBlock(props) {
                 <h3>Something went wrong:</h3>
                 <pre className='error'>{props.errorMessage}</pre>
                 <pre className='stack'>{props.componentStack}</pre>
-                <p>Please file a bug at
-                    <a href='https://github.com/dcorbin/CovidCharts/issues'>https://github.com/dcorbin/CovidCharts/issues</a>.
+                <p>Please file a bug at<a
+                    href='https://github.com/dcorbin/CovidCharts/issues'>https://github.com/dcorbin/CovidCharts/issues</a>.
                     Copy the above information into the report</p>
                 <button onClick={props.resetErrorBoundary}>Try again</button>
             </div>

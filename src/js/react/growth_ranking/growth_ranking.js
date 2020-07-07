@@ -13,6 +13,9 @@ import ControlPanelDropDown from "../control_panel_drop_down";
 import {createReverseComparator} from "../../util/comparator";
 import {RANKERS} from "../../model/trends/rankers/rankers";
 import RankingTable from "../../model/trends/ranking_table";
+import ErrorBlock from "../basic/error_block";
+import {ErrorBoundary} from "react-error-boundary";
+import {TabPanel} from "react-tabs";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
@@ -53,7 +56,6 @@ export default function GrowthRanking(props) {
         let row = document.getElementById(`table_row_${region}`)
         scrollIntoView(row, {scrollMode: 'if-needed', block: 'center'})
     }
-
     function renderMainPanel() {
         return (
             <div className='mainPanel' style={{height: props.height - 30 - 34}}>
@@ -67,12 +69,14 @@ export default function GrowthRanking(props) {
                                    renderChartFor={renderChartFor}/>
                 </div>
                 <div className='fixed'>
-                    <GrowthLegend classifications={ranker.classifications()}
-                                  infoBlock={ranker.explanation}
-                                  countForClassificationName={(name) => {
-                                      return String(Array.from(categoryByRegion.values()).
-                                        filter(category => category === name).length)
-                                  }}/>
+                    <ErrorBoundary FallbackComponent={ErrorBlock.callback}>
+                        <GrowthLegend classifications={ranker.classifications()}
+                                      infoBlock={ranker.explanation}
+                                      countForClassificationName={(name) => {
+                                          return String(Array.from(categoryByRegion.values()).
+                                            filter(category => category === name).length)
+                                      }}/>
+                    </ErrorBoundary>
                     <DownloadedMap
                         mapURI={props.regionSpec.mapURI}
                         classNamesProvider={
@@ -93,6 +97,10 @@ export default function GrowthRanking(props) {
 
     let [hover, setHover] = useState(null)
     let ranker = RANKERS.find(r => r.key === props.settings.ranker)
+    if (!ranker) {
+        ranker = RANKERS[0]
+    }
+
     let scoredRegions = new TrendAnalyzer().calculateTrendsForAllRegions(props.recordSet.records, props.populationMap).
         sort(createReverseComparator(ranker.comparator));
     let categoryByRegion = scoredRegions.reduce((result, record) => {
@@ -100,6 +108,8 @@ export default function GrowthRanking(props) {
         result.set(record.region,className);
         return result
     }, new Map())
+    console.log(`DEBUG: ranker ${ranker}`)
+    console.log(`DEBUG: classifications ${JSON.stringify(ranker.classifications())}`)
 
     return (
         <div className='GrowthRanking'>
