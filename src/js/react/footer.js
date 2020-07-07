@@ -7,7 +7,9 @@ export default function Footer(props) {
             <hr/>
             Data sourced from {props.source}.  Population data from
             <span> <a href='https://worldpopulationreview.com'>https://worldpopulationreview.com</a></span>.
-            <span> Report graphing issues at https://github.com/dcorbin/CovidCharts/issues</span>
+            <span> Report graphing issues at <a
+                href='https://github.com/dcorbin/CovidCharts/issues'>https://github.com/dcorbin/CovidCharts/issues</a>
+            </span>
         </div>
     </div>
 }
