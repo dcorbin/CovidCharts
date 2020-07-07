@@ -1,5 +1,5 @@
-import {STANDARD_DATA_PROPERTIES} from "./covid_tracking_com/normalized_record_set";
-import {RANKERS} from "./model/trends/rankers/rankers";
+import {STANDARD_DATA_PROPERTIES} from "../covid_tracking_com/normalized_record_set";
+import {RANKERS} from "../model/trends/rankers/rankers";
 
 function validStringValues(validValues) {
     return (v) => {
@@ -21,8 +21,8 @@ function validNumbers(validNumbers) {
     }
 }
 
-export default class UrlManager {
-    constructor(focusList, validRegions) {
+export default class UrlParser {
+    constructor(focusList) {
         this.focusList = focusList
         this.settingParsers = {
             dataFocus: value => (this.focusList.find(f => f.key === value) || null),
@@ -51,9 +51,9 @@ export default class UrlManager {
         while (parts.length > 0) {
             const key = parts[0];
             const value = parts[1];
-            const parser = this.settingParsers[key]
-            if (parser != null) {
-                const parsedValue = parser(value, result)
+            const fieldParser = this.settingParsers[key]
+            if (fieldParser != null) {
+                const parsedValue = fieldParser(value, result)
                 if (parsedValue != null)
                     result[key] = parsedValue
             }
@@ -64,4 +64,5 @@ export default class UrlManager {
 
         return result;
     }
+
 }

@@ -10,11 +10,13 @@ import {ErrorBoundary} from "react-error-boundary";
 import ErrorBlock from "./react/basic/error_block";
 import {TabPanel} from "react-tabs";
 import SettingsManager from "./settings_manager";
+import UrlManager from "./url/url_manager";
 
 const {useState} = require("react");
 
 App.propTypes = {
-    settingsManager: PropTypes.instanceOf(SettingsManager)
+    settingsManager: PropTypes.instanceOf(SettingsManager).isRequired,
+    urlManager: PropTypes.instanceOf(UrlManager).isRequired
 }
 
 export default function App(props) {

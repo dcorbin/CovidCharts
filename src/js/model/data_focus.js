@@ -5,8 +5,6 @@ import ReadThroughCache from "../util/read_thru_cache";
 import CovidTrackingCom from "../covid_tracking_com/covid_tracking_com";
 import Clock from "../util/clock";
 import GeorgiaByCounty from "../subject/georgia/GeorgiaByCounty";
-import UsaPopulationLoader from "../population/usa_population_loader";
-import GaPopulationLoader from "../population/ga_population_loader";
 import {GA_POPULATION} from "../subject/georgia/population";
 import {USA_POPULATION} from "../subject/us/population";
 

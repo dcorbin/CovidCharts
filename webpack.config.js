@@ -80,8 +80,6 @@ module.exports = function(env, argv) {
     console.log(`MODE: ${argv.mode}`)
     let copyPatterns = [
             { from: '**/*.{svg,png,css}', to: '.', context: path.resolve(__dirname, 'src', 'web')},
-            {from:'api/data/population/*.json', to:
-                    '.', context: path.resolve(__dirname, 'src', 'web')}
     ]
 
     if (argv.mode === 'development') {

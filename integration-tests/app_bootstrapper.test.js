@@ -3,6 +3,9 @@ import {beforeEach, expect, jest} from "@jest/globals";
 import SettingsManager from  '../src/js/settings_manager'
 jest.mock('../src/js/settings_manager' );
 
+import UrlManager from "../src/js/url/url_manager";
+jest.mock("../src/js/url/url_manager")
+
 import App from '../src/js/app'
 jest.mock('../src/js/app')
 
@@ -25,12 +28,15 @@ function extractProps() {
 test('Test Index when there are settings set', () => {
     document.body.innerHTML = '<div id="app"/>'
     const settingsManager = new SettingsManager();
-    const appBootstrapper = new AppBootstrapper(document.getElementById("app"), settingsManager);
+    const urlManager = new UrlManager()
+    const appBootstrapper = new AppBootstrapper(document.getElementById("app"),
+        settingsManager, urlManager);
 
     appBootstrapper.run()
 
     assertContentWasRendered();
     const props = extractProps();
     expect(props.settingsManager).toBe(settingsManager)
+    expect(props.urlManager).toBe(urlManager)
 })
 
