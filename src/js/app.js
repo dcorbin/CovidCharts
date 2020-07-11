@@ -11,7 +11,6 @@ import ErrorBlock from "./react/basic/error_block";
 import SettingsManager from "./settings_manager";
 import UrlManager from "./url/url_manager";
 import LocationManager from "./web/location_manager";
-
 const {useState} = require("react");
 
 App.propTypes = {
@@ -79,6 +78,15 @@ export default function App(props) {
             <div className='App'>
                 <div className='Header'>
                     <h1>{document.title}</h1>
+                    <div className='fillHeaderFromRight'>
+                        <span className='becomeAPatron'>
+                        <img src='/Patreon_Mark_Coral.jpg'/>
+                        <a href="https://www.patreon.com/bePatron?u=102267"
+                                                            data-patreon-widget-type="become-patron-button">Become a
+                        Patron!</a>
+                            </span>
+                        <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+                    </div>
                     <div className='DataFocus'>
                         <LabeledCombo label='Data Focus'
                                       initialValue={dataFocus.key}

@@ -1,17 +1,24 @@
 RISK(GA): Make fetching more robust than just "the fourth JSON block"
+PLAN: Build schedule for Patreon/website promotion
+INVESTIGATE: Bug tracking at BitBucket, maybe move?
+META-FEATURE: Patreon
 
 BUILD: incorporate Hash
-EXPERIMENT: Change how GrowthRanking is structured.
-BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
-FEATURE: Historical Growth Rankings
-FEATURE: Animated spinner for times when data is loading
-FEATURE: popup per state on growth ranking to see textual stats
-FEATURE: URL to trigger settings
-REFACTOR: Split RegionSpec into parts - terms, MAP, LAYOUT
-FEATURE: reload cached data??
-FEATURE: Consider splitting neutral into two halves
-FEATURE: hover/popup per state in the map
 FEATURE: Ranking Table -- show ordinal
+FEATURE: Animated spinner for times when data is loading
+
+FEATURE: reload cached data??
+FEATURE: popup per state on growth ranking to see textual stats
+
+INFRASTRUCTURE: Import Images for use
+EXPERIMENT: Change how GrowthRanking is structured (i.e, instead of calculated size, just pin the map to the screen)
+BUILD: Map svg processing happening over and over (post to StackOverflow if not Gitter response)
+
+FEATURE: Historical Growth Rankings
+FEATURE: Time Range for Charts
+FEATURE: URL to trigger settings
+FEATURE: Consider splitting neutral into two halves
+REFACTOR: Split RegionSpec into parts - terms, MAP, LAYOUT
 FEATURE: HotSpot
     - DangerScore
         (describe somewhere)
@@ -24,7 +31,6 @@ META-FEATURE: Roadmap voting
 
 PRODUCTION: Look into Jun2 data (Schley)
 FEATURE: Chart region vs region
-FEATURE: Patreon
 
 FEATURE: Other CT data charts
     - Tests run, Percent Positive

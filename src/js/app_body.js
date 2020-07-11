@@ -33,11 +33,11 @@ export default function AppBody(props) {
             <TabPanel>
                 <ErrorBoundary FallbackComponent={ErrorBlock.callback}>
                     <div style={{height: props.height - tabHeight}}>
-                    <ChartPanel
-                        recordSet={props.recordSet}
-                        regionSpec={dataFocus.regionSpec}
-                        settings={props.dataFocusSettings}
-                        onSettingsChange={props.onSettingsChange}/>
+                        <ChartPanel
+                            recordSet={props.recordSet}
+                            regionSpec={dataFocus.regionSpec}
+                            settings={props.dataFocusSettings}
+                            onSettingsChange={props.onSettingsChange}/>
                     </div>
                 </ErrorBoundary>
             </TabPanel>
@@ -56,7 +56,7 @@ export default function AppBody(props) {
     }
 
     function renderVerticalScrollingTabs() {
-        return <div className="VerticalScroller" style={{height: `${height - headerHeight}px`}}>
+        return <div className="VerticalScroller" style={{height: `${props.height}px`}}>
             {renderTabs()}
         </div>;
     }
@@ -65,13 +65,12 @@ export default function AppBody(props) {
     if (!dataFocus)
         return <p>Please select a Data Focus.</p>
 
-    let headerHeight = props.headerHeight;
     let tabHeight = 35;
 
 
     return (
         <div className='AppBody'>
-            {props.headerHeight ? renderVerticalScrollingTabs() : renderTabs()}
+            {props.height ? renderVerticalScrollingTabs() : renderTabs()}
             <Footer source={<a href={dataFocus.footerLink}>{dataFocus.footerText}</a>}/>
         </div>)
 }

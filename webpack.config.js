@@ -79,7 +79,7 @@ let config = {
 module.exports = function(env, argv) {
     console.log(`MODE: ${argv.mode}`)
     let copyPatterns = [
-            { from: '**/*.{svg,png,css}', to: '.', context: path.resolve(__dirname, 'src', 'web')},
+            { from: '**/*.{svg,jpg,png,css}', to: '.', context: path.resolve(__dirname, 'src', 'web')},
     ]
 
     if (argv.mode === 'development') {

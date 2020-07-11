@@ -15,7 +15,6 @@ import {RANKERS} from "../../model/trends/rankers/rankers";
 import RankingTable from "../../model/trends/ranking_table";
 import ErrorBlock from "../basic/error_block";
 import {ErrorBoundary} from "react-error-boundary";
-import {TabPanel} from "react-tabs";
 
 GrowthRanking.propTypes = {
     height: PropTypes.number.isRequired,
@@ -59,7 +58,7 @@ export default function GrowthRanking(props) {
     }
     function renderMainPanel() {
         return (
-            <div className='mainPanel' style={{height: props.height - 30 - 34}}>
+            <div className='mainPanel' style={{height: props.height - 80}}>
                 <div className='verticalScroll' style={{overflowY: 'auto'}}>
                     <RankingTable records={scoredRegions}
                                    categoryByRegion={categoryByRegion}
