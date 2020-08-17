@@ -33,7 +33,7 @@ export default class CovidTrackingCom {
             })
         }
 
-        return fetch('https://covidtracking.com/api/v1/states/daily.json', {method: 'GET', })
+        return fetch('https://api.covidtracking.com/api/v1/states/daily.json', {method: 'GET', redirect: 'follow'})
             .then(response => {
                 if (response.status === 200)
                     return response.json();
