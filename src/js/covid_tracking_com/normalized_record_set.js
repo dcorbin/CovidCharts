@@ -75,8 +75,20 @@ export default class NormalizedRecordSet {
             this._mostRecentDate = null
         } else {
             let values = records.map(r => r.date.getTime());
-            let mostRecent = Math.max(...values);
-            this._mostRecentDate = new Date(mostRecent)
+
+            console.log("Record Count: " + values.length)
+            if (values.length === 0) {
+                this._mostRecentDate = null
+            } else {
+                // calculate max for very large array -- I've been getting an error do the data volume with math.max(...values)
+                let mostRecent = 0
+                values.forEach(function(v) {
+                    if (v > mostRecent) {
+                        mostRecent = v
+                    }
+                })
+                this._mostRecentDate = new Date(mostRecent)
+            }
         }
     }
     mostRecentDate() {
