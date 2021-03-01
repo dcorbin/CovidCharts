@@ -16,7 +16,7 @@
     "scroll-into-view-if-needed": "^2.2.25"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
+    "@babel/cli": "^7.13.0",
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
